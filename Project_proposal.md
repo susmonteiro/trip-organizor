@@ -4,7 +4,7 @@
 
 ### Short description
 
-We want to make an app that helps you visualize all the places you want to visit when doing a travel so you can organize them easily. The user will be able to create different travels and inside each travel she/he can add places to visit. This places can be categorized with diferent topics like **Restaurants, Museums, Sight Seen, etc.** and they will have different colours. The user will be able to see marks representing each one of the elements she/he added, with its associated colour. The user will be able to aply filters, so only the wanted elements are shown in the map. 
+We want to make an app that helps you visualize all the places you want to visit when doing a travel so you can organize them easily. The user will be able to create different travels and inside each travel she/he can add places to visit. This places can be categorized with diferent topics like **Restaurants, Museums, Sight Seen, etc.** and they will have different colours. The user will be able to see marks representing each one of the elements she/he added, with its associated colour. The user will be able to aply filters, so only the desired elements are shown in the map. 
 
 ### Frameworks that will be used
 
