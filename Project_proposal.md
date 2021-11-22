@@ -1,6 +1,6 @@
 # Project Proposal
 
-## TO DO:MAPP/MARKS/AVIAO/RESAPP
+## RESAPP
 
 ### Short description
 
@@ -8,9 +8,7 @@ We want to make an app that helps you visualize all the places you want to visit
 
 ### Frameworks that will be used
 
-We want to use React. 
-
-**TO DO: Add more technologies like Firebase, Redux, Node, etc.**
+We want to use **React** as a framework for the front end developement and **node.js** for the back end. In order to make the styling easier, we want to use **Material Design**. Our Data Base will be located at **Firebase** and our webb app deployed with **heroku**. For the navigation, we are going to use **routers** and for the model state, we first wanted to use **Redux**, however, since this project doesn't deal with a huge number of stateful components using it may not be worth it. 
 
 ### API that will be used
 
