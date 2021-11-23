@@ -4,7 +4,7 @@
 
 ### Short description
 
-We want to make an app that helps you visualize all the places you want to visit when doing a travel so you can organize them easily. The user will be able to create different travels and inside each travel she/he can add places to visit. This places can be categorized with diferent topics like **Restaurants, Museums, Sight Seen, etc.** and they will have different colours. The user will be able to see marks representing each one of the elements she/he added, with its associated colour. The user will be able to aply filters, so only the desired elements are shown in the map. 
+We want to make an app that helps you visualize all the places you want to visit when travelling so you can organize them easily. The user will be able to create different travel lists and inside each list they can add places to visit. These places can be categorized with diferent topics like **Restaurants, Museums, Sightseeing, etc.** and they will have different colours. The user will be able to see marks representing each one of the elements they added, with its associated colour. The user will be able to aply filters, so only the desired elements are shown in the map. 
 
 ### Frameworks that will be used
 
@@ -20,14 +20,14 @@ We are going to use the [Google Maps API](https://developers.google.com/maps/doc
 - Map Images
 - Place Details
 
-###### MODEL DATA
+###### APP SPECIFIC DATA
 
 - Travel names/id
 - Place names
 - Place coordinates
 - Extra notes for each place
 - Place type
-- Users info
+- User's info
 
 ### Prototype
 
