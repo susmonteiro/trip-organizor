@@ -8,18 +8,17 @@ We want to make an app that helps you visualize all the places you want to visit
 
 ### Frameworks that will be used
 
-We want to use **React** as a framework for the front end developement and **node.js** for the back end. In order to make the styling easier, we want to use **Material UI** library. Our Data Base will be located at **Firebase** and our webb app deployed with **heroku**. For the navigation, we are going to use **routers** and for the model state, we first wanted to use **Redux**, however, since this project doesn't deal with a huge number of stateful components using it may not be worth it. 
+We want to use **React** as a framework for the front-end developement and **node.js** for the back-end. In order to make the styling easier, we want to use **Material UI** library. We will use **Firebase** to store our data and our web app will be deployed with **heroku**. For the navigation, we are going to use **routers** . For the model state, we first wanted to use **Redux**, however, since this project doesn't deal with a huge number of stateful components using it may not be worth it, we leave this option open if when starting to develop . 
 
-### API that will be used
+### APIs that will be used
 
-We are going to use the [Google Maps API](https://developers.google.com/maps/documentation/javascript/overview) in order to display the maps, find places and add marks. 
+We are going to use the [OpenTripMap API](https://opentripmap.io/product) in order to search tourist sites around the world. The API provides a free plan for non-commercial uses consisting of a maximum of 5000 API requests/day and 10 requests/second. We will use a JS library called [Leaflet](https://leafletjs.com/). The [Leaflet API](https://leafletjs.com/reference.html) allows us to generate maps that we can be easily customized with marks and popups.
 
 ### Data that we are going to work with 
 
 ###### API DATA
-- Map Images
 - Place Details
-
+- Maps
 ###### APP SPECIFIC DATA
 
 - Travel names/id
