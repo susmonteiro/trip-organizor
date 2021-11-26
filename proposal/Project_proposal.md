@@ -31,13 +31,13 @@ We are going to use the [OpenTripMap API](https://opentripmap.io/product) in ord
 ### Prototype
 
 ###### Login View
-![Login Image](/Proposal_imgs/LoginView.png)
+![Login Image](./Proposal_imgs/LoginView.png)
 ###### Trip Selector View
-![Trip Selector Image](/Proposal_imgs/Trip_Selection_View.png)
+![Trip Selector Image](./Proposal_imgs/Trip_Selection_View.png)
 ###### Adding Trip View
-![Adding Image](/Proposal_imgs/Adding_Trip_View.png)
+![Adding Image](./Proposal_imgs/Adding_Trip_View.png)
 ###### Main View
-![Main View Image](/Proposal_imgs/MainView.png)
+![Main View Image](./Proposal_imgs/MainView.png)
 ###### Place Details View
-![Details Image](/Proposal_imgs/Place_Details_View.png)
+![Details Image](./Proposal_imgs/Place_Details_View.png)
 
