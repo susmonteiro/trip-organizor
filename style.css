@@ -1,0 +1,36 @@
+/* COLOR PALETTE */
+
+:root{
+    --main: #3B6064;
+    --main-faded: #566C6E;
+
+    --secondary: #CFB9AC;
+
+    --favourite: #EE7D61; 
+}
+
+
+/* Markers and buttons */
+museum-marker {
+    color: #F2AE98;
+}
+
+food-marker {
+    color: #BB98F2;
+}
+
+outdoor-marker {
+    color: #BBCEAD;
+}
+
+shop-marker {
+    color: null;    /* TODO */
+}
+
+nature-marker {
+    color: null;    /* TODO */
+}
+
+nightlife-marker {
+    color: null;    /* TODO */
+}
