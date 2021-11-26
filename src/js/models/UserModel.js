@@ -1,13 +1,25 @@
 class UserModel{
-    constructor(tripCurrent = null, trips = []){
-        this.observers = [];        
+    constructor(tripCurrent = null, trips = []){       
+        this.observers = [];
         this.setTripCurrent(tripCurrent);
         this.setTrips(trips);
     }
 
-    setTripCurrent(tripCurrent){
-
+    setTripCurrent(id){
+        this.tripCurrent = id;
     }
 
-    setTrip
+    setTrips(trips){
+        this.trips = [...trips];
+    }
+
+    addTrip(trip){
+        if(!(this.trips.includes(trip))){
+            this.trips = [...this.trips, trip]; 
+        }   
+    }
+
+    removeFromTrip(tripID){
+        /* TODO */
+    }
 }
