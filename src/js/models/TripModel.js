@@ -43,4 +43,8 @@ export default class TripModel {
   addAttraction(attraction) {
     this.attractions = [...this.attractions, attraction];
   }
+
+  listAttractions() {
+    return this.attractions;
+  }
 }
