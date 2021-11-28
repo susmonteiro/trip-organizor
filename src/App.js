@@ -1,5 +1,11 @@
+import SearchPresenter from './presenters/mainLeftPresenter';
+
 function App() {
-  return null;
+  return (
+    <div>
+      <SearchPresenter />
+    </div>
+  );
 }
 
 export default App;
