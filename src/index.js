@@ -3,51 +3,30 @@ import ReactDOM from 'react-dom';
 import './style.css';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import App from './App';
-import TripModel from './js/models/TripModel';
-import AttractionModel from './js/models/AttractionModel';
 
-//For testing:
+import TripModel from './js/models/TripModel.js';
+import AttractionModel from './js/models/AttractionModel.js';
+import UserModel from './js/models/UserModel.js';
 
-const attraction1 = new AttractionModel(
-  1,
-  'Gamla Stan',
-  [],
-  true,
-  false,
-  false,
-  Date(),
-  null,
-  'Sight Seen'
-);
-const attraction2 = new AttractionModel(
-  2,
-  'Vasamuseet',
-  [],
-  false,
-  false,
-  false,
-  Date(),
-  null,
-  'Museum'
-);
-
-const attraction3 = new AttractionModel(
-  3,
-  'Max',
-  [],
-  true,
-  false,
-  false,
-  Date(),
-  null,
-  'Restaurant'
-);
+import SitesSource from './sitesSource.js';
 
 const MyModel = new TripModel();
 
-MyModel.addAttraction(attraction1);
-MyModel.addAttraction(attraction2);
-MyModel.addAttraction(attraction3);
+SitesSource.getCoords('Stockholm').then((coords) =>
+  SitesSource.getSites(50, coords.lat, coords.lon).then((sites) =>
+    sites.features.map((site) => {
+      const attr = new AttractionModel({
+        attrID: site.properties.xid,
+        attrName: site.properties.name,
+        attrCoord: site.geometry.coordinates
+      });
+      trip.addAttraction(attr);
+    })
+  )
+);
+
+const user = new UserModel(null, [trip]);
+console.log(user);
 
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
