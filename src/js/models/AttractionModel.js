@@ -57,4 +57,8 @@ export default class AttractionModel {
   setType(attrType) {
     this.attrType = attrType;
   }
+
+  getIsFav() {
+    return this.attrIsFav;
+  }
 }

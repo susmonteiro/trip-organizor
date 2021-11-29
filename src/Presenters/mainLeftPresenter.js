@@ -6,11 +6,17 @@ function createRows(attractions) {
     id: attraction.attrID,
     Name: attraction.attrName,
     Type: attraction.attrType,
-    date: attraction.attrDate
+    date: attraction.attrDate,
+    isFavourite: attraction.attrIsFav
   }));
   return rows;
 }
 
 export default function MainLeftPresenter(props) {
-  return <DataTable rows={createRows(props.model.listAttractions())} />;
+  return (
+    <DataTable
+      rows={createRows(props.model.listAttractions())}
+      changeLiked={(id) => props.model.changeIsFav(id)}
+    />
+  );
 }

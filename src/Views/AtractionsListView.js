@@ -1,6 +1,7 @@
 import { DataGrid } from '@material-ui/data-grid';
 //import { randomCreatedDate } from '@mui/x-data-grid-generator'; //for examples
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@material-ui/core';
 import React from 'react';
 
@@ -13,38 +14,60 @@ const rows = [
   { id: 2, Name: 'Vasamuseet', Type: 'Museum', date: randomCreatedDate() }
 ];
 */
-const columns = [
-  { field: 'id', headerName: 'ID', width: 100 },
-  { field: 'Name', headerName: 'Name', width: 130 },
-  {
-    field: 'Type',
-    headerName: 'Type',
-    type: 'singleSelect',
-    valueOptions: ActivityTypes,
-    width: 130
-  },
-  {
-    field: 'date',
-    headerName: 'Date',
-    type: 'date',
-    width: 130
-  },
-  {
-    field: 'likebutton',
-    headerName: 'Favourite',
-    sortable: false,
-    width: 130,
-    renderCell: (params) => {
-      return (
-        <IconButton index={params.row.id} color={'primary'}>
-          <FavoriteBorderRoundedIcon className="like-grid-button" />
-        </IconButton>
-      );
-    }
-  }
-];
+
+function returnButton(isFav) {
+  if (isFav) {
+    return (
+      <FavoriteIcon
+        className="like-grid-button"
+        sx={{
+          color: '#EE7D61'
+        }}
+      />
+    );
+  } else
+    return (
+      <FavoriteBorderRoundedIcon
+        className="like-grid-button"
+        sx={{
+          color: '#EE7D61'
+        }}
+      />
+    );
+}
 
 export default function DataTable(props) {
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'Name', headerName: 'Name', width: 130 },
+    {
+      field: 'Type',
+      headerName: 'Type',
+      type: 'singleSelect',
+      valueOptions: ActivityTypes,
+      width: 130
+    },
+    {
+      field: 'date',
+      headerName: 'Date',
+      type: 'date',
+      width: 160
+    },
+    {
+      field: 'likebutton',
+      headerName: 'Favourite',
+      sortable: false,
+      width: 130,
+      renderCell: (params) => {
+        /* TODO find a way to call a props function*/
+        return (
+          <IconButton index={params.row.id} onClick={() => props.changeLiked(params.row.id)}>
+            {returnButton(params.row.isFavourite)}
+          </IconButton>
+        );
+      }
+    }
+  ];
   return (
     <div className="attractions-grid" style={{ height: 400, width: '100%' }}>
       <DataGrid
