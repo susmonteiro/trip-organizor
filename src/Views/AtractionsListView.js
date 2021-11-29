@@ -59,7 +59,6 @@ export default function DataTable(props) {
       sortable: false,
       width: 130,
       renderCell: (params) => {
-        /* TODO find a way to call a props function*/
         return (
           <IconButton index={params.row.id} onClick={() => props.changeLiked(params.row.id)}>
             {returnButton(params.row.isFavourite)}

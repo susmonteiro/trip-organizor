@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import DataTable from '../Views/AtractionsListView';
 
 function createRows(attractions) {
@@ -13,10 +14,16 @@ function createRows(attractions) {
 }
 
 export default function MainLeftPresenter(props) {
-  return (
-    <DataTable
-      rows={createRows(props.model.listAttractions())}
-      changeLiked={(id) => props.model.changeIsFav(id)}
-    />
-  );
+  const [rows, setRows] = useState(createRows(props.model.listAttractions()));
+  React.useEffect(function () {
+    function obs() {
+      setRows(createRows(props.model.listAttractions()));
+    }
+    props.model.addObserver(obs); // 1. subscribe
+    return function () {
+      props.model.removeObserver(obs);
+    }; // 2.unsubscribe
+  }, []);
+  console.log(rows);
+  return <DataTable rows={rows} changeLiked={(id) => props.model.changeIsFav(id)} />;
 }
