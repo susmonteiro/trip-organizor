@@ -1,12 +1,11 @@
-import * as api from "./js/apiConfig.js";
+import * as api from './js/apiConfig.js';
 
 export const SitesSource = {
-  // JS object creation literal
   apiCall(params) {
-    console.log(api.BASE_URL + params);
+    // console.log(api.BASE_URL + params);
     return (
       fetch(api.BASE_URL + params, {
-        method: "GET", // HTTP method
+        method: 'GET' // HTTP method
       })
         // from HTTP response headers to HTTP response data
         .then((response) => response.json())
@@ -16,33 +15,33 @@ export const SitesSource = {
 
   getDetails(id) {
     return SitesSource.apiCall(
-      "xid/" +
+      'xid/' +
         id +
-        "?" +
+        '?' +
         new URLSearchParams({
-          apikey: api.API_KEY,
+          apikey: api.API_KEY
         })
     );
   },
 
   getSites(radius, lat, lon) {
     return SitesSource.apiCall(
-      "radius?" +
+      'radius?' +
         new URLSearchParams({
-          lon:lon,
-          lat:lat,
-          radius:radius,
-          apikey: api.API_KEY,
+          lon: lon,
+          lat: lat,
+          radius: radius,
+          apikey: api.API_KEY
         })
     );
   },
 
-  getCoords(placename){
+  getCoords(placename) {
     return SitesSource.apiCall(
-      "geoname?" +
+      'geoname?' +
         new URLSearchParams({
           name: placename,
-          apikey: api.API_KEY,
+          apikey: api.API_KEY
         })
     );
   }
