@@ -18,6 +18,26 @@ export default class TripModel {
     this.setAttrCurrent(attrCurrent);
   }
 
+  addObserver(name) {
+    this.observers = [...this.observers, name];
+  }
+
+  removeObserver(name) {
+    this.observers = this.observers.filter((a) => a !== name);
+  }
+
+  notifyObservers() {
+    this.observers.forEach((cb) =>
+      setTimeout(() => {
+        try {
+          cb(); //we call all the functions that the observers want to execut whenever there is a change in the data
+        } catch (e) {
+          console.error(e);
+        }
+      }, 0)
+    );
+  }
+
   setTitle(title) {
     this.title = title;
   }

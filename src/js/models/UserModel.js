@@ -1,25 +1,51 @@
-class UserModel{
-    constructor(tripCurrent = null, trips = []){       
-        this.observers = [];
-        this.setTripCurrent(tripCurrent);
-        this.setTrips(trips);
-    }
+export default class UserModel {
+  constructor(tripCurrent = null, trips = []) {
+    this.observers = [];
+    this.setTripCurrent(tripCurrent);
+    this.setTrips(trips);
+  }
 
-    setTripCurrent(id){
-        this.tripCurrent = id;
-    }
+  addObserver(name) {
+    this.observers = [...this.observers, name];
+  }
 
-    setTrips(trips){
-        this.trips = [...trips];
-    }
+  removeObserver(name) {
+    this.observers = this.observers.filter((a) => a !== name);
+  }
 
-    addTrip(trip){
-        if(!(this.trips.includes(trip))){
-            this.trips = [...this.trips, trip]; 
-        }   
-    }
+  notifyObservers() {
+    this.observers.forEach((cb) =>
+      setTimeout(() => {
+        try {
+          cb(); //we call all the functions that the observers want to execut whenever there is a change in the data
+        } catch (e) {
+          console.error(e);
+        }
+      }, 0)
+    );
+  }
 
-    removeFromTrip(tripID){
-        /* TODO */
+  setTripCurrent(id) {
+    this.tripCurrent = id;
+    this.notifyObservers();
+  }
+
+  setTrips(trips) {
+    this.trips = [...trips];
+    this.notifyObservers();
+  }
+
+  addTrip(tripNew) {
+    if (!this.trips.find((trip) => trip.title === tripNew.title)) {
+      this.trips = [...this.trips, tripNew];
+      this.notifyObservers();
     }
+  }
+
+  removeTrip(tripID) {
+    if (this.trips.find((trip) => trip === tripID)) {
+      this.trips = [...this.trips].filter((x) => x !== tripID);
+      this.notifyObservers();
+    }
+  }
 }
