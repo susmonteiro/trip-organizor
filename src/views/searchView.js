@@ -7,6 +7,9 @@ import FormControl from '@mui/material/FormControl';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import Button from '@mui/material/Button';
+import SearchIcon from '@mui/icons-material/Search';
+import Stack from '@mui/material/Stack';
 
 export default function SearchFormView(props) {
   const activities = props.activities;
@@ -21,9 +24,13 @@ export default function SearchFormView(props) {
     setDate(value);
   };
 
+  const handleButtonClick = () => {
+    console.log(type, date);
+  };
+
   return (
-    <div>
-      <TextField id="search-bar" label="Search" variant="standard" />
+    <Stack direction="row" spacing={2}>
+      <TextField id="search-bar" label="Search" variant="standard" sx={{ minWidth: 300 }} />
       <FormControl variant="standard" sx={{ minWidth: 120 }}>
         <InputLabel id="select-type-input">Type</InputLabel>
         <Select
@@ -45,9 +52,12 @@ export default function SearchFormView(props) {
           inputFormat="dd/MM/yyyy"
           value={date}
           onChange={handleChangeDate} // TODO in model
-          renderInput={(params) => <TextField {...params} variant="standard" />}
+          renderInput={(params) => <TextField {...params} variant="standard" sx={{ width: 120 }} />}
         />
       </LocalizationProvider>
-    </div>
+      <Button variant="contained" startIcon={<SearchIcon />} onClick={handleButtonClick}>
+        Search
+      </Button>
+    </Stack>
   );
 }

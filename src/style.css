@@ -5,6 +5,7 @@
     --main-faded: #566C6E;
 
     --secondary: #CFB9AC;
+    --secondary-darker: #a59287;
 
     --favourite: #EE7D61; 
 }
@@ -33,4 +34,9 @@ nature-marker {
 
 nightlife-marker {
     color: null;    /* TODO */
+}
+
+.title {
+    color: var(--secondary);
+    background-color: var(--main)
 }
