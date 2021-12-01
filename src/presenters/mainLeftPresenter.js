@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import DataTable from '../Views/AtractionsListView';
+import DataTable from '../views/atractionsListView';
+import SearchFormView from '../views/searchView';
+import Box from '@mui/material/Box';
+
+// TODO change place
+const ACTIVITY_TYPES = ['Museum', 'Restaurant', 'Sight Seen', 'Shoping'];
 
 function createRows(attractions) {
   //this function formats all the rows with the information needed
@@ -25,5 +30,11 @@ export default function MainLeftPresenter(props) {
     }; // 2.unsubscribe
   }, []);
   console.log(rows);
-  return <DataTable rows={rows} changeLiked={(id) => props.model.changeIsFav(id)} />;
+  return (
+    <Box>
+      <SearchFormView activities={ACTIVITY_TYPES} />
+      <br />
+      {<DataTable rows={rows} changeLiked={(id) => props.model.changeIsFav(id)} />}
+    </Box>
+  );
 }
