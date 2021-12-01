@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import { makeStyles } from '@material-ui/core';
 import './style.css';
 
-import SearchPresenter from './presenters/mainLeftPresenter';
+import MainLeftPresenter from './presenters/mainLeftPresenter';
 
 const theme = createTheme({
   palette: {
@@ -27,10 +27,10 @@ const theme = createTheme({
   };
 }); */
 
-function App() {
+function App(props) {
   return (
     <ThemeProvider theme={theme}>
-      <SearchPresenter />
+      <MainLeftPresenter model={props.model} />
     </ThemeProvider>
   );
 }

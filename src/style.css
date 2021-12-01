@@ -1,42 +1,57 @@
 /* COLOR PALETTE */
 
-:root{
-    --main: #3B6064;
-    --main-faded: #566C6E;
+:root {
+  --main: #3b6064;
+  --main-faded: #566c6e;
 
-    --secondary: #CFB9AC;
-    --secondary-darker: #a59287;
+  --secondary: #cfb9ac;
+  --secondary-darker: #a59287;
 
-    --favourite: #EE7D61; 
+  --favourite: #ee7d61;
 }
-
 
 /* Markers and buttons */
 museum-marker {
-    color: #F2AE98;
+  color: #f2ae98;
 }
 
 food-marker {
-    color: #BB98F2;
+  color: #bb98f2;
 }
 
 outdoor-marker {
-    color: #BBCEAD;
+  color: #bbcead;
 }
 
 shop-marker {
-    color: null;    /* TODO */
+  color: null; /* TODO */
 }
 
 nature-marker {
-    color: null;    /* TODO */
+  color: null; /* TODO */
 }
 
 nightlife-marker {
-    color: null;    /* TODO */
+  color: null; /* TODO */
 }
 
-.title {
-    color: var(--secondary);
-    background-color: var(--main)
+/* Attractions Table View */
+
+/* TODO :overwritte MUI styles*/
+.attractions-grid {
+  background-color: var(--main);
+}
+.MuiDataGrid-cell {
+  color: var(--secondary);
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  color: var(--secondary);
+}
+.like-grid-button {
+  justify-content: center;
+}
+
+.MuiIconButton-colorPrimary {
+  color: var(--favourite);
 }
