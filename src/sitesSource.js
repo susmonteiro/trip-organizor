@@ -2,7 +2,7 @@ import * as api from './js/apiConfig.js';
 
 export const SitesSource = {
   apiCall(params) {
-    // console.log(api.BASE_URL + params);
+    console.log(api.BASE_URL + params);
     return (
       fetch(api.BASE_URL + params, {
         method: 'GET' // HTTP method
@@ -24,16 +24,19 @@ export const SitesSource = {
     );
   },
 
-  getSites(radius, lat, lon) {
-    return SitesSource.apiCall(
-      'radius?' +
-        new URLSearchParams({
-          lon: lon,
-          lat: lat,
-          radius: radius,
-          apikey: api.API_KEY
-        })
-    );
+  getSites(radius, lat, lon, name = null) {
+    let searchParams = {
+      lon: lon,
+      lat: lat,
+      radius: radius,
+      apikey: api.API_KEY
+    };
+
+    if (name) {
+      searchParams = { ...searchParams, name: name };
+    }
+
+    return SitesSource.apiCall('radius?' + new URLSearchParams(searchParams));
   },
 
   getCoords(placename) {
