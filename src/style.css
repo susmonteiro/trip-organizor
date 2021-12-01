@@ -34,3 +34,25 @@ nature-marker {
 nightlife-marker {
     color: null;    /* TODO */
 }
+
+
+/* Attractions Table View */
+
+/* TODO :overwritte MUI styles*/
+.attractions-grid {
+    background-color: var(--main);
+}
+.MuiDataGrid-cell {
+    color: var(--secondary);
+}
+
+.MuiDataGrid-columnHeaderTitle{
+    color: var(--secondary);
+}
+.like-grid-button {
+    justify-content: center;
+}
+
+.MuiIconButton-colorPrimary{
+    color: var(--favourite);
+}
