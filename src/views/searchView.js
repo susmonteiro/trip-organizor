@@ -34,14 +34,17 @@ export default function SearchFormView(props) {
   };
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack
+      direction="row"
+      spacing={2}
+      onKeyUp={(event) => event.key === 'Enter' && handleButtonClick(props)}>
       <TextField
         id="search-bar"
         value={query || ''}
         label="Search"
         variant="standard"
         error={query === ''}
-        helperText={query === '' ? 'Name cannot be empty' : ''}
+        helperText={query === '' && 'Name cannot be empty'}
         onChange={handleChangeQuery}
         sx={{ minWidth: 300 }}
       />
