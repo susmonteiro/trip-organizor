@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import DataTable from '../views/atractionsListView';
 import SearchFormView from '../views/searchView';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 // TODO change place
-const ACTIVITY_TYPES = ['Museum', 'Restaurant', 'Sight Seen', 'Shoping'];
+const ACTIVITY_TYPES = ['Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
 
 function createRows(attractions) {
   //this function formats all the rows with the information needed
@@ -34,7 +35,13 @@ export default function MainLeftPresenter(props) {
     <Box>
       <SearchFormView activities={ACTIVITY_TYPES} />
       <br />
-      {<DataTable rows={rows} changeLiked={(id) => props.model.changeIsFav(id)} />}
+      {
+        <DataTable
+          activities={ACTIVITY_TYPES}
+          rows={rows}
+          changeLiked={(id) => props.model.changeIsFav(id)}
+        />
+      }
     </Box>
   );
 }
