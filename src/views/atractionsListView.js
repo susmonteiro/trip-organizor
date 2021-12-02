@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@material-ui/core';
 import React from 'react';
 
+// TODO change place
 const ActivityTypes = ['Museum', 'Restaurant', 'Sight Seen', 'Shoping'];
 
 /* For testing

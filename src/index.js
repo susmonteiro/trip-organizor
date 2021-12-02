@@ -20,12 +20,12 @@ SitesSource.getCoords('Stockholm').then((coords) =>
         attrName: site.properties.name,
         attrCoord: site.geometry.coordinates
       });
-      trip.addAttraction(attr);
+      MyModel.addAttraction(attr);
     })
   )
 );
 
-const user = new UserModel(null, [trip]);
+const user = new UserModel(null, [MyModel]);
 console.log(user);
 
 ReactDOM.render(

@@ -19,7 +19,7 @@ export default class UserModel {
     }
   }
 
-  removeFromTrip(tripID) {
-    /* TODO */
-  }
+  /* removeFromTrip(tripID) {
+    TODO
+  } */
 }
