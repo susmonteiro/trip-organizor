@@ -1,9 +1,10 @@
+//import TripListPresenter from './presenters/tripListPresenter';
 import AddTripPresenter from './presenters/addTripPresenter';
 
 function App(props) {
   return (
     <div>
-      <AddTripPresenter model={''} />
+      <AddTripPresenter model={props.model} />
     </div>
   );
 }
