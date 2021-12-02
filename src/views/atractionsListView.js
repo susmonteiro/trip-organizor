@@ -1,26 +1,13 @@
-import { DataGrid } from '@material-ui/data-grid';
-//import { randomCreatedDate } from '@mui/x-data-grid-generator'; //for examples
+import * as React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@material-ui/core';
-import React from 'react';
-
-// TODO change place
-const ActivityTypes = ['Museum', 'Restaurant', 'Sight Seen', 'Shoping'];
-
-/* For testing
-
-const rows = [
-  { id: 1, Name: 'Gamla Stan', Type: 'Sight Seen', date: randomCreatedDate() },
-  { id: 2, Name: 'Vasamuseet', Type: 'Museum', date: randomCreatedDate() }
-];
-*/
 
 function returnButton(isFav) {
   if (isFav) {
     return (
       <FavoriteIcon
-        className="like-grid-button"
         sx={{
           color: '#EE7D61'
         }}
@@ -29,7 +16,6 @@ function returnButton(isFav) {
   } else
     return (
       <FavoriteBorderRoundedIcon
-        className="like-grid-button"
         sx={{
           color: '#EE7D61'
         }}
@@ -38,6 +24,8 @@ function returnButton(isFav) {
 }
 
 export default function DataTable(props) {
+  const activities = props.activities;
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'Name', headerName: 'Name', width: 130 },
@@ -45,7 +33,7 @@ export default function DataTable(props) {
       field: 'Type',
       headerName: 'Type',
       type: 'singleSelect',
-      valueOptions: ActivityTypes,
+      valueOptions: activities,
       width: 130
     },
     {
@@ -58,23 +46,16 @@ export default function DataTable(props) {
       field: 'likebutton',
       headerName: 'Favourite',
       sortable: false,
-      width: 130,
-      renderCell: (params) => {
-        return (
-          <IconButton index={params.row.id} onClick={() => props.changeLiked(params.row.id)}>
-            {returnButton(params.row.isFavourite)}
-          </IconButton>
-        );
-      }
+      width: 130
     }
   ];
+
   return (
-    <div className="attractions-grid" style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={props.rows}
         columns={columns}
-        headerAlling="center"
-        pageSize={props.rows.lenght}
+        pageSize={props.rows.length}
         disableColumnSelector
         hideFooter
         disableSelectionOnClick
