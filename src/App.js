@@ -1,6 +1,9 @@
-import MainLeftPresenter from './Presenters/mainLeftPresenter';
+import MapView from './Views/MapView.js';
 function App(props) {
-  return <MainLeftPresenter model={props.model} />;
+  //console.log(props)
+  return <MapView currentLocation={props.model.coord}
+                  zoom={12}
+                  sites={props.model.attractions}/>;
 }
 
 export default App;
