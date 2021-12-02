@@ -1,3 +1,5 @@
+import SitesSource from '../../sitesSource.js';
+
 export default class TripModel {
   constructor(
     title = null,
@@ -93,5 +95,9 @@ export default class TripModel {
       throw new Error('The name of the attraction cannot be empty');
     // TODO check if date inside the range
     console.log(searchQuery, searchType, searchDate);
+
+    // TODO change me
+
+    console.log(SitesSource.getSuggestion(searchQuery, 59.334591, 18.06324, 5000, 'museums'));
   }
 }
