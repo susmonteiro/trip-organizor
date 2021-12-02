@@ -78,12 +78,21 @@ export default class TripModel {
         return x.attrID;
       })
       .indexOf(id); //Not always the id is going to be the possition of the element in the array, so we use indexOf
-    if (this.attractions[index].getIsFav()) {
-      this.attractions[index].setIsFav(false); //Put attrIsFav at true if it was false or false if it was true
-    } else this.attractions[index].setIsFav(true);
+    let attraction = this.attractions[index];
+    attraction.setIsFav(!attraction.getIsFav());
     this.notifyObservers();
   }
 
+  changeIsFinish(id) {
+    let index = this.attractions
+      .map(function (x) {
+        return x.attrID;
+      })
+      .indexOf(id);
+    let attraction = this.attractions[index];
+    attraction.setFinished(!attraction.getFinished());
+    this.notifyObservers();
+  }
   listAttractions() {
     return this.attractions;
   }

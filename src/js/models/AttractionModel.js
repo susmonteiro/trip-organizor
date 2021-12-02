@@ -61,4 +61,8 @@ export default class AttractionModel {
   getIsFav() {
     return this.attrIsFav;
   }
+
+  getFinished() {
+    return this.attrFinished;
+  }
 }

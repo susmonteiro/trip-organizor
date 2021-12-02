@@ -3,6 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@material-ui/core';
+import { Checkbox } from '@mui/material';
+
 
 function returnButton(isFav) {
   if (isFav) {
@@ -27,7 +29,20 @@ export default function DataTable(props) {
   const activities = props.activities;
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 100 },
+    {
+      field: 'check',
+      headerName: 'Completed',
+      width: 140,
+      renderCell: (params) => {
+        return (
+          <Checkbox
+            color="primary"
+            index={params.row.id}
+            checked={params.row.isFinished}
+            onClick={() => props.changeCompleted(params.row.id)}></Checkbox>
+        );
+      }
+    },
     { field: 'Name', headerName: 'Name', width: 130 },
     {
       field: 'Type',
@@ -59,7 +74,6 @@ export default function DataTable(props) {
         disableColumnSelector
         hideFooter
         disableSelectionOnClick
-        checkboxSelection
       />
     </div>
   );

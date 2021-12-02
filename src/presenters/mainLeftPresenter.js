@@ -14,7 +14,8 @@ function createRows(attractions) {
     Name: attraction.attrName,
     Type: attraction.attrType,
     date: attraction.attrDate,
-    isFavourite: attraction.attrIsFav
+    isFavourite: attraction.attrIsFav,
+    isFinished: attraction.attrFinished
   }));
   return rows;
 }
@@ -30,18 +31,15 @@ export default function MainLeftPresenter(props) {
       props.model.removeObserver(obs);
     }; // 2.unsubscribe
   }, []);
-  console.log(rows);
   return (
     <Box>
       <SearchFormView activities={ACTIVITY_TYPES} />
       <br />
-      {
-        <DataTable
-          activities={ACTIVITY_TYPES}
-          rows={rows}
-          changeLiked={(id) => props.model.changeIsFav(id)}
-        />
-      }
+      <DataTable
+        rows={rows}
+        changeLiked={(id) => props.model.changeIsFav(id)}
+        changeCompleted={(id) => props.model.changeIsFinish(id)}
+      />
     </Box>
   );
 }
