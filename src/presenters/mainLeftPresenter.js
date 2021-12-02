@@ -33,15 +33,22 @@ export default function MainLeftPresenter(props) {
   console.log(rows);
   return (
     <Box>
-      <SearchFormView activities={ACTIVITY_TYPES} />
+      <SearchFormView
+        activities={ACTIVITY_TYPES}
+        onSearch={(query, type) => {
+          try {
+            props.model.searchPlaces(query, type);
+          } catch (e) {
+            console.error(e);
+          }
+        }}
+      />
       <br />
-      {
-        <DataTable
-          activities={ACTIVITY_TYPES}
-          rows={rows}
-          changeLiked={(id) => props.model.changeIsFav(id)}
-        />
-      }
+      <DataTable
+        activities={ACTIVITY_TYPES}
+        rows={rows}
+        changeLiked={(id) => props.model.changeIsFav(id)}
+      />
     </Box>
   );
 }

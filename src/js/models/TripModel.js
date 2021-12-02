@@ -87,4 +87,10 @@ export default class TripModel {
   listAttractions() {
     return this.attractions;
   }
+
+  searchPlaces(searchQuery, searchType) {
+    if (searchQuery === '' || searchQuery === undefined)
+      throw new Error('The name of the attraction cannot be empty');
+    console.log(searchQuery, searchType);
+  }
 }
