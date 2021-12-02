@@ -13,8 +13,8 @@ import Stack from '@mui/material/Stack';
 
 export default function SearchFormView(props) {
   const activities = props.activities;
-  const [query, setQuery] = React.useState(undefined);
-  const [type, setType] = React.useState('');
+  const [query, setQuery] = React.useState(null);
+  const [type, setType] = React.useState(activities[0]);
   const [date, setDate] = React.useState(new Date());
 
   const handleChangeQuery = (event) => {
@@ -30,20 +30,19 @@ export default function SearchFormView(props) {
   };
 
   const handleButtonClick = (props) => {
-    props.onSearch(query, type);
+    props.onSearch(query, type, date);
   };
 
   return (
     <Stack direction="row" spacing={2}>
       <TextField
         id="search-bar"
-        value={query}
+        value={query || ''}
         label="Search"
         variant="standard"
         error={query === ''}
         helperText={query === '' ? 'Name cannot be empty' : ''}
-        onBlur={handleChangeQuery}
-        required
+        onChange={handleChangeQuery}
         sx={{ minWidth: 300 }}
       />
       <FormControl variant="standard" sx={{ minWidth: 120 }}>

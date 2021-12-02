@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 // TODO change place
-const ACTIVITY_TYPES = ['Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
+const ACTIVITY_TYPES = ['All', 'Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
 
 function createRows(attractions) {
   //this function formats all the rows with the information needed
@@ -35,9 +35,9 @@ export default function MainLeftPresenter(props) {
     <Box>
       <SearchFormView
         activities={ACTIVITY_TYPES}
-        onSearch={(query, type) => {
+        onSearch={(query, type, date) => {
           try {
-            props.model.searchPlaces(query, type);
+            props.model.searchPlaces(query, type, date);
           } catch (e) {
             console.error(e);
           }

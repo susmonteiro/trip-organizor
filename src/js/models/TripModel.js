@@ -88,9 +88,10 @@ export default class TripModel {
     return this.attractions;
   }
 
-  searchPlaces(searchQuery, searchType) {
-    if (searchQuery === '' || searchQuery === undefined)
+  searchPlaces(searchQuery, searchType, searchDate) {
+    if (searchQuery === '' || searchQuery === null)
       throw new Error('The name of the attraction cannot be empty');
-    console.log(searchQuery, searchType);
+    // TODO check if date inside the range
+    console.log(searchQuery, searchType, searchDate);
   }
 }
