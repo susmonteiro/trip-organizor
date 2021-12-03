@@ -94,6 +94,6 @@ export default class TripModel {
     this.notifyObservers();
   }
   listAttractions() {
-    return this.attractions;
+    return [...this.attractions];
   }
 }

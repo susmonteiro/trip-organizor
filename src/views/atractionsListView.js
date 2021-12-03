@@ -5,7 +5,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@material-ui/core';
 import { Checkbox } from '@mui/material';
 
-
 function returnButton(isFav) {
   if (isFav) {
     return (
