@@ -12,51 +12,29 @@ import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 
 export default function SearchFormView(props) {
-  const activities = props.activities;
-  const [query, setQuery] = React.useState(null);
-  const [type, setType] = React.useState(activities[0]);
-  const [date, setDate] = React.useState(new Date());
-
-  const handleChangeQuery = (event) => {
-    setQuery(event.target.value);
-  };
-
-  const handleChangeType = (event) => {
-    setType(event.target.value);
-  };
-
-  const handleChangeDate = (value) => {
-    setDate(value);
-  };
-
-  const handleButtonClick = (props) => {
-    props.onSearch(query, type, date);
-  };
-
   return (
     <Stack
       direction="row"
       spacing={2}
-      onKeyUp={(event) => event.key === 'Enter' && handleButtonClick(props)}>
+      onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
       <TextField
         id="search-bar"
-        value={query || ''}
+        value={props.query || ''}
         label="Search"
         variant="standard"
-        error={query === ''}
-        helperText={query === '' && 'Name cannot be empty'}
-        onChange={handleChangeQuery}
+        error={props.query === ''}
+        helperText={props.query === '' && 'Name cannot be empty'}
+        onChange={(event) => props.onChangeQuery(event.target.value)}
         sx={{ minWidth: 300 }}
       />
       <FormControl variant="standard" sx={{ minWidth: 120 }}>
         <InputLabel id="select-type-input">Type</InputLabel>
         <Select
           id="select-type"
-          value={type}
+          value={props.type}
           label="Type"
-          onChange={handleChangeType} // TODO in model
-        >
-          {activities.map((activity) => (
+          onChange={(event) => props.onChangeType(event.target.value)}>
+          {props.activities.map((activity) => (
             <MenuItem key={activity} value={activity}>
               {activity}
             </MenuItem>
@@ -67,15 +45,12 @@ export default function SearchFormView(props) {
         <DesktopDatePicker
           label="Date"
           inputFormat="dd/MM/yyyy"
-          value={date}
-          onChange={handleChangeDate} // TODO in model
+          value={props.date}
+          onChange={(value) => props.onChangeDate(value)}
           renderInput={(params) => <TextField {...params} variant="standard" sx={{ width: 120 }} />}
         />
       </LocalizationProvider>
-      <Button
-        variant="contained"
-        startIcon={<SearchIcon />}
-        onClick={() => handleButtonClick(props)}>
+      <Button variant="contained" startIcon={<SearchIcon />} onClick={() => props.onSearch()}>
         Search
       </Button>
     </Stack>

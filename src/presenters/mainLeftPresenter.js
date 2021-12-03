@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import DataTable from '../views/atractionsListView';
-import SearchFormView from '../views/searchView';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 
 // TODO change place
 const ACTIVITY_TYPES = ['All', 'Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
@@ -32,23 +29,10 @@ export default function MainLeftPresenter(props) {
   }, []);
   console.log(rows);
   return (
-    <Box>
-      <SearchFormView
-        activities={ACTIVITY_TYPES}
-        onSearch={(query, type, date) => {
-          try {
-            props.model.searchPlaces(query, type, date);
-          } catch (e) {
-            console.error(e);
-          }
-        }}
-      />
-      <br />
-      <DataTable
-        activities={ACTIVITY_TYPES}
-        rows={rows}
-        changeLiked={(id) => props.model.changeIsFav(id)}
-      />
-    </Box>
+    <DataTable
+      activities={ACTIVITY_TYPES}
+      rows={rows}
+      changeLiked={(id) => props.model.changeIsFav(id)}
+    />
   );
 }

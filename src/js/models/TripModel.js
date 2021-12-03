@@ -91,13 +91,14 @@ export default class TripModel {
   }
 
   searchPlaces(searchQuery, searchType, searchDate) {
-    if (searchQuery === '' || searchQuery === null)
-      throw new Error('The name of the attraction cannot be empty');
+    if (searchQuery.length < 3 || searchQuery === null)
+      throw new Error('Please insert a bigger word');
     // TODO check if date inside the range
-    console.log(searchQuery, searchType, searchDate);
+    console.log('Searching with: ', searchQuery, searchType, searchDate);
 
     // TODO change me
+    let results = SitesSource.getSuggestion(searchQuery, 59.334591, 18.06324, 5000, 'museums');
 
-    console.log(SitesSource.getSuggestion(searchQuery, 59.334591, 18.06324, 5000, 'museums'));
+    console.log(results);
   }
 }
