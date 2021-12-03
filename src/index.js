@@ -31,7 +31,7 @@ SitesSource.getCoords('Stockholm').then((coords) =>
       ReactDOM.render(
         <StyledEngineProvider injectFirst>
           <React.StrictMode>
-            <div>Hello</div>{/*<App model={user} />*/}
+            <App model={user} />
           </React.StrictMode>
         </StyledEngineProvider>,
         document.getElementById('root')
