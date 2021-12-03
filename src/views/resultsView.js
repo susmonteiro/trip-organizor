@@ -12,14 +12,13 @@ export default function ResultsView(props) {
         {props.attractions.map((site) => (
           <ListItem key={site.properties.id} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
+              <ListItemIcon sx={{ color: 'primary.main' }}>
                 <AddLocationIcon />
               </ListItemIcon>
               <ListItemText primary={site.properties.name} disablePadding />
             </ListItemButton>
           </ListItem>
         ))}
-        {console.log(props.attractions)}
       </List>
     </Box>
   );
