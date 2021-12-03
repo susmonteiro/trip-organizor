@@ -31,7 +31,7 @@ export default function SearchPresenter(props) {
         onChangeType={(type) => setType(type)}
         onChangeDate={(date) => setDate(date)}
         onSearch={() => {
-          setPromise(SitesSource.getSuggestion(query, 59.334591, 18.06324, 5000, 'museums'));
+          setPromise(SitesSource.getSuggestion(query, 59.334591, 18.06324, 5000, ''));
           /* try {
             props.model.searchPlaces(query, type, date);
           } catch (e) {
@@ -39,7 +39,14 @@ export default function SearchPresenter(props) {
           } */
         }}
       />
-      {promiseNoData(promise, data, error) || <h1>{data.features[0].properties.name}</h1>}
+      {promiseNoData(promise, data, error) || (
+        <div>
+          {data.features.map((site) => (
+            <h1 key={site.properties.id}>{site.properties.name}</h1>
+          ))}
+          {console.log(data)}
+        </div>
+      )}
     </div>
   );
 }
