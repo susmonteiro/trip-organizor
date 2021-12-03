@@ -34,9 +34,9 @@ export default function SearchFormView(props) {
           value={props.type}
           label="Type"
           onChange={(event) => props.onChangeType(event.target.value)}>
-          {props.activities.map((activity) => (
-            <MenuItem key={activity} value={activity}>
-              {activity}
+          {props.activities.map(([key, value]) => (
+            <MenuItem key={key} value={key}>
+              {value}
             </MenuItem>
           ))}
         </Select>
