@@ -10,12 +10,12 @@ export default function ResultsView(props) {
     <Box sx={{ width: '50%' }}>
       <List>
         {props.attractions.map((site) => (
-          <ListItem key={site.properties.id} disablePadding>
+          <ListItem key={site.properties.xid} disablePadding>
             <ListItemButton>
               <ListItemIcon sx={{ color: 'primary.main' }}>
                 <AddLocationIcon />
               </ListItemIcon>
-              <ListItemText primary={site.properties.name} disablePadding />
+              <ListItemText primary={site.properties.name} />
             </ListItemButton>
           </ListItem>
         ))}

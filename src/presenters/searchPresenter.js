@@ -31,7 +31,16 @@ export default function SearchPresenter(props) {
         onChangeType={(type) => setType(type)}
         onChangeDate={(date) => setDate(date)}
         onSearch={() => {
-          setPromise(SitesSource.getSuggestion(query, 59.334591, 18.06324, 5000, ''));
+          setPromise(
+            SitesSource.getSuggestion(
+              query,
+              59.334591,
+              18.06324,
+              5000,
+              'amusements,interesting_places,sport,tourist_facilities',
+              50
+            )
+          );
           /* try {
             props.model.searchPlaces(query, type, date);
           } catch (e) {
