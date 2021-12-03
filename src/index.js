@@ -7,6 +7,7 @@ import App from './App';
 import TripModel from './js/models/TripModel.js';
 import AttractionModel from './js/models/AttractionModel.js';
 import UserModel from './js/models/UserModel.js';
+import persistModel from './js/models/FirebaseModel';
 
 import SitesSource from './sitesSource.js';
 
@@ -26,10 +27,11 @@ SitesSource.getCoords('Stockholm').then((coords) =>
     })
     .then(() => {
       const user = new UserModel(null, [MyModel]);
+      persistModel(user);
       ReactDOM.render(
         <StyledEngineProvider injectFirst>
           <React.StrictMode>
-            <App model={user} />
+            <div>Hello</div>{/*<App model={user} />*/}
           </React.StrictMode>
         </StyledEngineProvider>,
         document.getElementById('root')

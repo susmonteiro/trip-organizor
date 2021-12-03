@@ -15,6 +15,11 @@ export default class UserModel {
     this.notifyObservers();
   }
 
+  deleteAllTrips() {
+    this.trips = [];
+    this.notifyObservers();
+  }
+
   addTrip(trip) {
     if (!this.trips.includes(trip)) {
       this.trips = [...this.trips, trip];
@@ -41,6 +46,7 @@ export default class UserModel {
   }
 
   notifyObservers() {
+    console.log("noty")
     this.observers.forEach((cb) =>
       setTimeout(() => {
         try {
