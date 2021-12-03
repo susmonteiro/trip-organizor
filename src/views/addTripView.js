@@ -54,7 +54,7 @@ export default function AddTripView(props) {
             id="cityInput"
             label="City"
             variant="standard"
-            error={props.checkForContent(props.city)}
+            error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
             helperText={
               props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
             }
@@ -94,27 +94,33 @@ export default function AddTripView(props) {
                 ...params.inputProps,
                 autoComplete: 'new-password' // disable autocomplete and autofill
               }}
-              onBlur={(eventCountry) => props.setCountry(eventCountry.target.value)}
+              onSelect={(eventCountry) => props.setCountry(eventCountry.target.value)}
             />
           )}
         />
         <Button
           variant="contained"
           disabled={props.checkForContent(props.city) || props.checkForContent(props.country)}
-          onClick={() => {
-            props.validateDestination();
+          onFocus={() => {
             props.validateClicked(true);
+          }}
+          onClick={() => {
+            props.getDestination();
+            console.log('validate');
+            // props.setMsg(
+            //   !props.validateButton
+            //     ? ''
+            //     : props.data === 'NOT_FOUND'
+            //     ? 'Check your geography dude'
+            //     : 'Great! Destination confirmed'
+            // );
           }}>
           Validate Destination!
         </Button>
       </Stack>
       <br />
       <Typography variant="h4" component="div" gutterBottom>
-        {!props.validateButton
-          ? ''
-          : props.validateDestination() === 'NOT_FOUND'
-          ? 'Check your geography dude'
-          : 'Great! Destination confirmed'}
+        {props.validationMsg}
       </Typography>
       <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
