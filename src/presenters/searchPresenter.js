@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SearchFormView from '../views/searchView';
-import SearchResultsView from '../views/searchView';
+import ResultsView from '../views/resultsView';
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
 import SitesSource from '../sitesSource';
@@ -39,14 +39,7 @@ export default function SearchPresenter(props) {
           } */
         }}
       />
-      {promiseNoData(promise, data, error) || (
-        <div>
-          {data.features.map((site) => (
-            <h1 key={site.properties.id}>{site.properties.name}</h1>
-          ))}
-          {console.log(data)}
-        </div>
-      )}
+      {promiseNoData(promise, data, error) || <ResultsView attractions={data.features} />}
     </div>
   );
 }
