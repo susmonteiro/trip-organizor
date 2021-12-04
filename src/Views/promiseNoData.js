@@ -1,7 +1,9 @@
+import { CircularProgress } from '@mui/material';
+
 function promiseNoData(promise, data, error) {
   const val = promise ? (
     !data && !error ? (
-      <img src="http://www.csc.kth.se/~cristi/loading.gif" />
+      <CircularProgress />
     ) : data ? (
       false
     ) : (
