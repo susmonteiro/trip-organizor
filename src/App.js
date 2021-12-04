@@ -5,6 +5,7 @@ function App(props) {
   return (
     <div>
       <AddTripPresenter model={props.model} />
+      <TripListPresenter model={props.model} />
     </div>
   );
 }
