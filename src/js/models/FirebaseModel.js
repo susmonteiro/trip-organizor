@@ -34,6 +34,7 @@ export default function persistModel(model) {
               attrType: site.attrType || null
             });
             MyModel.addAttraction(attr);
+            MyModel.setCoord(trip.coord);
           });
           model.addTripFromDB(MyModel);
           model.notifyObservers(); //We want to create and read everything first, and then update, we use functions that doesnt notify the observers

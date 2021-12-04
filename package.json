@@ -7,10 +7,10 @@
     "@emotion/styled": "^11.6.0",
     "@fontsource/roboto": "^4.5.1",
     "@material-ui/core": "^4.12.3",
-    "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/lab": "^4.0.0-alpha.60",
-    "@mui/icons-material": "^5.2.0",
     "@mui/lab": "^5.0.0-alpha.57",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
+    "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.1",
     "@mui/styles": "^5.2.1",
     "@mui/x-data-grid": "^5.0.1",
@@ -20,8 +20,10 @@
     "@testing-library/user-event": "^12.8.3",
     "date-fns": "^2.26.0",
     "firebase": "^9.6.0",
+    "leaflet": "^1.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-leaflet": "^3.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
@@ -59,11 +61,7 @@
       "not dead",
       "not op_mini all"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "development": []
   },
   "devDependencies": {
     "eslint": "^7.32.0",

@@ -13,8 +13,9 @@ import SitesSource from './sitesSource.js';
 
 const MyModel = new TripModel();
 
-SitesSource.getCoords('Stockholm', 'SE').then((coords) =>
-  SitesSource.getSites(50, coords.lat, coords.lon)
+SitesSource.getCoords('Barcelona', 'ES').then((coords) => {
+  MyModel.setCoord([coords.lat, coords.lon]);
+  SitesSource.getSites(1000, coords.lat, coords.lon)
     .then((sites) => {
       sites.features.map((site) => {
         const attr = new AttractionModel({
@@ -36,5 +37,5 @@ SitesSource.getCoords('Stockholm', 'SE').then((coords) =>
         </StyledEngineProvider>,
         document.getElementById('root')
       );
-    })
-);
+    });
+});

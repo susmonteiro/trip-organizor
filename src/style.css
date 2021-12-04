@@ -35,6 +35,11 @@ nightlife-marker {
   color: null; /* TODO */
 }
 
+/* Map View */
+
+/*Needed for React-Leaflet*/
+.leaflet-container {  width: 100vw;  height: 100vh; }
+
 /* Attractions Table View */
 
 /* TODO :overwritte MUI styles*/
@@ -54,4 +59,8 @@ nightlife-marker {
 
 .MuiIconButton-colorPrimary {
   color: var(--favourite);
+}
+
+.MuiIconButton-colorPrimary{
+    color: var(--favourite);
 }

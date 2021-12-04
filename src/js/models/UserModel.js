@@ -5,6 +5,12 @@ export default class UserModel {
     this.setTrips(trips);
   }
 
+  setTripCurrAttr(id) {
+    console.log(id);
+    this.trips[0].setAttrCurrent(id);
+    this.notifyObservers();
+  }
+
   setTripCurrent(id) {
     this.tripCurrent = id;
     this.notifyObservers();

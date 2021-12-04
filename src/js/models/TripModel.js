@@ -1,5 +1,3 @@
-import SitesSource from '../../sitesSource.js';
-
 export default class TripModel {
   constructor(
     title = null,

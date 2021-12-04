@@ -31,7 +31,7 @@ export default class AttractionModel {
   }
 
   setCoord(attrCoord) {
-    this.attrCoord = attrCoord.slice().reverse();
+    this.attrCoord = attrCoord;
   }
 
   setIsFav(attrIsFav) {
