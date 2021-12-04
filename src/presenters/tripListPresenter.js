@@ -22,6 +22,10 @@ export default function TripListPresenter(props) {
       addTrip={(newTrip) => {
         props.model.addTrip(newTrip);
       }}
+      tripChoice={(id) => {
+        props.model.setTripCurrent(id);
+        console.log(id + ' is the current trip');
+      }}
     />
   );
 }

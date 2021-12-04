@@ -188,7 +188,9 @@ export default function TripListView(props) {
                       action={undoAction}
                     />
                   </TableCell>
-                  <TableCell align="center">{item.title}</TableCell>
+                  <TableCell align="center" tripChoice={props.tripChoice(item.title)}>
+                    {item.title}
+                  </TableCell>
                   <TableCell align="center">{item.dateBegin.toDateString()}</TableCell>
                   <TableCell align="center">{item.dateEnd.toDateString()}</TableCell>
                 </TableRow>
