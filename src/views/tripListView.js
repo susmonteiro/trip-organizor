@@ -168,7 +168,7 @@ export default function TripListView(props) {
               .filter((trip) => trip.finished === false)
               .sort(compare)
               .map((item) => (
-                <TableRow key={item.title}>
+                <TableRow hover key={item.title}>
                   <TableCell>
                     <IconButton
                       display="center"
@@ -188,11 +188,15 @@ export default function TripListView(props) {
                       action={undoAction}
                     />
                   </TableCell>
-                  <TableCell align="center" onClick={props.tripChoice(item.title)}>
+                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
                     {item.title}
                   </TableCell>
-                  <TableCell align="center">{item.dateBegin.toDateString()}</TableCell>
-                  <TableCell align="center">{item.dateEnd.toDateString()}</TableCell>
+                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                    {item.dateBegin.toDateString()}
+                  </TableCell>
+                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                    {item.dateEnd.toDateString()}
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
