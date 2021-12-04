@@ -6,21 +6,37 @@ export default function MapPresenter(props) {
   const [data, setData] = React.useState(null);
   const [error, setError] = React.useState(null);
   React.useEffect(
-    function(){
-      console.log("Effect executed")
-      setData(null); setError(null);
-      let cancelled=false;
-      if(promise){
-        promise.then(function(dt){  if(!cancelled) setData(dt);})
-               .catch(function(er){ if(!cancelled) setError(er);});
+    function () {
+      console.log('Effect executed');
+      setData(null);
+      setError(null);
+      let cancelled = false;
+      if (promise) {
+        promise
+          .then(function (dt) {
+            if (!cancelled) setData(dt);
+          })
+          .catch(function (er) {
+            if (!cancelled) setError(er);
+          });
       }
-      console.log(promise, data, error)
-      return function(){ cancelled=true; };
+      console.log(promise, data, error);
+      return function () {
+        cancelled = true;
+      };
     },
     [promise]
   );
 
   return (
-    <MapView currentLocation={props.model.coord} zoom={12} sites={props.model.attractions} promise={promise} data={data} error={error} setPromise={setPromise}/>
+    <MapView
+      currentLocation={props.model.coord}
+      zoom={12}
+      sites={props.model.attractions}
+      promise={promise}
+      data={data}
+      error={error}
+      setPromise={setPromise}
+    />
   );
 }
