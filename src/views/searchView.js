@@ -9,6 +9,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';
 
 export default function SearchFormView(props) {
@@ -16,9 +17,13 @@ export default function SearchFormView(props) {
     <Stack
       direction="row"
       spacing={2}
-      onKeyUp={(event) =>
-        props.query && props.query.length > 2 && event.key === 'Enter' && props.onSearch()
-      }>
+      onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
+      <Button
+        variant="contained"
+        startIcon={<ArrowBackIosNewIcon />}
+        onClick={() => props.onGoBack()}>
+        Back
+      </Button>
       <TextField
         id="search-bar"
         value={props.query || ''}

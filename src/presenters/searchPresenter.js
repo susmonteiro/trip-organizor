@@ -41,22 +41,23 @@ export default function SearchPresenter(props) {
     });
     props.model.addAttraction(attraction);
     console.log(props.model.listAttractions());
+    // TODO navigation
   }
 
   function searchAttraction() {
     // TODO show an actual error and don't allow search to be done
     if (!query || query.length < 3) console.error('Please type more');
-
-    setPromise(
-      SitesSource.getSuggestion(
-        query,
-        59.334591, // TODO use model
-        18.06324,
-        5000,
-        type === DEFAULT_TYPE ? ALL_TYPES : type,
-        50
-      )
-    );
+    else
+      setPromise(
+        SitesSource.getSuggestion(
+          query,
+          59.334591, // TODO use model
+          18.06324,
+          5000,
+          type === DEFAULT_TYPE ? ALL_TYPES : type,
+          50
+        )
+      );
   }
 
   return (
@@ -68,11 +69,12 @@ export default function SearchPresenter(props) {
         date={date}
         onChangeQuery={(txt) => setQuery(txt)}
         onChangeType={(type) => {
-          console.log(type);
           setType(type);
+          searchAttraction();
         }}
         onChangeDate={(date) => setDate(date)}
         onSearch={searchAttraction}
+        onGoBack={() => console.log('GO BACK!')} // TODO navigation
       />
       {promiseNoData(promise, data, error) || (
         <ResultsView
