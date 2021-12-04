@@ -2,10 +2,15 @@ import * as api from './js/apiConfig.js';
 
 export const SitesSource = {
   apiCall(params) {
-    console.log(api.BASE_URL + params);
-    return fetch(api.BASE_URL + params, {
-      method: 'GET' // HTTP method
-    }).then((response) => response.json());
+    // console.log(api.BASE_URL + params);
+    return (
+      fetch(api.BASE_URL + params, {
+        method: 'GET' // HTTP method
+      })
+        // from HTTP response headers to HTTP response data
+        .then((response) => response.json())
+      //.then((responseJSON) => console.log(responseJSON))
+    );
   },
 
   getDetails(id) {
@@ -18,44 +23,25 @@ export const SitesSource = {
         })
     );
   },
-  /* Usage example for getSuggestion
-  SitesSource.getCoords('Stockholm').then((coords) =>{
-    SitesSource.getSuggestion("ABBA", coords.lat, coords.lon, 5000, "museums")
-    .then((res) => {console.log(res)})
-  })
-  */
-  getSuggestion(name, lat, lon, radius, kinds = null) {
-    let searchParams = {
-      lon: lon,
-      lat: lat,
-      name: name,
-      radius: radius,
-      apikey: api.API_KEY
-    };
-
-    if (kinds) {
-      searchParams = { ...searchParams, kinds: kinds };
-    }
-
-    return SitesSource.apiCall('autosuggest?' + new URLSearchParams(searchParams));
-  },
 
   getSites(radius, lat, lon) {
-    const searchParams = {
-      lon: lon,
-      lat: lat,
-      radius: radius,
-      apikey: api.API_KEY
-    };
-
-    return SitesSource.apiCall('radius?' + new URLSearchParams(searchParams));
+    return SitesSource.apiCall(
+      'radius?' +
+        new URLSearchParams({
+          lon: lon,
+          lat: lat,
+          radius: radius,
+          apikey: api.API_KEY
+        })
+    );
   },
 
-  getCoords(placename) {
+  getCoords(placename, code) {
     return SitesSource.apiCall(
       'geoname?' +
         new URLSearchParams({
           name: placename,
+          country: code,
           apikey: api.API_KEY
         })
     );
