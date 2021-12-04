@@ -21,10 +21,10 @@ function createRows(attractions) {
 }
 
 export default function MainLeftPresenter(props) {
-  const [rows, setRows] = useState(createRows(props.model.listAttractions()));
+  const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
   React.useEffect(function () {
     function obs() {
-      setRows(createRows(props.model.listAttractions()));
+      setRows(createRows(props.model.trips[0].listAttractions()));
     }
     props.model.addObserver(obs); // 1. subscribe
     return function () {
@@ -37,8 +37,8 @@ export default function MainLeftPresenter(props) {
       <br />
       <DataTable
         rows={rows}
-        changeLiked={(id) => props.model.changeIsFav(id)}
-        changeCompleted={(id) => props.model.changeIsFinish(id)}
+        changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+        changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
       />
     </Box>
   );
