@@ -1,5 +1,5 @@
 export default class AttractionModel {
-  constructor(
+  constructor({
     attrID = null,
     attrName = null,
     attrCoord = [null, null],
@@ -9,7 +9,7 @@ export default class AttractionModel {
     attrDate = null,
     attrNotes = null,
     attrType = null
-  ) {
+  }) {
     this.observers = [];
     this.setID(attrID);
     this.setName(attrName);

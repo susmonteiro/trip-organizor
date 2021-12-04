@@ -48,4 +48,15 @@ export default class UserModel {
       this.notifyObservers();
     }
   }
+
+  tripTitleExists(tripTitle) {
+    return this.trips.find((t) => t.title === tripTitle) ? true : tripTitle === '' ? true : false;
+  }
+
+  checkNullEmpty(tripAttr) {
+    return tripAttr === '' ? true : tripAttr === null ? true : false;
+  }
+  tripAttrEmpty(tripAttr) {
+    return tripAttr === '' ? 'empty' : tripAttr === null ? 'null' : false;
+  }
 }

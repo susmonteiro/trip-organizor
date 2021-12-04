@@ -40,27 +40,47 @@ export default class TripModel {
 
   setTitle(title) {
     this.title = title;
+    this.notifyObservers();
   }
   setDateBegin(dateBegin) {
     this.dateBegin = dateBegin;
+    this.notifyObservers();
   }
   setDateEnd(dateEnd) {
-    this.dateEnd = dateEnd;
+    if (this.dateBegin <= dateEnd) {
+      this.dateEnd = dateEnd;
+      this.notifyObservers();
+    }
   }
   setCoord(coord) {
     this.coord = coord;
+    this.notifyObservers();
   }
   setFinished(finished) {
     this.finished = finished;
+    this.notifyObservers();
   }
   setAttractions(attractions) {
     this.attractions = [...attractions];
-  }
-  setAttrCurrent(attrCurrent) {
-    this.attrCurrent = attrCurrent;
+    this.notifyObservers();
   }
 
-  addAttraction(attraction) {
-    this.attractions = [...this.attractions, attraction];
+  setAttrCurrent(attrCurrent) {
+    this.attrCurrent = attrCurrent;
+    this.notifyObservers();
+  }
+
+  addAttraction(AttrNew) {
+    if (!this.attractions.find((attr) => attr.title === AttrNew.title) && AttrNew != null) {
+      this.attractions = [...this.attractions, AttrNew];
+      this.notifyObservers();
+    }
+  }
+
+  removeAttraction(attractionID) {
+    if (this.attractions.find((attr) => attr === attractionID)) {
+      this.attractions = [...this.attractions].filter((x) => x !== attractionID);
+      this.notifyObservers();
+    }
   }
 }
