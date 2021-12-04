@@ -1,37 +1,59 @@
 # DH2642_G53
 
-**General idea:** We want to make an app that helps you visualize all the places you want to visit and helps you organize them easily. 
+**RESAPP** 
 
-### First things first:
-- create 2 views: one with a list of things and another with a map from google maps
-- search-bar to add things to the table and maps
-- possibility to remove things from the table + maps
+### Short description
 
-### Layout: 
-- left side: table with all of the places and the possibility to add them, edit them and remove them
-- right side: map with a pin on all of these places
+We want to make an app that helps you visualize all the places you want to visit when travelling so you can organize them easily. The user will be able to create different travel lists and inside each list they can add places to visit. These places can be categorized with diferent topics like Restaurants, Museums, Sightseeing, etc. and they will have different colours. The user will be able to see marks representing each one of the elements they added, with its associated colour. The user will be able to aply filters, so only the desired elements are shown in the map.
 
-### Table columns:
-- name of the place
-- button to open on google maps
-- type of activity (restaurant, sight seeing, museum and allow people to choose more)
-- check
-- favorite
-- date
-- delete button (hidden)
+### What we have done so far: 
+1. Implemented Views:
+  - Trip Selector View
+  - Add Trip View
+  - Map View 
+  - Search attraction Bar View
+  - Attractions List View
+ 
+2. Implemented models. Since The model was complex (A User can have different trips and each trip has several attractions) and we wanted to have methods for the users, trips and attractions, we implemented them in three diferent Models, however, the model that keeps the state is the more general one, the User Model. 
 
-### Detailed View:
-- everything on the table
-- description
-- show photos from the google api (for later)
+3. Navigation using Routers
 
-### Main menu after login:
-- show all of the trips
-- possibility to hide those that are completed, which means, possibility to mark them completed
+4. Presenters that display views mentioned before
 
-### Extreme cases:
-- when typing something that doesn't exist, don't add it to the list
+5. Persistent database using Firebase
 
-### Later on:
-- click on the map and add a custom pin 
-- click on one of the table entries and the right side is covered by a detailed description of the thing
+6. API calls and using their info
+
+### What we still have to do: 
+1. Complete all the views
+
+2. Add some functionalities like making favourite attractions or deleating them. 
+
+3. Style all the views (And all the MUI components)
+
+4. Fix bugs and problems when grouping everything
+
+5. Allow login and authentication
+
+### Project File Structure: 
+
+/public --> Folder with the index.html that will be served to the user
+  |-index.html
+/src --> Folder with all the code that we implemented
+  |-/js -->Folder with the models and config files
+    |-/models Folder with the three models described before and the Firebase Persistor Model
+      |-AttractionModel.js
+      |-TripModel.js
+      |-UserModel.js
+      |-FirebaseModel.js
+    |-apiConfig.js --> Config for the API calls
+    |-firebaseConfig.js --> Config for the Firebase
+  |-/presenters --> Folder with the presenters needed until now
+    |-mainLeftPresenter.js --> Presenter for the left part of the main site of the project app
+  |-/views --> Folder with the views implemented
+    |-atractionsListView.js --> Grid where you can see all the attractions that one trip has
+    |-searchView.js --> Search bar that allows you to select attractions for the trip
+  |App.js --> File that groups all the presenters
+  |index.js --> File that initializes and renders the DOM
+  |style.css --> style sheet (MUI components have their own style, so we haven't used yet
+ 
