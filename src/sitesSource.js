@@ -51,11 +51,12 @@ export const SitesSource = {
     return SitesSource.apiCall('radius?' + new URLSearchParams(searchParams));
   },
 
-  getCoords(placename) {
+  getCoords(placename, code) {
     return SitesSource.apiCall(
       'geoname?' +
         new URLSearchParams({
           name: placename,
+          country: code,
           apikey: api.API_KEY
         })
     );
