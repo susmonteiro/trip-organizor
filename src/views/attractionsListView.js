@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { IconButton } from '@material-ui/core';
+// import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Checkbox } from '@mui/material';
 
-function returnButton(isFav) {
+/* function returnButton(isFav) {
   if (isFav) {
     return (
       <FavoriteIcon
@@ -22,7 +21,7 @@ function returnButton(isFav) {
         }}
       />
     );
-}
+} */
 
 export default function DataTable(props) {
   const activities = props.activities;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchFormView from '../views/searchView';
 import ResultsView from '../views/resultsView';
 import promiseNoData from '../promiseNoData.js';
