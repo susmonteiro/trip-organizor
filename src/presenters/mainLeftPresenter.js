@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import DataTable from '../views/atractionsListView';
-import SearchFormView from '../views/searchView';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 
 // TODO change place
-const ACTIVITY_TYPES = ['Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
+const ACTIVITY_TYPES = ['All', 'Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
 
 function createRows(attractions) {
   //this function formats all the rows with the information needed
@@ -32,14 +29,11 @@ export default function MainLeftPresenter(props) {
     }; // 2.unsubscribe
   }, []);
   return (
-    <Box>
-      <SearchFormView activities={ACTIVITY_TYPES} />
-      <br />
-      <DataTable
-        rows={rows}
-        changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
-        changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
-      />
-    </Box>
+    <DataTable
+      rows={rows}
+      activities={ACTIVITY_TYPES}
+      changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+      changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+    />
   );
 }

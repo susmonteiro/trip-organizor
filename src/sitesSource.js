@@ -1,4 +1,4 @@
-import * as api from './js/apiConfig.js';
+import * as api from './apiConfig.js';
 
 export const SitesSource = {
   apiCall(params) {
@@ -24,13 +24,15 @@ export const SitesSource = {
     .then((res) => {console.log(res)})
   })
   */
-  getSuggestion(name, lat, lon, radius, kinds = null) {
+  getSuggestion(name, lat, lon, radius, kinds = '', maxNumberResults = 10) {
     let searchParams = {
       lon: lon,
       lat: lat,
       name: name,
       radius: radius,
-      apikey: api.API_KEY
+      apikey: api.API_KEY,
+      kinds: kinds,
+      limit: maxNumberResults
     };
 
     if (kinds) {

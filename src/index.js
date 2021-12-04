@@ -13,7 +13,7 @@ import SitesSource from './sitesSource.js';
 
 const MyModel = new TripModel();
 
-SitesSource.getCoords('Stockholm').then((coords) =>
+SitesSource.getCoords('Stockholm', 'SE').then((coords) =>
   SitesSource.getSites(50, coords.lat, coords.lon)
     .then((sites) => {
       sites.features.map((site) => {
