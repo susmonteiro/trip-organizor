@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DataTable from '../views/atractionsListView';
+import DataTable from '../views/attractionsListView';
 
 // TODO change place
 const ACTIVITY_TYPES = ['All', 'Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];

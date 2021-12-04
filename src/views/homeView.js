@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-export default function ResultsView(props) {
+export default function HomeView() {
   return (
     <Stack textAlign="center" spacing={2}>
       <Typography variant="h3" mt={40}>
