@@ -37,23 +37,4 @@ We want to make an app that helps you visualize all the places you want to visit
 
 ### Project File Structure: 
 
-/public --> Folder with the index.html that will be served to the user
-  |-index.html
-/src --> Folder with all the code that we implemented
-  |-/js -->Folder with the models and config files
-    |-/models Folder with the three models described before and the Firebase Persistor Model
-      |-AttractionModel.js
-      |-TripModel.js
-      |-UserModel.js
-      |-FirebaseModel.js
-    |-apiConfig.js --> Config for the API calls
-    |-firebaseConfig.js --> Config for the Firebase
-  |-/presenters --> Folder with the presenters needed until now
-    |-mainLeftPresenter.js --> Presenter for the left part of the main site of the project app
-  |-/views --> Folder with the views implemented
-    |-atractionsListView.js --> Grid where you can see all the attractions that one trip has
-    |-searchView.js --> Search bar that allows you to select attractions for the trip
-  |App.js --> File that groups all the presenters
-  |index.js --> File that initializes and renders the DOM
-  |style.css --> style sheet (MUI components have their own style, so we haven't used yet
- 
+
