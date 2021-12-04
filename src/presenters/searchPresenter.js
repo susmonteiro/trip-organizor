@@ -4,6 +4,7 @@ import ResultsView from '../views/resultsView';
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
 import SitesSource from '../sitesSource';
+import AttractionModel from './../js/models/AttractionModel.js';
 
 // TODO change place
 const ACTIVITY_TYPES = [
@@ -21,10 +22,31 @@ export default function SearchPresenter(props) {
   const [query, setQuery] = React.useState(null);
   const [type, setType] = React.useState(DEFAULT_TYPE);
   const [date, setDate] = React.useState(new Date());
-  const [attractions, setAttractions] = React.useState(null);
 
-  function findNewAttractions() {
-    console.log(type);
+  React.useEffect(function () {
+    setPromise(null);
+  }, []);
+
+  const [data, error] = usePromise(promise);
+
+  function addAttraction(site) {
+    // TODO check if attraction already in the trip
+    // TODO add coordinates
+    console.log(site.point);
+    let attraction = new AttractionModel({
+      attrID: site.xid,
+      attrName: site.name,
+      attrDate: date,
+      attrType: site.kinds
+    });
+    props.model.addAttraction(attraction);
+    console.log(props.model.listAttractions());
+  }
+
+  function searchAttraction() {
+    // TODO show an actual error and don't allow search to be done
+    if (!query || query.length < 3) console.error('Please type more');
+
     setPromise(
       SitesSource.getSuggestion(
         query,
@@ -36,12 +58,6 @@ export default function SearchPresenter(props) {
       )
     );
   }
-
-  React.useEffect(function () {
-    setPromise(null);
-  }, []);
-
-  const [data, error] = usePromise(promise);
 
   return (
     <div>
@@ -56,16 +72,15 @@ export default function SearchPresenter(props) {
           setType(type);
         }}
         onChangeDate={(date) => setDate(date)}
-        onSearch={
-          () => findNewAttractions()
-          /* try {
-            props.model.searchPlaces(query, type, date);
-          } catch (e) {
-            console.error(e);
-          } */
-        }
+        onSearch={searchAttraction}
       />
-      {promiseNoData(promise, data, error) || <ResultsView attractions={data.features} />}
+      {promiseNoData(promise, data, error) || (
+        <ResultsView
+          attractions={data.features}
+          error={error}
+          onAddAttraction={(site) => addAttraction(site)}
+        />
+      )}
     </div>
   );
 }

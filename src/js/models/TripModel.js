@@ -89,16 +89,4 @@ export default class TripModel {
   listAttractions() {
     return this.attractions;
   }
-
-  searchPlaces(searchQuery, searchType, searchDate) {
-    if (searchQuery.length < 3 || searchQuery === null)
-      throw new Error('Please insert a bigger word');
-    // TODO check if date inside the range
-    console.log('Searching with: ', searchQuery, searchType, searchDate);
-
-    // TODO change me
-    let results = SitesSource.getSuggestion(searchQuery, 59.334591, 18.06324, 5000, 'museums');
-
-    console.log(results);
-  }
 }

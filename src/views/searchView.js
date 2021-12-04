@@ -16,7 +16,9 @@ export default function SearchFormView(props) {
     <Stack
       direction="row"
       spacing={2}
-      onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
+      onKeyUp={(event) =>
+        props.query && props.query.length > 2 && event.key === 'Enter' && props.onSearch()
+      }>
       <TextField
         id="search-bar"
         value={props.query || ''}
@@ -50,7 +52,11 @@ export default function SearchFormView(props) {
           renderInput={(params) => <TextField {...params} variant="standard" sx={{ width: 120 }} />}
         />
       </LocalizationProvider>
-      <Button variant="contained" startIcon={<SearchIcon />} onClick={() => props.onSearch()}>
+      <Button
+        disabled={!props.query || props.query.length < 3}
+        variant="contained"
+        startIcon={<SearchIcon />}
+        onClick={() => props.onSearch()}>
         Search
       </Button>
     </Stack>
