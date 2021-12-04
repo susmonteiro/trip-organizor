@@ -32,17 +32,19 @@ export default function SearchPresenter(props) {
 
   function addAttraction(site) {
     // TODO check if attraction already in the trip
-    // TODO add coordinates
-    console.log(site.point);
+
     let attraction = new AttractionModel({
       attrID: site.xid,
       attrName: site.name,
       attrDate: date,
       attrType: site.kinds
     });
+
+    SitesSource.getDetails(site.xid)
+      .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
+      .catch((err) => console.error(err));
+
     props.model.addAttractionToTrip(attraction);
-    console.log(props.model.listTripAttractions());
-    // TODO navigation
   }
 
   function searchAttraction() {
