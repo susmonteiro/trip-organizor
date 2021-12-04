@@ -1,4 +1,4 @@
-import MapView from '../Views/MapView.js';
+import MapView from '../views/mapView.js';
 import * as React from 'react';
 
 export default function MapPresenter(props) {
@@ -29,10 +29,10 @@ export default function MapPresenter(props) {
     [promise]
   );
   // Observer for TripModel
-  const [attr, setAttr] = React.useState(props.model.attractions);
+  const [attr, setAttr] = React.useState(props.model.trips[0].attractions); // TODO
   React.useEffect(function () {
     function obs() {
-      setAttr(props.model.attractions);
+      setAttr(props.model.trips[0].attractions); // TODO
       console.log("New attraction")
     }
     props.model.addObserver(obs); // 1. subscribe
@@ -43,7 +43,7 @@ export default function MapPresenter(props) {
 
   return (
     <MapView
-      currentLocation={props.model.coord}
+      currentLocation={props.model.trips[0].coord} // TODO
       zoom={12}
       sites={attr}
       promise={promise}
