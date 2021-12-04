@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './style.css';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
@@ -31,7 +32,9 @@ SitesSource.getCoords('Stockholm', 'SE').then((coords) =>
       ReactDOM.render(
         <StyledEngineProvider injectFirst>
           <React.StrictMode>
-            <App model={user} />
+            <BrowserRouter>
+              <App model={user} />
+            </BrowserRouter>
           </React.StrictMode>
         </StyledEngineProvider>,
         document.getElementById('root')
