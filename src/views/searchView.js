@@ -60,7 +60,6 @@ export default function SearchFormView(props) {
         />
       </LocalizationProvider>
       <Button
-        href="/attractions"
         disabled={!props.query || props.query.length < 3}
         variant="contained"
         startIcon={<SearchIcon />}

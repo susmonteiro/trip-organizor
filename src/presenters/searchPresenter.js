@@ -45,6 +45,7 @@ export default function SearchPresenter(props) {
       .catch((err) => console.error(err));
 
     props.model.addAttractionToTrip(attraction);
+    console.log(props.model.listTripAttractions());
   }
 
   function searchAttraction() {
