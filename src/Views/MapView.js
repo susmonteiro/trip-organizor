@@ -41,7 +41,6 @@ function MapView(props) {
           ))}
         </FeatureGroup>
       </MapContainer>
-      <button onClick={() => handleClick(mapRef, groupRef)}>Zoom</button>
     </div>
   );
 }
