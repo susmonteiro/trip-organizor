@@ -35,14 +35,23 @@ export default class UserModel {
     }
   }
 
-  changeIsAttractionCompleted(id){
+  changeIsAttractionCompleted(id) {
     this.trips[0].changeIsFinish(id); // TODO 0 is for testing, should be current trip
     this.notifyObservers();
   }
 
-  changeIsAttractionLiked(id){
+  changeIsAttractionLiked(id) {
     this.trips[0].changeIsFav(id); // TODO 0 is for testing, should be current trip
     this.notifyObservers();
+  }
+
+  addAttractionToTrip(attraction) {
+    this.trips[0].addAttraction(attraction); // TODO 0 is for testing, should be current trip
+    this.notifyObservers();
+  }
+
+  listTripAttractions() {
+    return this.trips[0].listAttractions(); // TODO 0 is for testing, should be current trip
   }
 
   addObserver(name) {
@@ -54,8 +63,11 @@ export default class UserModel {
   }
 
   notifyObservers() {
-    this.observers.forEach((cb) => // TODO adding a timeout made reading from firebase an endless loop
-     /* setTimeout(() => {
+    this.observers.forEach(
+      (
+        cb // TODO adding a timeout made reading from firebase an endless loop
+      ) =>
+        /* setTimeout(() => {
         try {
           cb(); //we call all the functions that the observers want to execut whenever there is a change in the data
         } catch (e) {

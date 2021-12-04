@@ -40,8 +40,8 @@ export default function SearchPresenter(props) {
       attrDate: date,
       attrType: site.kinds
     });
-    props.model.addAttraction(attraction);
-    console.log(props.model.listAttractions());
+    props.model.addAttractionToTrip(attraction);
+    console.log(props.model.listTripAttractions());
     // TODO navigation
   }
 
