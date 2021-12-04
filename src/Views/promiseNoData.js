@@ -12,6 +12,7 @@ function promiseNoData(promise, data, error) {
   ) : (
     <span>no data</span>
   );
+  //console.log(val, promise, data, error);
   return val;
 }
 

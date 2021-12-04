@@ -27,7 +27,7 @@ SitesSource.getCoords('Barcelona', 'ES').then((coords) => {
       });
     })
     .then(() => {
-      const user = new UserModel(null, [MyModel]);
+      const user = new UserModel(false, [MyModel]);
       persistModel(user);
       ReactDOM.render(
         <StyledEngineProvider injectFirst>
