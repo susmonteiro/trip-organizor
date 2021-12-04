@@ -94,33 +94,29 @@ export default function AddTripView(props) {
                 ...params.inputProps,
                 autoComplete: 'new-password' // disable autocomplete and autofill
               }}
-              onSelect={(eventCountry) => props.setCountry(eventCountry.target.value)}
+              onSelect={(eventCountry) => {
+                props.setCountry(eventCountry.target.value);
+              }}
             />
           )}
         />
         <Button
           variant="contained"
           disabled={props.checkForContent(props.city) || props.checkForContent(props.country)}
-          onFocus={() => {
-            props.validateClicked(true);
-          }}
           onClick={() => {
-            props.getDestination();
-            console.log('validate');
-            // props.setMsg(
-            //   !props.validateButton
-            //     ? ''
-            //     : props.data === 'NOT_FOUND'
-            //     ? 'Check your geography dude'
-            //     : 'Great! Destination confirmed'
-            // );
+            props.validateClicked(true);
+            props.getDestination(countries.find((country) => country.label === props.country).code);
           }}>
           Validate Destination!
         </Button>
       </Stack>
       <br />
       <Typography variant="h4" component="div" gutterBottom>
-        {props.validationMsg}
+        {props.status === 'OK'
+          ? 'Wooho!!'
+          : props.status === 'NOT_FOUND'
+          ? 'Do you even know geography?'
+          : ''}
       </Typography>
       <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -150,7 +146,8 @@ export default function AddTripView(props) {
           variant="contained"
           disabled={
             props.validateTitleExist(props.title) ||
-            //props.validateDestination() === undefined ||
+            props.status === 'NOT_FOUND' ||
+            props.status === null ||
             props.checkForContent(props.date[0]) ||
             props.checkForContent(props.date[1])
           }
