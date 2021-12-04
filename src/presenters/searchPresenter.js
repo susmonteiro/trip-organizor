@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchFormView from '../views/searchView';
 import ResultsView from '../views/resultsView';
 import promiseNoData from '../promiseNoData.js';
@@ -83,7 +83,6 @@ export default function SearchPresenter(props) {
         }}
         onChangeDate={(date) => setDate(date)}
         onSearch={searchAttraction}
-        onGoBack={() => console.log('GO BACK!')} // TODO navigation
       />
       {promiseNoData(promise, data, error) || (
         <ResultsView

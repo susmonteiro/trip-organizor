@@ -17,12 +17,13 @@ export default function SearchFormView(props) {
     <Stack
       direction="row"
       spacing={2}
+      sx={{ width: '50%' }}
       onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
       <Button
         // TODO buttons move when error in text field is shown
         variant="contained"
-        startIcon={<ArrowBackIosNewIcon />}
-        onClick={() => props.onGoBack()}>
+        href="/attractions"
+        startIcon={<ArrowBackIosNewIcon />}>
         Back
       </Button>
       <TextField
@@ -33,9 +34,9 @@ export default function SearchFormView(props) {
         error={props.showHelpText}
         helperText={props.showHelpText && 'Name cannot be empty'}
         onChange={(event) => props.onChangeQuery(event.target.value)}
-        sx={{ minWidth: 300 }}
+        sx={{ minWidth: 200 }}
       />
-      <FormControl variant="standard" sx={{ minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ minWidth: 100 }}>
         <InputLabel id="select-type-input">Type</InputLabel>
         <Select
           id="select-type"
@@ -59,6 +60,7 @@ export default function SearchFormView(props) {
         />
       </LocalizationProvider>
       <Button
+        href="/attractions"
         disabled={!props.query || props.query.length < 3}
         variant="contained"
         startIcon={<SearchIcon />}

@@ -78,7 +78,7 @@ export default function TripListView(props) {
     setOpen(true);
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -116,6 +116,7 @@ export default function TripListView(props) {
               id="addNewTrip"
               display="right"
               variant="contained"
+              href="/newTrip"
               startIcon={<FlightIcon />}
               onClick={() => {
                 props.addTrip(newTrip);
