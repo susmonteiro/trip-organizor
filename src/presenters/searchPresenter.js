@@ -22,6 +22,7 @@ export default function SearchPresenter(props) {
   const [query, setQuery] = React.useState(null);
   const [type, setType] = React.useState(DEFAULT_TYPE);
   const [date, setDate] = React.useState(new Date());
+  const [helpText, setHelpText] = React.useState(false);
 
   React.useEffect(function () {
     setPromise(null);
@@ -45,9 +46,11 @@ export default function SearchPresenter(props) {
   }
 
   function searchAttraction() {
-    // TODO show an actual error and don't allow search to be done
-    if (!query || query.length < 3) console.error('Please type more');
-    else
+    // TODO show an actual error
+    if (!query || query.length < 3) {
+      setHelpText(true);
+      console.error('Please type more');
+    } else
       setPromise(
         SitesSource.getSuggestion(
           query,
@@ -67,7 +70,11 @@ export default function SearchPresenter(props) {
         query={query}
         type={type}
         date={date}
-        onChangeQuery={(txt) => setQuery(txt)}
+        showHelpText={helpText}
+        onChangeQuery={(txt) => {
+          setQuery(txt);
+          txt.length > 2 && setHelpText(false);
+        }}
         onChangeType={(type) => {
           setType(type);
           searchAttraction();

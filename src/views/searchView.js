@@ -19,6 +19,7 @@ export default function SearchFormView(props) {
       spacing={2}
       onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
       <Button
+        // TODO buttons move when error in text field is shown
         variant="contained"
         startIcon={<ArrowBackIosNewIcon />}
         onClick={() => props.onGoBack()}>
@@ -29,8 +30,8 @@ export default function SearchFormView(props) {
         value={props.query || ''}
         label="Search"
         variant="standard"
-        error={props.query === ''}
-        helperText={props.query === '' && 'Name cannot be empty'}
+        error={props.showHelpText}
+        helperText={props.showHelpText && 'Name cannot be empty'}
         onChange={(event) => props.onChangeQuery(event.target.value)}
         sx={{ minWidth: 300 }}
       />
