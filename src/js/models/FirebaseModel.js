@@ -1,6 +1,5 @@
 import nameREF from '../firebaseConfig';
 import TripModel from './TripModel.js';
-import UserModel from './UserModel';
 import AttractionModel from './AttractionModel';
 
 export default function persistModel(model) {
@@ -8,7 +7,6 @@ export default function persistModel(model) {
   model.addObserver(function () {
     //whenever the data in the model changes, we want to update the data in the firebase DB
     if (loadingFromFirebase) return; //avoid the case when the data is changed because we are reading from the DB
-    console.log("writing")
     nameREF.set({
       // object literal
       tripCurrent: model.tripCurrent,
@@ -17,11 +15,10 @@ export default function persistModel(model) {
   });
   nameREF.on('value', function (data) {
     loadingFromFirebase = true;
-    console.log("loop")
     try {
       if (data.val()) {
         model.deleteAllTrips();
-        model.setTripCurrent(data.val().tripCurrent || null);
+        model.setTripCurrentFromDB(data.val().tripCurrent || null);
         data.val().trips.map((trip) => {
           const MyModel = new TripModel();
           trip.attractions.map((site) => {
@@ -36,11 +33,11 @@ export default function persistModel(model) {
               attrNotes: site.attrNotes || null,
               attrType: site.attrType || null
             });
-            MyModel.addAttraction(attr); 
+            MyModel.addAttraction(attr);
           });
-          model.addTrip(MyModel);
+          model.addTripFromDB(MyModel);
+          model.notifyObservers(); //We want to create and read everything first, and then update, we use functions that doesnt notify the observers
         });
-
         //model.setTrips(data.val().trips || []);
       }
     } catch (e) {

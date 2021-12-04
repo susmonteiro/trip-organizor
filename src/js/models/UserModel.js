@@ -9,6 +9,9 @@ export default class UserModel {
     this.tripCurrent = id;
     this.notifyObservers();
   }
+  setTripCurrentFromDB(id) {
+    this.tripCurrent = id;
+  }
 
   setTrips(trips) {
     this.trips = [...trips];
@@ -17,7 +20,6 @@ export default class UserModel {
 
   deleteAllTrips() {
     this.trips = [];
-    this.notifyObservers();
   }
 
   addTrip(trip) {
@@ -25,6 +27,12 @@ export default class UserModel {
       this.trips = [...this.trips, trip];
     }
     this.notifyObservers();
+  }
+
+  addTripFromDB(trip) {
+    if (!this.trips.includes(trip)) {
+      this.trips = [...this.trips, trip];
+    }
   }
 
   changeIsAttractionCompleted(id){
@@ -46,15 +54,14 @@ export default class UserModel {
   }
 
   notifyObservers() {
-    console.log("noty")
-    this.observers.forEach((cb) =>
-      setTimeout(() => {
+    this.observers.forEach((cb) => // TODO adding a timeout made reading from firebase an endless loop
+     /* setTimeout(() => {
         try {
           cb(); //we call all the functions that the observers want to execut whenever there is a change in the data
         } catch (e) {
           console.error(e);
         }
-      }, 0)
+      }, 0)*/ cb()
     );
   }
 
