@@ -9,18 +9,18 @@ export default function persistModel(model) {
     if (loadingFromFirebase) return; //avoid the case when the data is changed because we are reading from the DB
     nameREF.set({
       // object literal
-      tripCurrent: model.tripCurrent,
-      trips: model.trips
+      //tripCurrent: model.tripCurrent PAULO
+      //trips: model.trips PAULO
     });
   });
   nameREF.on('value', function (data) {
     loadingFromFirebase = true;
     try {
       if (data.val()) {
-        model.deleteAllTrips();
-        model.setTripCurrentFromDB(data.val().tripCurrent || null);
+        //model.deleteAllTrips(); PAULO
+        //model.setTripCurrentFromDB(data.val().tripCurrent || null); PAULO
         data.val().trips.map((trip) => {
-          const MyModel = new TripModel();
+          //const MyModel = new TripModel(); PAULO
           trip.attractions.map((site) => {
             const attr = new AttractionModel({
               attrID: site.attrID || null,
@@ -33,10 +33,10 @@ export default function persistModel(model) {
               attrNotes: site.attrNotes || null,
               attrType: site.attrType || null
             });
-            MyModel.addAttraction(attr);
-            MyModel.setCoord(trip.coord);
+            //MyModel.addAttraction(attr); PAULO
+            //MyModel.setCoord(trip.coord); PAULO
           });
-          model.addTripFromDB(MyModel);
+          //model.addTripFromDB(MyModel); ///PAULO
           model.notifyObservers(); //We want to create and read everything first, and then update, we use functions that doesnt notify the observers
         });
         //model.setTrips(data.val().trips || []);

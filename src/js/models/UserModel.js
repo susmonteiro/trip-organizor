@@ -21,8 +21,8 @@ export default class UserModel {
   }
 
   setTrips(trips) {
-    //this.trips = [...trips];
-    this.trips = trips;
+    this.trips = [...trips];
+    //this.trips = trips;
     this.notifyObservers();
   }
 

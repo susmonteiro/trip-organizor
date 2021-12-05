@@ -4,22 +4,23 @@ import TripModel from '../js/models/TripModel.js';
 import SitesSource from '../sitesSource.js';
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
+import UseModelProperty from './useModelProperty.js';
 
 export default function AddTripPresenter(props) {
   const [date, setDate] = React.useState([null, null]);
   const [city, setCity] = React.useState(null);
   const [country, setCountry] = React.useState(null);
   const [title, setTitle] = React.useState(null);
-  //const [tripList, setTripList] = React.useState(props.model.trips); //I think I can delete this
   const [validate, setValidate] = React.useState(false);
-
   let status = null;
 
   const [promise, setPromise] = React.useState(null);
   const [data, error] = usePromise(promise);
 
+  //const [tripList, setTripList] = React.useState(props.model.trips); //I think I can delete this
+  const trips = UseModelProperty(props.model, 'trips');
+
   React.useEffect(function () {
-    //setTripList(props.model.trips); //I think I can delete this
     setPromise(null);
   }, []);
 
@@ -32,6 +33,7 @@ export default function AddTripPresenter(props) {
 
   return (
     <AddTripView
+      model={props.model}
       //Data relevant to the view
       date={date}
       city={city}
@@ -50,11 +52,11 @@ export default function AddTripPresenter(props) {
       validateTitleExist={(title) => props.model.tripTitleExists(title)}
       validateAttrEmpty={(title) => props.model.tripAttrEmpty(title)}
       //Main function to change data in the model
-      addTrip={() => {
+      addTrip={() =>
         props.model.addTrip(
           new TripModel(title, date[0], date[1], [data.lat, data.lon], false, [], null)
-        );
-      }}
+        )
+      }
     />
   );
 }
