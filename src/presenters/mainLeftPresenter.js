@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from '../views/attractionsListView';
+import Box from '@mui/material/Box';
 
 // TODO change place
 const ACTIVITY_TYPES = ['All', 'Museum', 'Restaurant', 'Sight Seeing', 'Shoping'];
@@ -18,10 +19,7 @@ function createRows(attractions) {
 }
 
 export default function MainLeftPresenter(props) {
-  /*EVERYTHING IS GREAT BELOW THIS, ALL THE LOGIC IS WORKING*/
-  //wait for sync
-  if (typeof props.model.trips[0] !== 'undefined' && props.model.tripCurrent !== false) {
-    console.log('I am not undefined');
+  /* if(props.model.trips.attractions !== undefined){
     const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
     React.useEffect(function () {
       function obs() {
@@ -49,4 +47,18 @@ export default function MainLeftPresenter(props) {
     //props.model.trips[0] = props.model.trips[0];
     return <div> No attractions yet</div>; //TODO add something to display when we have no attractions
   }
+    }, []); */
+  return (
+    <Box width="50%">
+      <DataTable
+        rows={null}
+        activities={ACTIVITY_TYPES}
+        changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+        changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+      />
+    </Box>
+  );
+  /* } else {
+    return <div> No attractions yet</div> //TODO add something to display when we have no attractions
+  } */
 }

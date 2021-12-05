@@ -3,6 +3,9 @@ import { DataGrid } from '@mui/x-data-grid';
 // import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Checkbox } from '@mui/material';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 
 /* function returnButton(isFav) {
   if (isFav) {
@@ -20,7 +23,7 @@ import { Checkbox } from '@mui/material';
           color: '#EE7D61'
         }}
       />
-    );
+    );  
 } */
 
 export default function DataTable(props) {
@@ -68,11 +71,20 @@ export default function DataTable(props) {
       <DataGrid
         rows={props.rows}
         columns={columns}
-        pageSize={props.rows.length}
+        pageSize={(props.rows && props.rows.length) || 0}
         disableColumnSelector
         hideFooter
         disableSelectionOnClick
       />
+      <Fab
+        color="secondary"
+        aria-label="add"
+        sx={{ position: 'absolute', bottom: 50, right: 50 }}
+        component={Link}
+        to="/search">
+        {/* TODO change me */}
+        <AddIcon />
+      </Fab>
     </div>
   );
 }
