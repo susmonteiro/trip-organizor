@@ -79,7 +79,7 @@ export default function DataTable(props) {
       <Fab
         color="secondary"
         aria-label="add"
-        sx={{ position: 'absolute', bottom: 50, right: 50 }}
+        sx={{ position: 'absolute', bottom: 50, left: 50 }}
         component={Link}
         to="/search">
         {/* TODO change me */}
