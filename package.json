@@ -69,5 +69,9 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.0"
+  },
+  "engines": {
+    "node": "15.14.0",
+    "npm": "7.20.5"
   }
 }
