@@ -21,20 +21,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import FlightIcon from '@mui/icons-material/Flight';
 
-/********************** */
-import TripModel from '../js/models/TripModel.js';
-/********************* */
 export default function TripListView(props) {
-  const newTrip = new TripModel(
-    'Zambia',
-    new Date('2020-03-21'),
-    new Date('2020-03-25'),
-    [null, null],
-    false,
-    [],
-    null
-  );
-
   let [func, setFunc] = React.useState(1);
   let [ordertitle, setOrdertitle] = React.useState(1);
   let [orderBDate, setOrderBDate] = React.useState(1);
@@ -117,10 +104,7 @@ export default function TripListView(props) {
               display="right"
               variant="contained"
               href="/newTrip"
-              startIcon={<FlightIcon />}
-              onClick={() => {
-                props.addTrip(newTrip);
-              }}>
+              startIcon={<FlightIcon />}>
               Add Trip!
             </Button>
             <br />
