@@ -149,7 +149,7 @@ export default function TripListView(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(props.trips)}
+            {console.log(props)}
             {props.trips
               .filter((trip) => trip.finished === false)
               .sort(compare)

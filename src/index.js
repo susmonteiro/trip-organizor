@@ -14,31 +14,15 @@ import SitesSource from './sitesSource.js';
 
 const MyModel = new TripModel();
 
-SitesSource.getCoords('Barcelona', 'ES').then((coords) => {
-  MyModel.setCoord([coords.lat, coords.lon]);
-  SitesSource.getSites(1000, coords.lat, coords.lon)
-    .then((sites) => {
-      sites.features.map((site) => {
-        const attr = new AttractionModel({
-          attrID: site.properties.xid,
-          attrName: site.properties.name,
-          attrCoord: site.geometry.coordinates
-        });
-        MyModel.addAttraction(attr);
-      });
-    })
-    .then(() => {
-      const user = new UserModel(false, []);
-      persistModel(user);
-      ReactDOM.render(
-        <StyledEngineProvider injectFirst>
-          <React.StrictMode>
-            <BrowserRouter>
-              <App model={user} />
-            </BrowserRouter>
-          </React.StrictMode>
-        </StyledEngineProvider>,
-        document.getElementById('root')
-      );
-    });
-});
+const user = new UserModel(false, []);
+persistModel(user);
+ReactDOM.render(
+  <StyledEngineProvider injectFirst>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App model={user} />
+      </BrowserRouter>
+    </React.StrictMode>
+  </StyledEngineProvider>,
+  document.getElementById('root')
+);

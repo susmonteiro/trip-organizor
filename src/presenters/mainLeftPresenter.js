@@ -19,7 +19,8 @@ function createRows(attractions) {
 
 export default function MainLeftPresenter(props) {
   /*EVERYTHING IS GREAT BELOW THIS, ALL THE LOGIC IS WORKING*/
-  if (typeof props.model.trips[0] !== 'undefined') {
+  //wait for sync
+  if (typeof props.model.trips[0] !== 'undefined' && props.model.tripCurrent !== false) {
     console.log('I am not undefined');
     const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
     React.useEffect(function () {
@@ -40,8 +41,12 @@ export default function MainLeftPresenter(props) {
       />
     );
   } else {
-    console.log(props.model);
-    props.model.notifyObersvers();
+    console.log('I am undefined ss');
+    console.log('The current trip is:' + props.model.tripCurrent);
+    props.model.notifyObservers;
+    console.log('The current model is:' + props.model);
+    //const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
+    //props.model.trips[0] = props.model.trips[0];
     return <div> No attractions yet</div>; //TODO add something to display when we have no attractions
   }
 }

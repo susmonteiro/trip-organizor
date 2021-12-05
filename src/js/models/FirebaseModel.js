@@ -5,6 +5,7 @@ import AttractionModel from './AttractionModel';
 export default function persistModel(model) {
   let loadingFromFirebase = false;
   model.addObserver(function () {
+    console.log('Before writing to DB' + model.tripCurrent);
     //whenever the data in the model changes, we want to update the data in the firebase DB
     if (loadingFromFirebase) return; //avoid the case when the data is changed because we are reading from the DB
     nameREF.set({
@@ -12,13 +13,17 @@ export default function persistModel(model) {
       tripCurrent: model.tripCurrent,
       trips: model.trips
     });
+    console.log('After writing to DB' + model.tripCurrent);
   });
   nameREF.on('value', function (data) {
     loadingFromFirebase = true;
     try {
       if (data.val()) {
         model.deleteAllTrips();
+        console.log('Before reading from DB' + model.tripCurrent);
+        console.log('SetTripCurrent from DB: ' + data.val().tripCurrent);
         model.setTripCurrentFromDB(data.val().tripCurrent || null);
+        console.log('After reading from DB' + model.tripCurrent);
         data.val().trips.map((trip) => {
           const MyModel = new TripModel();
           if (trip.attractions !== undefined) {

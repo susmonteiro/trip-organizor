@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import AppBar from '@mui/material/AppBar';
 
-export default function TopBarView() {
+export default function TopBarView(props) {
   return (
     // TODO check scroll bar position
     <AppBar position="relative">
