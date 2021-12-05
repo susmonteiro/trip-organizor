@@ -12,24 +12,30 @@ import persistModel from './js/models/FirebaseModel';
 
 import SitesSource from './sitesSource.js';
 
-const MyModel = new TripModel();
+const trip = new TripModel();
+const user = new UserModel(false, [trip]);
 
-SitesSource.getCoords('Barcelona', 'ES').then((coords) => {
-  MyModel.setCoord([coords.lat, coords.lon]);
-  SitesSource.getSites(1000, coords.lat, coords.lon)
+SitesSource.getCoords('Stockholm', 'SE').then((coords) => {
+  user.setTripCoord([coords.lat, coords.lon]);
+  SitesSource.getSites(50, coords.lat, coords.lon)
     .then((sites) => {
       sites.features.map((site) => {
+        console.log(site)
         const attr = new AttractionModel({
           attrID: site.properties.xid,
           attrName: site.properties.name,
           attrCoord: site.geometry.coordinates
         });
-        MyModel.addAttraction(attr);
+        console.log(attr)
+        user.addAttractionToTrip(attr);
+        console.log(user)
       });
+      //MyModel.setTitle("Stockholm")
     })
     .then(() => {
-      const user = new UserModel(false, []);
-      persistModel(user);
+      console.log(user)
+
+      //persistModel(user);
       ReactDOM.render(
         <StyledEngineProvider injectFirst>
           <React.StrictMode>
