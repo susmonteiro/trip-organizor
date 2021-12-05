@@ -39,7 +39,22 @@ nightlife-marker {
 
 /*Needed for React-Leaflet*/
 .leaflet-container {  width: 100vw;  height: 100vh; }
+.leaflet-container {  width: 100%; }
 
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
 /* Attractions Table View */
 
 /* TODO :overwritte MUI styles*/

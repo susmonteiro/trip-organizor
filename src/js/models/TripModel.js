@@ -23,7 +23,7 @@ export default class TripModel {
   setDateBegin(dateBegin) {
     this.dateBegin = dateBegin;
   }
-  setDateEnd(dateEnd) { 
+  setDateEnd(dateEnd) {
       this.dateEnd = dateEnd;
   }
   setCoord(coord) {
@@ -41,7 +41,9 @@ export default class TripModel {
   }
 
   addAttraction(AttrNew) {
-    if (!this.attractions.find((attr) => attr.title === AttrNew.title) && AttrNew != null) {
+    console.log("Adding new:", AttrNew.attrName)
+    if (!this.attractions.find((attr) => attr.attrName === AttrNew.attrName) && AttrNew != null) {
+      console.log("Adding!")
       this.attractions = [...this.attractions, AttrNew];
     }
   }

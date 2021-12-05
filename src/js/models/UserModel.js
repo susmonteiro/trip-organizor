@@ -16,6 +16,11 @@ export default class UserModel {
     this.notifyObservers();
   }
 
+  setTripCoord(coord) {
+    this.trips[0].setCoord(coord);
+    this.notifyObservers;
+  }
+
   setTripCurrentFromDB(id) {
     this.tripCurrent = id;
   }

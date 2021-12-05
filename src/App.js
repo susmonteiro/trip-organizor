@@ -11,6 +11,7 @@ import HomePresenter from './presenters/homePresenter.js';
 import SearchPresenter from './presenters/searchPresenter';
 import MainLeftPresenter from './presenters/mainLeftPresenter';
 import TripListPresenter from './presenters/tripListPresenter';
+import MapPresenter from './presenters/mapPresenter';
 import AddTripPresenter from './presenters/addTripPresenter';
 
 import Stack from '@mui/material/Stack';
@@ -41,12 +42,16 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <Stack spacing={2}>
-        <TopBarPresenter />
+      <TopBarPresenter />
         <Routes>
           <Route path="/" element={<HomePresenter />} />
           <Route path="/trips" element={<TripListPresenter model={props.model} />} />
           <Route path="/newTrip" element={<AddTripPresenter model={props.model} />} />
-          <Route path="/attractions" element={<MainLeftPresenter model={props.model} />} />
+          <Route path="/attractions" element={
+            <div className="row">
+              <MainLeftPresenter model={props.model} />
+              <MapPresenter model={props.model} />
+            </div>} />
           <Route path="/search" element={<SearchPresenter model={props.model} />} />
         </Routes>
       </Stack>
