@@ -13,8 +13,8 @@ import persistModel from './js/models/FirebaseModel';
 import SitesSource from './sitesSource.js';
 
 const trip = new TripModel();
+trip.setTitle("Stockholm fantasy!")
 const user = new UserModel(false, [trip]);
-
 SitesSource.getCoords('Stockholm', 'SE').then((coords) => {
   user.setTripCoord([coords.lat, coords.lon]);
   SitesSource.getSites(50, coords.lat, coords.lon)
