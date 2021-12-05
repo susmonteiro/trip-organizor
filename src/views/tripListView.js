@@ -174,13 +174,13 @@ export default function TripListView(props) {
                       action={undoAction}
                     />
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                  <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {item.title}
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                  <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateBegin).toDateString()}
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                  <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateEnd).toDateString()}
                   </TableCell>
                 </TableRow>

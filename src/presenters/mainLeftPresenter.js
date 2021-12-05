@@ -18,7 +18,7 @@ function createRows(attractions) {
 }
 
 export default function MainLeftPresenter(props) {
-  if(props.model.trips[0].attractions !== undefined){
+  if (props.model.trips[0].attractions !== undefined) {
     const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
     React.useEffect(function () {
       function obs() {
@@ -38,6 +38,6 @@ export default function MainLeftPresenter(props) {
       />
     );
   } else {
-    return <div> No attractions yet</div> //TODO add something to display when we have no attractions
+    return <div> No attractions yet</div>; //TODO add something to display when we have no attractions
   }
 }
