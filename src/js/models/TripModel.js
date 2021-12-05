@@ -23,10 +23,8 @@ export default class TripModel {
   setDateBegin(dateBegin) {
     this.dateBegin = dateBegin;
   }
-  setDateEnd(dateEnd) {
-    if (this.dateBegin <= dateEnd) {
+  setDateEnd(dateEnd) { 
       this.dateEnd = dateEnd;
-    }
   }
   setCoord(coord) {
     this.coord = coord;

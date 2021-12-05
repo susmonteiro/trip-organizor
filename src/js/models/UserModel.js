@@ -35,7 +35,6 @@ export default class UserModel {
       this.trips = [...this.trips, tripNew];
       this.notifyObservers();
     }
-    this.notifyObservers();
   }
 
   addTripFromDB(trip) {

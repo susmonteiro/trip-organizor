@@ -1,4 +1,4 @@
-import * as api from './apiConfig.js';
+import * as api from './js/apiConfig.js';
 
 export const SitesSource = {
   apiCall(params) {

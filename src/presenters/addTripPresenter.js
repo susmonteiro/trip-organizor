@@ -52,7 +52,7 @@ export default function AddTripPresenter(props) {
       //Main function to change data in the model
       addTrip={() => {
         props.model.addTrip(
-          new TripModel(title, date[0], date[1], [data.lat, data.lon], false, [], null)
+          new TripModel(title, date[0].toString(), date[1].toString(), [data.lat, data.lon], false, [], false)
         );
       }}
     />
