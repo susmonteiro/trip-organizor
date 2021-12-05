@@ -41,9 +41,9 @@ export default class TripModel {
   }
 
   addAttraction(AttrNew) {
-    console.log('Adding new:', AttrNew.attrName);
+    //console.log("Adding new:", AttrNew.attrName)
     if (!this.attractions.find((attr) => attr.attrName === AttrNew.attrName) && AttrNew != null) {
-      console.log('Adding!');
+      //console.log("Adding!")
       this.attractions = [...this.attractions, AttrNew];
     }
   }

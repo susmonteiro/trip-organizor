@@ -152,7 +152,7 @@ export default function AddTripView(props) {
             props.checkForContent(props.date[1])
           }
           onClick={() => props.addTrip()}
-          href="/attractions">
+          href="/trips">
           Let´s travel now!
         </Button>
       </Stack>

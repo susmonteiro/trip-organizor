@@ -115,7 +115,7 @@ export default function TripListView(props) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell />
               <TableCell align="center">
                 Trip title
                 <IconButton
@@ -146,10 +146,11 @@ export default function TripListView(props) {
                   {changeArrowDisplay(orderEDate, 2)}
                 </IconButton>
               </TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(props.trips)}
+            {console.log(props)}
             {props.trips
               .filter((trip) => trip.finished === false)
               .sort(compare)
@@ -182,6 +183,14 @@ export default function TripListView(props) {
                   </TableCell>
                   <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateEnd).toDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      href="/attractions"
+                      onClick={() => props.tripChoice(item.title)}>
+                      Go
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

@@ -2,7 +2,6 @@ import * as api from './apiConfig.js';
 
 export const SitesSource = {
   apiCall(params) {
-    console.log(api.BASE_URL + params);
     return fetch(api.BASE_URL + params, {
       method: 'GET' // HTTP method
     }).then((response) => response.json());

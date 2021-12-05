@@ -92,18 +92,31 @@ export default class UserModel {
     return tripAttr === '' ? 'empty' : tripAttr === null ? 'null' : false;
   }
 
+  // notifyObservers() {
+  //   this.observers.forEach(
+  //     (
+  //       cb // TODO adding a timeout made reading from firebase an endless loop
+  //     ) =>
+  //       /* setTimeout(() => {
+  //       try {
+  //         cb(); //we call all the functions that the observers want to execut whenever there is a change in the data
+  //       } catch (e) {
+  //         console.error(e);
+  //       }
+  //     }, 0)*/ cb()
+  //   );
+  // }
+
   notifyObservers() {
-    this.observers.forEach(
-      (
-        cb // TODO adding a timeout made reading from firebase an endless loop
-      ) =>
-        /* setTimeout(() => {
+    this.observers.forEach((cb) =>
+      setTimeout(() => {
         try {
-          cb(); //we call all the functions that the observers want to execut whenever there is a change in the data
-        } catch (e) {
-          console.error(e);
+          cb();
+        } catch (error) {
+          ///missing
+          console.error(error);
         }
-      }, 0)*/ cb()
+      }, 0)
     );
   }
 
