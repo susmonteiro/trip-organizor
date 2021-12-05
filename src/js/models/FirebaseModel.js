@@ -2,7 +2,6 @@ import nameREF from '../firebaseConfig';
 import TripModel from './TripModel.js';
 import AttractionModel from './AttractionModel';
 
-
 export default function persistModel(model) {
   let loadingFromFirebase = false;
   model.addObserver(function () {
@@ -22,10 +21,6 @@ export default function persistModel(model) {
         model.setTripCurrentFromDB(data.val().tripCurrent || null);
         data.val().trips.map((trip) => {
           const MyModel = new TripModel();
-          console.log(trip.attractions);
-          if (trip.attractions === '') {
-            console.log('No hay atracciones');
-          }
           if (trip.attractions !== undefined) {
             trip.attractions.map((site) => {
               const attr = new AttractionModel({
@@ -44,8 +39,8 @@ export default function persistModel(model) {
           }
           MyModel.setCoord(trip.coord);
           MyModel.setTitle(trip.title);
-          MyModel.setDateBegin(new Date(trip.dateBegin));
-          MyModel.setDateEnd(new Date(trip.dateEnd));
+          MyModel.setDateBegin(trip.dateBegin);
+          MyModel.setDateEnd(trip.dateEnd);
           MyModel.setAttrCurrent(trip.attrCurrent);
           MyModel.setFinished(trip.finished);
           model.addTripFromDB(MyModel);

@@ -178,10 +178,10 @@ export default function TripListView(props) {
                     {item.title}
                   </TableCell>
                   <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {item.dateBegin.toDateString()}
+                    {new Date(item.dateBegin).toDateString()}
                   </TableCell>
                   <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {item.dateEnd.toDateString()}
+                    {new Date(item.dateEnd).toDateString()}
                   </TableCell>
                 </TableRow>
               ))}
