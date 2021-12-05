@@ -18,7 +18,7 @@ function createRows(attractions) {
 }
 
 export default function MainLeftPresenter(props) {
-  if(props.model.trips.attractions !== undefined){
+  /* if(props.model.trips.attractions !== undefined){
     const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
     React.useEffect(function () {
       function obs() {
@@ -28,16 +28,16 @@ export default function MainLeftPresenter(props) {
       return function () {
         props.model.removeObserver(obs);
       }; // 2.unsubscribe
-    }, []);
-    return (
-      <DataTable
-        rows={rows}
-        activities={ACTIVITY_TYPES}
-        changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
-        changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
-      />
-    );
-  } else {
+    }, []); */
+  return (
+    <DataTable
+      rows={null}
+      activities={ACTIVITY_TYPES}
+      changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+      changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+    />
+  );
+  /* } else {
     return <div> No attractions yet</div> //TODO add something to display when we have no attractions
-  }
+  } */
 }
