@@ -18,7 +18,20 @@ function createRows(attractions) {
 }
 
 export default function MainLeftPresenter(props) {
-  if(props.model.trips.attractions !== undefined){
+  const [attractions, setAttractions] = useState(props.model.getAttractionsList());
+
+  React.useEffect(function () {
+    function obs() {
+      setAttractions(props.model.getAttractionsList());
+    }
+    props.model.addObserver(obs);
+    return function () {
+      props.model.removeObserver(obs);
+    };
+  }, []);
+
+  console.log(attractions);
+  /* if (1 < 0) {
     const [rows, setRows] = useState(createRows(props.model.trips[0].listAttractions()));
     React.useEffect(function () {
       function obs() {
@@ -38,6 +51,8 @@ export default function MainLeftPresenter(props) {
       />
     );
   } else {
-    return <div> No attractions yet</div> //TODO add something to display when we have no attractions
-  }
+    return <div> No attractions yet</div>; //TODO add something to display when we have no attractions
+  } */
+
+  return <div> No attractions yet</div>;
 }

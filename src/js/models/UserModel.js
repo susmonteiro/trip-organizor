@@ -5,6 +5,17 @@ export default class UserModel {
     this.setTrips(trips);
   }
 
+  getCurrentTrip() {
+    return this.trips.find((trip) => trip.title === this.tripCurrent);
+  }
+
+  getAttractionsList() {
+    let currentTrip = this.trips.find((trip) => trip.title === this.tripCurrent);
+    console.log('This trip: ', this.trips);
+    this.notifyObservers();
+    return currentTrip.listAttractions();
+  }
+
   setTripCurrAttr(id) {
     console.log(id);
     this.trips[0].setAttrCurrent(id);
@@ -59,7 +70,7 @@ export default class UserModel {
   }
 
   listTripAttractions() {
-    return this.trips[0].listAttractions(); // TODO 0 is for testing, should be current trip
+    return this.tripCurrent.listAttractions(); // TODO 0 is for testing, should be current trip
   }
 
   addObserver(name) {

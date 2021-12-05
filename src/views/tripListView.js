@@ -146,6 +146,7 @@ export default function TripListView(props) {
                   {changeArrowDisplay(orderEDate, 2)}
                 </IconButton>
               </TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -174,14 +175,16 @@ export default function TripListView(props) {
                       action={undoAction}
                     />
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {item.title}
-                  </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {new Date(item.dateBegin).toDateString()}
-                  </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {new Date(item.dateEnd).toDateString()}
+                  <TableCell align="center">{item.title}</TableCell>
+                  <TableCell align="center">{new Date(item.dateBegin).toDateString()}</TableCell>
+                  <TableCell align="center">{new Date(item.dateEnd).toDateString()}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      /* href="/attractions" */
+                      onClick={() => props.tripChoice(item.title)}>
+                      Go
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

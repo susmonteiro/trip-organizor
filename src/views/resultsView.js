@@ -23,7 +23,6 @@ export default function ResultsView(props) {
               <ListItem key={site.properties.xid} disablePadding>
                 <ListItemButton
                   onClick={() => {
-                    console.log(site.properties);
                     props.onAddAttraction(site.properties);
                   }}
                   component={Link}
