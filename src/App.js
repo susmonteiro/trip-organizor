@@ -42,16 +42,20 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <Stack spacing={2}>
-      <TopBarPresenter />
+        <TopBarPresenter />
         <Routes>
           <Route path="/" element={<HomePresenter />} />
           <Route path="/trips" element={<TripListPresenter model={props.model} />} />
           <Route path="/newTrip" element={<AddTripPresenter model={props.model} />} />
-          <Route path="/attractions" element={
-            <div className="row">
-              <MainLeftPresenter model={props.model} />
-              <MapPresenter model={props.model} />
-            </div>} />
+          <Route
+            path="/attractions"
+            element={
+              <div className="row">
+                <MainLeftPresenter model={props.model} />
+                {/* <MapPresenter model={props.model} /> */}
+              </div>
+            }
+          />
           <Route path="/search" element={<SearchPresenter model={props.model} />} />
         </Routes>
       </Stack>
