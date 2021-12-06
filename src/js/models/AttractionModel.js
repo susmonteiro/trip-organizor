@@ -1,8 +1,9 @@
 export default class AttractionModel {
   constructor({
     attrID = null,
+    attrTrip = null,
     attrName = null,
-    attrCoord = [null, null],
+    attrCoord = [13, 13],
     attrIsFav = false,
     attrFinished = false,
     attrOnMap = false,
@@ -10,8 +11,8 @@ export default class AttractionModel {
     attrNotes = null,
     attrType = null
   }) {
-    this.observers = [];
     this.setID(attrID);
+    this.setTrip(attrTrip);
     this.setName(attrName);
     this.setCoord(attrCoord);
     this.setIsFav(attrIsFav);
@@ -26,12 +27,16 @@ export default class AttractionModel {
     this.attrID = id;
   }
 
+  setTrip(id) {
+    this.attrTrip = id;
+  }
+
   setName(attrName) {
     this.attrName = attrName;
   }
 
   setCoord(attrCoord) {
-    this.attrCoord = attrCoord;
+    this.attrCoord = [...attrCoord];
   }
 
   setIsFav(attrIsFav) {
@@ -56,13 +61,5 @@ export default class AttractionModel {
 
   setType(attrType) {
     this.attrType = attrType;
-  }
-
-  getIsFav() {
-    return this.attrIsFav;
-  }
-
-  getFinished() {
-    return this.attrFinished;
   }
 }
