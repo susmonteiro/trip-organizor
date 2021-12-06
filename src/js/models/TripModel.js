@@ -13,8 +13,6 @@ export default class TripModel {
     this.setDateEnd(dateEnd);
     this.setCoord(coord);
     this.setFinished(finished);
-    this.setAttractions(attractions);
-    this.setAttrCurrent(attrCurrent);
   }
 
   setTitle(title) {
@@ -31,50 +29,5 @@ export default class TripModel {
   }
   setFinished(finished) {
     this.finished = finished;
-  }
-  setAttractions(attractions) {
-    this.attractions = [...attractions];
-  }
-
-  setAttrCurrent(attrCurrent) {
-    this.attrCurrent = attrCurrent;
-  }
-
-  addAttraction(AttrNew) {
-    //console.log("Adding new:", AttrNew.attrName)
-    if (!this.attractions.find((attr) => attr.attrName === AttrNew.attrName) && AttrNew != null) {
-      //console.log("Adding!")
-      this.attractions = [...this.attractions, AttrNew];
-    }
-  }
-
-  removeAttraction(attractionID) {
-    if (this.attractions.find((attr) => attr === attractionID)) {
-      this.attractions = [...this.attractions].filter((x) => x !== attractionID);
-    }
-  }
-
-  changeIsFav(id) {
-    let index = this.attractions
-      .map(function (x) {
-        return x.attrID;
-      })
-      .indexOf(id); //Not always the id is going to be the possition of the element in the array, so we use indexOf
-    let attraction = this.attractions[index];
-    attraction.setIsFav(!attraction.getIsFav());
-  }
-
-  changeIsFinish(id) {
-    let index = this.attractions
-      .map(function (x) {
-        return x.attrID;
-      })
-      .indexOf(id);
-    let attraction = this.attractions[index];
-    attraction.setFinished(!attraction.getFinished());
-  }
-
-  listAttractions() {
-    return [...this.attractions];
   }
 }

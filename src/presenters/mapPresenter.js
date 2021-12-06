@@ -1,12 +1,24 @@
 import MapView from '../views/mapView.js';
+import useModelProperty from './../useModelProperty.js';
+
 import * as React from 'react';
 
 export default function MapPresenter(props) {
-  console.log(props);
+  const trips = useModelProperty(props.model, 'trips'); // TODO remove m
+  const currentTrip = useModelProperty(props.model, 'tripCurrent');
+  const attractions = useModelProperty(props.model, 'attractions');
+
+  console.log('GetCoordRes:' + props.model.attractions[0]);
+  function getCoord() {
+    // TODO remove me
+    let trip = trips.find((trip) => trip.title === currentTrip);
+    return trip ? trip.coord : null;
+  }
   // State for promise rendering
   const [promise, setPromise] = React.useState(null);
   const [data, setData] = React.useState(null);
   const [error, setError] = React.useState(null);
+
   React.useEffect(
     function () {
       // console.log('Effect executed');
@@ -29,29 +41,22 @@ export default function MapPresenter(props) {
     },
     [promise]
   );
+
   // Observer for TripModel
-  const [attr, setAttr] = React.useState(props.model.trips[0].attractions); // TODO
-  React.useEffect(function () {
-    function obs() {
-      setAttr(props.model.trips[0].attractions); // TODO
-      // console.log("New attraction")
-    }
-    props.model.addObserver(obs); // 1. subscribe
-    return function () {
-      props.model.removeObserver(obs);
-    }; // 2.unsubscribe
-  }, []);
-  console.log(props.model.trips[0].coord);
   return (
-    <MapView
-      currentLocation={props.model.trips[0].coord} // TODO
-      zoom={12}
-      sites={attr}
-      promise={promise}
-      data={data}
-      error={error}
-      setPromise={setPromise}
-      changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
-    />
+    getCoord() && (
+      <MapView
+        currentLocation={() => {
+          getCoord();
+        }} // TODO
+        zoom={12}
+        sites={attractions}
+        promise={promise}
+        data={data}
+        error={error}
+        setPromise={setPromise}
+        changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
+      />
+    )
   );
 }

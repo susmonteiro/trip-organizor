@@ -9,7 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import TopBarPresenter from './presenters/topBarPresenter.js';
 import HomePresenter from './presenters/homePresenter.js';
 import SearchPresenter from './presenters/searchPresenter';
-import MainLeftPresenter from './presenters/mainLeftPresenter';
+import AttractionsListPresenter from './presenters/attractionsListPresenter';
 import TripListPresenter from './presenters/tripListPresenter';
 import MapPresenter from './presenters/mapPresenter';
 import AddTripPresenter from './presenters/addTripPresenter';
@@ -51,8 +51,8 @@ function App(props) {
             path="/attractions"
             element={
               <div className="row">
-                <MainLeftPresenter model={props.model} />
-                <MapPresenter model={props.model} />
+                <AttractionsListPresenter model={props.model} />
+                {/* <MapPresenter model={props.model} /> */}
               </div>
             }
           />

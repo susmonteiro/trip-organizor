@@ -23,29 +23,28 @@ export default function SearchPresenter(props) {
   const [type, setType] = React.useState(DEFAULT_TYPE);
   const [date, setDate] = React.useState(new Date());
   const [helpText, setHelpText] = React.useState(false);
+  const [currentTrip, setCurrentTrip] = React.useState(props.model.tripCurrent);
 
   React.useEffect(function () {
+    setCurrentTrip(props.model.tripCurrent);
     setPromise(null);
   }, []);
 
   const [data, error] = usePromise(promise);
 
   function addAttraction(site) {
-    // TODO check if attraction already in the trip
-
     let attraction = new AttractionModel({
       attrID: site.xid,
       attrName: site.name,
-      attrDate: date,
-      attrType: site.kinds
+      attrDate: date.getTime(),
+      attrType: site.kinds,
+      attrTrip: props.model.tripCurrent
     });
 
     SitesSource.getDetails(site.xid)
       .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
+      .then(() => props.model.addAttractionToTrip(attraction))
       .catch((err) => console.error(err));
-
-    props.model.addAttractionToTrip(attraction);
-    console.log(props.model.listTripAttractions());
   }
 
   function searchAttraction() {

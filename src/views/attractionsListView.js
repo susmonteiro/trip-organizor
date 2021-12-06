@@ -69,6 +69,9 @@ export default function DataTable(props) {
   return (
     <div className="column" style={{ height: '100%', width: '100%' }}>
       <DataGrid
+        ////////////// TODO
+        id={Math.random()}
+        ////////////// TODO
         rows={props.rows}
         columns={columns}
         pageSize={(props.rows && props.rows.length) || 0}
