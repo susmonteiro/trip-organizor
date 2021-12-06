@@ -36,5 +36,5 @@ We want to make an app that helps you visualize all the places you want to visit
 5. Allow login and authentication
 
 ### Project File Structure: 
-![File Structure](./proposal/Proposal_imgs/imagen_2021-12-04_163520.png)
+![File Structure](./proposal/Proposal_imgs/Captura de pantalla 2021-12-06 102959.png)
 
