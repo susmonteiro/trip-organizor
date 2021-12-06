@@ -12,7 +12,7 @@ export default function useModelProperty(model, propertyName) {
         model.removeObserver(obs);
       }; // 2.unsubscribe
     },
-    [model]
+    [model[propertyName]]
   ); //  stricter: [props.model] !
   return value;
 }

@@ -52,7 +52,7 @@ function App(props) {
             element={
               <div className="row">
                 <AttractionsListPresenter model={props.model} />
-                {/* <MapPresenter model={props.model} /> */}
+                <MapPresenter model={props.model} /> 
               </div>
             }
           />

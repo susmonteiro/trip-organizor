@@ -7,7 +7,7 @@ function MapView(props) {
   console.log(props);
   return (
     <div className="column">
-      <MapContainer center={props.currentLocation} zoom={props.zoom}>
+      <MapContainer center={props.currentLocation()} zoom={props.zoom}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
