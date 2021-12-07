@@ -5,6 +5,7 @@ import './style.css';
 
 //import MapPresenter from './presenters/mapPresenter';
 import { Route, Routes } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import TopBarPresenter from './presenters/topBarPresenter.js';
 import HomePresenter from './presenters/homePresenter.js';
@@ -15,6 +16,7 @@ import MapPresenter from './presenters/mapPresenter';
 import AddTripPresenter from './presenters/addTripPresenter';
 
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 const theme = createTheme({
   palette: {
@@ -28,6 +30,9 @@ const theme = createTheme({
     },
     icons: {
       favourite: '#EE7D61'
+    },
+    background: {
+      default: '#3B6064'
     }
   }
 });
@@ -41,6 +46,7 @@ const theme = createTheme({
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Stack spacing={2}>
         <TopBarPresenter />
         <Routes>
@@ -52,7 +58,7 @@ function App(props) {
             element={
               <div className="row">
                 <AttractionsListPresenter model={props.model} />
-                <MapPresenter model={props.model} /> 
+                <MapPresenter model={props.model} />
               </div>
             }
           />
