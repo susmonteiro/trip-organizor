@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-// import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
@@ -64,7 +65,23 @@ export default function DataTable(props) {
       field: 'likebutton',
       headerName: 'Favourite',
       sortable: false,
-      width: 90
+      width: 130,
+      renderCell: (params) => {
+        if(params.row.isFavourite){
+          return(
+            <IconButton aria-label="like" onClick={() => props.changeLiked(params.row.id)}>
+              <FavoriteIcon />
+            </IconButton>
+          )
+        } else {
+          return(
+            <IconButton aria-label="like" onClick={() => props.changeLiked(params.row.id)}>
+              <FavoriteBorderRoundedIcon />
+            </IconButton>  
+          ) 
+        }
+
+      }
     },
     {
       field: 'deletebutton',

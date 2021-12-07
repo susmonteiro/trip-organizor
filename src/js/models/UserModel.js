@@ -93,6 +93,16 @@ export default class UserModel {
       } 
     });
   } 
+
+  changeIsAttractionLiked(id){
+    this.attractions.map((attr) => {
+      if(attr.attrID == id){
+        attr.attrIsFav = !attr.attrIsFav;
+        this.notifyObservers();
+      } 
+    });
+  }
+
   deleteAttraction(id){
     this.attractions = [...this.attractions].filter((attr) =>{
       return attr.attrID !== id;

@@ -28,7 +28,7 @@ export default function AttractionsListPresenter(props) {
     <DataTable
       rows={createRows(attractions)}
       activities={ACTIVITY_TYPES}
-      changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+      changeLiked={(id) => props.model.changeIsAttractionLiked(id)} 
       changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
       deleteAttraction={(id) => props.model.deleteAttraction(id)}
     />
