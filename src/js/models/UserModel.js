@@ -82,4 +82,21 @@ export default class UserModel {
   tripAttrEmpty(tripAttr) {
     return tripAttr === '' ? 'empty' : tripAttr === null ? 'null' : false;
   }
+
+  //Changes if the attraction id has been completed
+  // TODO ? --> I'm changing the property of the attraction here because when reading from the db, the attractions have no methods anymore
+  changeIsAttractionCompleted(id){
+    this.attractions.map((attr) => {
+      if(attr.attrID == id){
+        attr.attrFinished = !attr.attrFinished;
+        this.notifyObservers();
+      } 
+    });
+  } 
+  deleteAttraction(id){
+    this.attractions = [...this.attractions].filter((attr) =>{
+      return attr.attrID !== id;
+    })
+    this.notifyObservers();
+  }
 }

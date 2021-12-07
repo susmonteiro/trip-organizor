@@ -2,6 +2,8 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 // import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
 // import FavoriteIcon from '@mui/icons-material/Favorite';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -33,7 +35,7 @@ export default function DataTable(props) {
     {
       field: 'check',
       headerName: 'Completed',
-      width: 140,
+      width: 120,
       renderCell: (params) => {
         return (
           <Checkbox
@@ -56,14 +58,29 @@ export default function DataTable(props) {
       field: 'date',
       headerName: 'Date',
       type: 'date',
-      width: 160
+      width: 130
     },
     {
       field: 'likebutton',
       headerName: 'Favourite',
       sortable: false,
-      width: 130
+      width: 90
+    },
+    {
+      field: 'deletebutton',
+      headerName: '',
+      sortable: false,
+      width: 120,
+      renderCell: (params) => {
+        return (
+          <Button variant="outlined" startIcon={<DeleteIcon />} 
+          onClick={() => props.deleteAttraction(params.row.id)}>
+            Delete
+          </Button>
+        );
+      }
     }
+
   ];
 
   return (

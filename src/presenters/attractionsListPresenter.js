@@ -30,6 +30,7 @@ export default function AttractionsListPresenter(props) {
       activities={ACTIVITY_TYPES}
       changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
       changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+      deleteAttraction={(id) => props.model.deleteAttraction(id)}
     />
   );
 }
