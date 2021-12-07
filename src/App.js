@@ -48,7 +48,7 @@ function App(props) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Stack spacing={2}>
-        <TopBarPresenter />
+        {/* <TopBarPresenter /> */}
         <Routes>
           <Route path="/" element={<HomePresenter />} />
           <Route path="/trips" element={<TripListPresenter model={props.model} />} />
