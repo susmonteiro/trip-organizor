@@ -18,16 +18,24 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 
 export default function TripListView(props) {
+  //FUTURE TRIPS
   let [func, setFunc] = React.useState(1);
   let [ordertitle, setOrdertitle] = React.useState(1);
   let [orderBDate, setOrderBDate] = React.useState(1);
   let [orderEDate, setOrderEDate] = React.useState(1);
   let [open, setOpen] = React.useState(false);
+
+  //PAST TRIPS
+  let [funcDone, setFuncDone] = React.useState(1);
+  let [ordertitleDone, setOrdertitleDone] = React.useState(1);
+  let [orderBDateDone, setOrderBDateDone] = React.useState(1);
+  let [orderEDateDone, setOrderEDateDone] = React.useState(1);
 
   function compare(a, b) {
     switch (func) {
@@ -42,6 +50,23 @@ export default function TripListView(props) {
       case 2:
         if (a.dateEnd < b.dateEnd) return -1 * orderEDate;
         else if (a.dateEnd > b.dateEnd) return 1 * orderEDate;
+        else return 0;
+    }
+  }
+
+  function compareDone(a, b) {
+    switch (funcDone) {
+      case 0:
+        if (a.title < b.title) return -1 * ordertitleDone;
+        else if (a.title > b.title) return 1 * ordertitleDone;
+        else return 0;
+      case 1:
+        if (a.dateBegin < b.dateBegin) return -1 * orderBDateDone;
+        else if (a.dateBegin > b.dateBegin) return 1 * orderBDateDone;
+        else return 0;
+      case 2:
+        if (a.dateEnd < b.dateEnd) return -1 * orderEDateDone;
+        else if (a.dateEnd > b.dateEnd) return 1 * orderEDateDone;
         else return 0;
     }
   }
@@ -168,13 +193,13 @@ export default function TripListView(props) {
                       }}>
                       <CheckBoxOutlineBlankIcon />
                     </IconButton>
-                    <Snackbar
+                    {/* <Snackbar
                       open={!open}
-                      autoHideDuration={4000}
+                      autoHideDuration={500}
                       onClose={handleClose}
                       message="Woohoo! Trip completed. What´ll be your next adventure?"
                       action={undoAction}
-                    />
+                    /> */}
                   </TableCell>
                   <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
                     {item.title}
@@ -198,90 +223,93 @@ export default function TripListView(props) {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* HERE BEGINS THE SHOW COMPLETED TRIPS SECTION */}
       <Button onClick={() => props.showDoneChange()}>SHOW COMPLETED</Button>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell align="center">
-                Trip title
-                <IconButton
-                  onClick={() => {
-                    setOrdertitle(ordertitle * -1);
-                    setFunc(0);
-                  }}>
-                  {changeArrowDisplay(ordertitle, 0)}
-                </IconButton>
-              </TableCell>
-              <TableCell align="center">
-                From:
-                <IconButton
-                  onClick={() => {
-                    setOrderBDate(orderBDate * -1);
-                    setFunc(1);
-                  }}>
-                  {changeArrowDisplay(orderBDate, 1)}
-                </IconButton>
-              </TableCell>
-              <TableCell align="center">
-                To:
-                <IconButton
-                  onClick={() => {
-                    setOrderEDate(orderEDate * -1);
-                    setFunc(2);
-                  }}>
-                  {changeArrowDisplay(orderEDate, 2)}
-                </IconButton>
-              </TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {console.log(props)}
-            {props.trips
-              .filter((trip) => trip.finished === true)
-              .sort(compare)
-              .map((item) => (
-                <TableRow hover key={item.title}>
-                  <TableCell>
+      {props.showDone === false ? (
+        <div></div>
+      ) : (
+        <div>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell />
+                  <TableCell align="center">
+                    Trip title
                     <IconButton
-                      display="center"
-                      variant="contained"
-                      id={item.title}
                       onClick={() => {
-                        handleClick();
-                        props.completeTrip(item);
+                        setOrdertitleDone(ordertitleDone * -1);
+                        setFuncDone(0);
                       }}>
-                      <CheckBoxOutlineBlankIcon />
+                      {changeArrowDisplay(ordertitleDone, 0)}
                     </IconButton>
-                    <Snackbar
-                      open={open}
-                      autoHideDuration={4000}
-                      onClose={handleClose}
-                      message="Woohoo! Trip completed. What´ll be your next adventure?"
-                      action={undoAction}
-                    />
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {item.title}
+                  <TableCell align="center">
+                    From:
+                    <IconButton
+                      onClick={() => {
+                        setOrderBDateDone(orderBDateDone * -1);
+                        setFuncDone(1);
+                      }}>
+                      {changeArrowDisplay(orderBDateDone, 1)}
+                    </IconButton>
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {new Date(item.dateBegin).toDateString()}
+                  <TableCell align="center">
+                    To:
+                    <IconButton
+                      onClick={() => {
+                        setOrderEDateDone(orderEDateDone * -1);
+                        setFuncDone(2);
+                      }}>
+                      {changeArrowDisplay(orderEDateDone, 2)}
+                    </IconButton>
                   </TableCell>
-                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
-                    {new Date(item.dateEnd).toDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="contained" onClick={() => props.removeTrip(item)}>
-                      <DeleteOutlineIcon />
-                    </Button>
-                  </TableCell>
+                  <TableCell />
                 </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              </TableHead>
+              <TableBody>
+                {console.log(props)}
+                {props.trips
+                  .filter((trip) => trip.finished === true)
+                  .sort(compareDone)
+                  .map((item) => (
+                    <TableRow hover key={item.title}>
+                      <TableCell>
+                        <IconButton
+                          display="center"
+                          variant="contained"
+                          id={item.title}
+                          onClick={() => {
+                            handleClick();
+                            props.completeTrip(item);
+                          }}>
+                          <CheckBoxIcon />
+                        </IconButton>
+                        {/* <Snackbar
+                          open={open}
+                          autoHideDuration={500}
+                          onClose={handleClose}
+                          message="Things missing huh? "
+                          action={undoAction}
+                        /> */}
+                      </TableCell>
+                      <TableCell align="center">{item.title}</TableCell>
+                      <TableCell align="center">
+                        {new Date(item.dateBegin).toDateString()}
+                      </TableCell>
+                      <TableCell align="center">{new Date(item.dateEnd).toDateString()}</TableCell>
+                      <TableCell>
+                        <Button variant="contained" onClick={() => props.removeTrip(item)}>
+                          <DeleteOutlineIcon />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      )}
     </div>
   );
 }

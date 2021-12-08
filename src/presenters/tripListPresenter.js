@@ -19,7 +19,7 @@ export default function TripListPresenter(props) {
     <TripListView
       trips={tripList}
       completeTrip={(trip) => {
-        trip.finished = !trip.finished;
+        props.model.changeFinished(trip);
       }}
       removeTrip={(deleteTrip) => {
         props.model.removeTrip(deleteTrip);
