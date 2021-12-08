@@ -43,7 +43,7 @@ export default function SearchView(props) {
             sx={{ minWidth: 200 }}
           />
         </Grid>
-        <Grid item lg="4" md="4" xs="4">
+        <Grid item lg="5" md="4" xs="5">
           <FormControl variant="standard" fullWidth>
             <InputLabel id="select-type-input">Type</InputLabel>
             <Select
@@ -71,13 +71,15 @@ export default function SearchView(props) {
           </LocalizationProvider>
         </Grid>
         <Grid item lg="3" md="4" xs="3">
-          <Button
-            disabled={!props.query || props.query.length < 3}
-            variant="contained"
-            startIcon={<SearchIcon />}
-            onClick={() => props.onSearch()}>
-            Search
-          </Button>
+          <Box textAlign="right">
+            <Button
+              disabled={!props.query || props.query.length < 3}
+              variant="contained"
+              startIcon={<SearchIcon />}
+              onClick={() => props.onSearch()}>
+              Search
+            </Button>
+          </Box>
         </Grid>
       </Grid>
     </Box>
