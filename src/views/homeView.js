@@ -1,23 +1,50 @@
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 
-export default function HomeView() {
+import Image from './../resapp.jpg';
+import LoginView from './loginView.js';
+
+const styles = {
+  paperContainer: {
+    width: '100%',
+    height: '100vh',
+    backgroundImage: `url(${Image})`,
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    maxHeight: '100%'
+  }
+};
+
+export default function HomeView(props) {
   return (
-    <Stack textAlign="center" spacing={2}>
-      <Typography variant="h3" mt={40}>
-        Welcome to our App
-      </Typography>
-      <Box>
-        <Button
-          size="large"
-          // TODO buttons move when error in text field is shown
-          variant="contained"
-          href="/trips">
-          Start
-        </Button>
-      </Box>
-    </Stack>
+    <Paper square="true" style={styles.paperContainer}>
+      <Grid container spacing={2} justifyContent="space-around" mt={{ xs: 0, md: 15 }}>
+        <Grid item md="1" xs="1" />
+        <Grid item md="3" xs="6">
+          <Typography
+            color="primary"
+            textAlign={{ xs: 'left', md: 'center' }}
+            fontSize={{ xs: 30, md: 70 }}
+            fontWeight={400}>
+            TripOrganizor
+          </Typography>
+        </Grid>
+        <Grid item md="4" display={{ xs: 'none', md: 'block' }} />
+        <Grid item md="3" xs="4" mt={{ xs: 0, md: 25 }}>
+          <Box>
+            <LoginView
+              authType={props.authType}
+              REGISTER={props.REGISTER}
+              LOGIN={props.LOGIN}
+              onChangeAuthType={(newValue) => props.onChangeAuthType(newValue)}
+            />
+          </Box>
+        </Grid>
+        <Grid item md="1" xs="1" />
+      </Grid>
+    </Paper>
   );
 }
