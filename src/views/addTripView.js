@@ -34,6 +34,7 @@ export default function AddTripView(props) {
         label="What will be the name of your trip?"
         variant="standard"
         error={props.validateTitleExist(props.title)}
+        inputProps={{ maxLength: 50 }}
         helperText={
           props.validateAttrEmpty(props.title) == 'empty'
             ? 'Where are you going?! Your trip needs a name!'
@@ -55,6 +56,7 @@ export default function AddTripView(props) {
             label="City"
             variant="standard"
             error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
+            inputProps={{ maxLength: 20 }}
             helperText={
               props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
             }

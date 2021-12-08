@@ -71,7 +71,7 @@ export default function TripListView(props) {
     }
   }
 
-  function changeArrowDisplay(order, id) {
+  function changeArrowDisplay(order, id, func) {
     if (order === 1) {
       if (id === func) {
         return <ArrowDownwardIcon color="secondary" />;
@@ -149,7 +149,7 @@ export default function TripListView(props) {
                     setOrdertitle(ordertitle * -1);
                     setFunc(0);
                   }}>
-                  {changeArrowDisplay(ordertitle, 0)}
+                  {changeArrowDisplay(ordertitle, 0, func)}
                 </IconButton>
               </TableCell>
               <TableCell align="center">
@@ -159,7 +159,7 @@ export default function TripListView(props) {
                     setOrderBDate(orderBDate * -1);
                     setFunc(1);
                   }}>
-                  {changeArrowDisplay(orderBDate, 1)}
+                  {changeArrowDisplay(orderBDate, 1, func)}
                 </IconButton>
               </TableCell>
               <TableCell align="center">
@@ -169,7 +169,7 @@ export default function TripListView(props) {
                     setOrderEDate(orderEDate * -1);
                     setFunc(2);
                   }}>
-                  {changeArrowDisplay(orderEDate, 2)}
+                  {changeArrowDisplay(orderEDate, 2, func)}
                 </IconButton>
               </TableCell>
               <TableCell />
@@ -241,7 +241,7 @@ export default function TripListView(props) {
                         setOrdertitleDone(ordertitleDone * -1);
                         setFuncDone(0);
                       }}>
-                      {changeArrowDisplay(ordertitleDone, 0)}
+                      {changeArrowDisplay(ordertitleDone, 0, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
@@ -251,7 +251,7 @@ export default function TripListView(props) {
                         setOrderBDateDone(orderBDateDone * -1);
                         setFuncDone(1);
                       }}>
-                      {changeArrowDisplay(orderBDateDone, 1)}
+                      {changeArrowDisplay(orderBDateDone, 1, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
@@ -261,7 +261,7 @@ export default function TripListView(props) {
                         setOrderEDateDone(orderEDateDone * -1);
                         setFuncDone(2);
                       }}>
-                      {changeArrowDisplay(orderEDateDone, 2)}
+                      {changeArrowDisplay(orderEDateDone, 2, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell />
