@@ -5,6 +5,7 @@ import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
 import SitesSource from '../sitesSource';
 import AttractionModel from './../js/models/AttractionModel.js';
+import useModelProperty from './../useModelProperty.js';
 
 // TODO change place
 const ACTIVITY_TYPES = [
@@ -23,10 +24,17 @@ export default function SearchPresenter(props) {
   const [type, setType] = React.useState(DEFAULT_TYPE);
   const [date, setDate] = React.useState(new Date());
   const [helpText, setHelpText] = React.useState(false);
-  const [currentTrip, setCurrentTrip] = React.useState(props.model.tripCurrent);
+  const trips = useModelProperty(props.model, 'trips'); // TODO remove m
+  const currentTrip = useModelProperty(props.model, 'tripCurrent');
+  const attractions = useModelProperty(props.model, 'attractions');
+
+  function getCoord() {
+    // TODO remove me
+    let trip = trips.find((trip) => trip.title === currentTrip);
+    return trip ? trip.coord : null;
+  }
 
   React.useEffect(function () {
-    setCurrentTrip(props.model.tripCurrent);
     setPromise(null);
   }, []);
 
@@ -49,6 +57,9 @@ export default function SearchPresenter(props) {
 
   function searchAttraction() {
     // TODO show an actual error
+
+    let coord = getCoord();
+
     if (!query || query.length < 3) {
       setHelpText(true);
       console.error('Please type more');
@@ -56,8 +67,8 @@ export default function SearchPresenter(props) {
       setPromise(
         SitesSource.getSuggestion(
           query,
-          59.334591, // TODO use model
-          18.06324,
+          coord[0], // TODO use model
+          coord[1],
           5000,
           type === DEFAULT_TYPE ? ALL_TYPES : type,
           50
