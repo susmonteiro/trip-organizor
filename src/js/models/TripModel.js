@@ -4,9 +4,7 @@ export default class TripModel {
     dateBegin = new Date(),
     dateEnd = new Date(),
     coord = [null, null],
-    finished = false,
-    attractions = [],
-    attrCurrent = null
+    finished = false
   ) {
     this.setTitle(title);
     this.setDateBegin(dateBegin);

@@ -5,6 +5,7 @@ import './style.css';
 
 //import MapPresenter from './presenters/mapPresenter';
 import { Route, Routes } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import HomePresenter from './presenters/homePresenter.js';
 import AttractionsPresenter from './presenters/attractionsPresenter';
@@ -25,6 +26,9 @@ const theme = createTheme({
     },
     icons: {
       favourite: '#EE7D61'
+    },
+    background: {
+      default: '#3B6064'
     }
   }
 });
@@ -38,6 +42,7 @@ const theme = createTheme({
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Stack spacing={2}>
         <Routes>
           <Route path="/" element={<HomePresenter />} />

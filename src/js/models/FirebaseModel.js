@@ -1,6 +1,4 @@
 import nameREF from '../firebaseConfig';
-import TripModel from './TripModel.js';
-import AttractionModel from './AttractionModel';
 
 export default function persistModel(model) {
   let loadingFromFirebase = false;

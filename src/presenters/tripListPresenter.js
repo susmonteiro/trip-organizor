@@ -3,10 +3,12 @@ import TripListView from '../views/tripListView';
 
 export default function TripListPresenter(props) {
   const [tripList, setTripList] = React.useState(props.model.trips);
+  const [showDone, setShowDone] = React.useState(false);
 
   React.useEffect(function () {
     function obs() {
       setTripList(props.model.trips);
+      setShowDone(false);
     }
     props.model.addObserver(obs);
     return function () {
@@ -16,6 +18,9 @@ export default function TripListPresenter(props) {
   return (
     <TripListView
       trips={tripList}
+      completeTrip={(trip) => {
+        props.model.changeFinished(trip);
+      }}
       removeTrip={(deleteTrip) => {
         props.model.removeTrip(deleteTrip);
       }}
@@ -26,6 +31,10 @@ export default function TripListPresenter(props) {
         props.model.setTripCurrent(id);
         console.log(id + ' is the current trip');
       }}
+      showDoneChange={() => {
+        setShowDone(!showDone);
+      }}
+      showDone={showDone}
     />
   );
 }
