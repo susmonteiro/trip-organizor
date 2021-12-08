@@ -6,9 +6,7 @@ import './style.css';
 //import MapPresenter from './presenters/mapPresenter';
 import { Route, Routes } from 'react-router-dom';
 
-import TopBarPresenter from './presenters/topBarPresenter.js';
 import HomePresenter from './presenters/homePresenter.js';
-import SearchPresenter from './presenters/searchPresenter';
 import AttractionsPresenter from './presenters/attractionsPresenter';
 import TripListPresenter from './presenters/tripListPresenter';
 import AddTripPresenter from './presenters/addTripPresenter';
@@ -41,7 +39,6 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <Stack spacing={2}>
-        <TopBarPresenter />
         <Routes>
           <Route path="/" element={<HomePresenter />} />
           <Route path="/trips" element={<TripListPresenter model={props.model} />} />

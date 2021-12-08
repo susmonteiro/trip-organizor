@@ -10,21 +10,20 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 
-export default function SearchFormView(props) {
+export default function SearchView(props) {
   return (
-    <Stack
-      direction="row"
-      spacing={2}
-      onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
-      <Button
-        // TODO buttons move when error in text field is shown
-        variant="contained"
-        onClick={() => props.onNotSearching()}
-        startIcon={<ArrowBackIosNewIcon />}>
-        Back
-      </Button>
+    <Grid spacing={2} onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
+      <Grid item md="6" xs="12">
+        <Button
+          // TODO buttons move when error in text field is shown
+          variant="contained"
+          onClick={() => props.onNotSearching()}
+          startIcon={<ArrowBackIosNewIcon />}>
+          Back
+        </Button>
+      </Grid>
       <TextField
         id="search-bar"
         value={props.query || ''}
@@ -65,6 +64,6 @@ export default function SearchFormView(props) {
         onClick={() => props.onSearch()}>
         Search
       </Button>
-    </Stack>
+    </Grid>
   );
 }

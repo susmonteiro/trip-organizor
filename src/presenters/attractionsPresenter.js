@@ -2,7 +2,7 @@ import React from 'react';
 
 import DataTable from '../views/attractionsListView';
 import MapView from '../views/mapView.js';
-import SearchFormView from '../views/searchView';
+import SearchView from '../views/searchView';
 import ResultsView from '../views/resultsView';
 
 import SitesSource from '../sitesSource';
@@ -114,7 +114,7 @@ export default function AttractionsPresenter(props) {
       <Grid item md="6" xs="12">
         {(searching && (
           <Stack>
-            <SearchFormView
+            <SearchView
               activities={ACTIVITY_TYPES}
               query={query}
               type={type}
