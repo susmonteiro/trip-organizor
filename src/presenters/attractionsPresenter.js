@@ -150,7 +150,7 @@ export default function AttractionsPresenter(props) {
           />
         )}{' '}
       </Grid>
-      <Grid item md="6" xs="12">
+      <Grid item md="6" xs="0">
         {getCoord() && (
           <MapView
             currentLocation={() => {

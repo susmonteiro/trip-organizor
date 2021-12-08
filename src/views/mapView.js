@@ -31,9 +31,7 @@ function MapView(props) {
                       ? props.data.wikipedia_extracts.text
                       : "Sorry, we don't have additional information on this site."}
                   </p>
-                  {props.data.preview ? (
-                    <img src={props.data.preview.source} height="150px" width="150px" />
-                  ) : null}
+                  {props.data.preview ? <img src={props.data.preview.source} /> : null}
                 </div>
               )}
             </Popup>
