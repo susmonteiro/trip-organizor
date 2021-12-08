@@ -25,7 +25,7 @@ function MapView(props) {
             <Popup>
               {promiseNoData(props.promise, props.data, props.error) || (
                 <div>
-                  <h2>{site.attrName ? site.attrName : "This site's name is not available"}</h2>
+                  <h2 className="popup-title">{site.attrName ? site.attrName : "This site's name is not available"}</h2>
                   <p className="popup-description">
                     {props.data.wikipedia_extracts
                       ? props.data.wikipedia_extracts.text

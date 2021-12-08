@@ -41,6 +41,9 @@ nightlife-marker {
 .leaflet-container {  width: 100vw;  height: 100vh; }
 .leaflet-container {  width: 100%; }
 
+.popup-title {
+  text-align: center;
+}
 .popup-image {
   height: 150px;
   display: block;
