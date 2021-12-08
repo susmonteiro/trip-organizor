@@ -14,12 +14,12 @@ function MapView(props) {
         />
         {props.sites.map((site) => (
           <Marker
-            position={[site.attrCoord[1], site.attrCoord[0]]}
+            position={[site.attrCoord[0], site.attrCoord[1]]}
             key={site.attrID}
             eventHandlers={{
               click: () => {
                 props.setPromise(SitesSource.getDetails(site.attrID));
-                props.changeCurrAttr(site.attrID);
+                // props.changeCurrAttr(site.attrID);
               }
             }}>
             <Popup>
