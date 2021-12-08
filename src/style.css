@@ -37,10 +37,20 @@ nightlife-marker {
 
 /* Map View */
 
-/*Needed for React-Leaflet*/
+/*MapContainer sizing React-Leaflet*/
 .leaflet-container {  width: 100vw;  height: 100vh; }
 .leaflet-container {  width: 100%; }
 
+.popup-image {
+  height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.popup-description {
+  text-align: justify;
+}
 
 .row {
   display: flex;
@@ -55,6 +65,7 @@ nightlife-marker {
   flex-basis: 100%;
   flex: 1;
 }
+
 /* Attractions Table View */
 
 /* TODO :overwritte MUI styles*/

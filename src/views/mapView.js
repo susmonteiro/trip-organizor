@@ -26,13 +26,13 @@ function MapView(props) {
               {promiseNoData(props.promise, props.data, props.error) || (
                 <div>
                   <h2>{site.attrName ? site.attrName : "This site's name is not available"}</h2>
-                  <p>
+                  <p className="popup-description">
                     {props.data.wikipedia_extracts
                       ? props.data.wikipedia_extracts.text
                       : "Sorry, we don't have additional information on this site."}
                   </p>
                   {props.data.preview ? (
-                    <img src={props.data.preview.source} height="150px" width="150px" />
+                    <img className="popup-image" src={props.data.preview.source} />
                   ) : null}
                 </div>
               )}
