@@ -49,14 +49,14 @@ export default function MapPresenter(props) {
         currentLocation={() => {
           const a=getCoord();
           return a;
-        }} // TODO
+        }}
         zoom={12}
         sites={attractions}
         promise={promise}
         data={data}
         error={error}
         setPromise={setPromise}
-        changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
+        // changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
       />
     )
   );
