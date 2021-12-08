@@ -9,7 +9,8 @@ import favMarker from "../markers/favMarker.svg"
 function MapView(props) {
   const markerIcon = new Icon({
     iconUrl: marker,
-    iconSize: [25*1.2, 40*1.2]
+    iconSize: [25*1.2, 40*1.2],
+    iconAnchor: [25*1.2/2,40*1.2]
   });
 
   const favMarkerIcon = new Icon({
