@@ -17,12 +17,11 @@ export default function SearchFormView(props) {
     <Stack
       direction="row"
       spacing={2}
-      sx={{ width: '50%' }}
       onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
       <Button
         // TODO buttons move when error in text field is shown
         variant="contained"
-        href="/attractions"
+        onClick={() => props.onNotSearching()}
         startIcon={<ArrowBackIosNewIcon />}>
         Back
       </Button>

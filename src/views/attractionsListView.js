@@ -83,8 +83,7 @@ export default function DataTable(props) {
         color="secondary"
         aria-label="add"
         sx={{ position: 'absolute', bottom: 50, left: 50 }}
-        component={Link}
-        to="/search">
+        onClick={() => props.onSearching()}>
         {/* TODO change me */}
         <AddIcon />
       </Fab>

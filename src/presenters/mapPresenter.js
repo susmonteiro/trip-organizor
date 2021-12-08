@@ -3,6 +3,8 @@ import useModelProperty from './../useModelProperty.js';
 
 import * as React from 'react';
 
+// TODO deprecated delete me
+
 export default function MapPresenter(props) {
   const trips = useModelProperty(props.model, 'trips'); // TODO remove m
   const currentTrip = useModelProperty(props.model, 'tripCurrent');
@@ -47,7 +49,7 @@ export default function MapPresenter(props) {
     getCoord() && (
       <MapView
         currentLocation={() => {
-          const a=getCoord();
+          const a = getCoord();
           return a;
         }} // TODO
         zoom={12}

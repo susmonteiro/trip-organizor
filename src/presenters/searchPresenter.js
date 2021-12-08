@@ -7,6 +7,8 @@ import SitesSource from '../sitesSource';
 import AttractionModel from './../js/models/AttractionModel.js';
 import useModelProperty from './../useModelProperty.js';
 
+// TODO deprecated delete me
+
 // TODO change place
 const ACTIVITY_TYPES = [
   ['all', 'All'],
@@ -67,9 +69,9 @@ export default function SearchPresenter(props) {
       setPromise(
         SitesSource.getSuggestion(
           query,
-          coord[0], // TODO use model
+          coord[0],
           coord[1],
-          5000,
+          5000, // TODO define constants
           type === DEFAULT_TYPE ? ALL_TYPES : type,
           50
         )
