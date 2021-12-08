@@ -19,6 +19,7 @@ import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 
 export default function TripListView(props) {
@@ -163,12 +164,12 @@ export default function TripListView(props) {
                       id={item.title}
                       onClick={() => {
                         handleClick();
-                        props.removeTrip(item);
+                        props.completeTrip(item);
                       }}>
                       <CheckBoxOutlineBlankIcon />
                     </IconButton>
                     <Snackbar
-                      open={open}
+                      open={!open}
                       autoHideDuration={4000}
                       onClose={handleClose}
                       message="Woohoo! Trip completed. What´ll be your next adventure?"
@@ -190,6 +191,90 @@ export default function TripListView(props) {
                       href="/attractions"
                       onClick={() => props.tripChoice(item.title)}>
                       Go
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button onClick={() => props.showDoneChange()}>SHOW COMPLETED</Button>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell align="center">
+                Trip title
+                <IconButton
+                  onClick={() => {
+                    setOrdertitle(ordertitle * -1);
+                    setFunc(0);
+                  }}>
+                  {changeArrowDisplay(ordertitle, 0)}
+                </IconButton>
+              </TableCell>
+              <TableCell align="center">
+                From:
+                <IconButton
+                  onClick={() => {
+                    setOrderBDate(orderBDate * -1);
+                    setFunc(1);
+                  }}>
+                  {changeArrowDisplay(orderBDate, 1)}
+                </IconButton>
+              </TableCell>
+              <TableCell align="center">
+                To:
+                <IconButton
+                  onClick={() => {
+                    setOrderEDate(orderEDate * -1);
+                    setFunc(2);
+                  }}>
+                  {changeArrowDisplay(orderEDate, 2)}
+                </IconButton>
+              </TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {console.log(props)}
+            {props.trips
+              .filter((trip) => trip.finished === true)
+              .sort(compare)
+              .map((item) => (
+                <TableRow hover key={item.title}>
+                  <TableCell>
+                    <IconButton
+                      display="center"
+                      variant="contained"
+                      id={item.title}
+                      onClick={() => {
+                        handleClick();
+                        props.completeTrip(item);
+                      }}>
+                      <CheckBoxOutlineBlankIcon />
+                    </IconButton>
+                    <Snackbar
+                      open={open}
+                      autoHideDuration={4000}
+                      onClose={handleClose}
+                      message="Woohoo! Trip completed. What´ll be your next adventure?"
+                      action={undoAction}
+                    />
+                  </TableCell>
+                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                    {item.title}
+                  </TableCell>
+                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                    {new Date(item.dateBegin).toDateString()}
+                  </TableCell>
+                  <TableCell align="center" onClick={(event) => props.tripChoice(item.title)}>
+                    {new Date(item.dateEnd).toDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="contained" onClick={() => props.removeTrip(item)}>
+                      <DeleteOutlineIcon />
                     </Button>
                   </TableCell>
                 </TableRow>
