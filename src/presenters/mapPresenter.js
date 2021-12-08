@@ -47,7 +47,8 @@ export default function MapPresenter(props) {
     getCoord() && (
       <MapView
         currentLocation={() => {
-          getCoord();
+          const a=getCoord();
+          return a;
         }} // TODO
         zoom={12}
         sites={attractions}
