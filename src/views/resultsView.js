@@ -14,8 +14,8 @@ export default function ResultsView(props) {
       {(props.error !== null && <h1>{props.error}</h1>) ||
         ((!props.attractions || props.attractions.length === 0) && (
           /* TODO change me */
-          <Box mt={15}>
-            <Typography color="primary.faded" align="center" m={5}>
+          <Box mt={10}>
+            <Typography color="primary.faded" align="center">
               NO RESULTS FOUND... TRY SOMETHING ELSE!
             </Typography>
           </Box>

@@ -15,6 +15,7 @@ import useModelProperty from './../useModelProperty.js';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 export default function AttractionsPresenter(props) {
   // constants
@@ -148,7 +149,13 @@ export default function AttractionsPresenter(props) {
                   onSearch={searchAttraction}
                   onNotSearching={() => setSearching(false)}
                 />
-                {promiseNoData(promise, data, error) || (
+                {(promiseNoData(promise, data, error) && (
+                  <Box mt={10}>
+                    <Typography color="primary.faded" align="center">
+                      START TYPING!
+                    </Typography>
+                  </Box>
+                )) || (
                   <ResultsView
                     attractions={data.features}
                     error={error}
