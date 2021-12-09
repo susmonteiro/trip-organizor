@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
-import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,7 +13,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 //ICONs-MATERIAL IMPORTS
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -22,6 +20,8 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
+//CUSTOM COMPONENTS
+import { AccountButton } from './../components/customButtons.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS
@@ -71,7 +71,7 @@ export default function TripListView(props) {
     }
   }
 
-  function changeArrowDisplay(order, id) {
+  function changeArrowDisplay(order, id, func) {
     if (order === 1) {
       if (id === func) {
         return <ArrowDownwardIcon color="secondary" />;
@@ -113,6 +113,7 @@ export default function TripListView(props) {
 
   return (
     <div>
+      <AccountButton />
       <br />
       <Grid container spacing={2}>
         <Grid item xs={10}>
@@ -122,9 +123,6 @@ export default function TripListView(props) {
         </Grid>
         <Grid item xs={2}>
           <Stack spacing={2}>
-            <IconButton size="large" onClick={() => console.log('User wants to see profile')}>
-              <AccountCircleOutlinedIcon fontSize="inherit" />
-            </IconButton>
             <Button
               id="addNewTrip"
               display="right"
@@ -149,7 +147,7 @@ export default function TripListView(props) {
                     setOrdertitle(ordertitle * -1);
                     setFunc(0);
                   }}>
-                  {changeArrowDisplay(ordertitle, 0)}
+                  {changeArrowDisplay(ordertitle, 0, func)}
                 </IconButton>
               </TableCell>
               <TableCell align="center">
@@ -159,7 +157,7 @@ export default function TripListView(props) {
                     setOrderBDate(orderBDate * -1);
                     setFunc(1);
                   }}>
-                  {changeArrowDisplay(orderBDate, 1)}
+                  {changeArrowDisplay(orderBDate, 1, func)}
                 </IconButton>
               </TableCell>
               <TableCell align="center">
@@ -169,7 +167,7 @@ export default function TripListView(props) {
                     setOrderEDate(orderEDate * -1);
                     setFunc(2);
                   }}>
-                  {changeArrowDisplay(orderEDate, 2)}
+                  {changeArrowDisplay(orderEDate, 2, func)}
                 </IconButton>
               </TableCell>
               <TableCell />
@@ -241,7 +239,7 @@ export default function TripListView(props) {
                         setOrdertitleDone(ordertitleDone * -1);
                         setFuncDone(0);
                       }}>
-                      {changeArrowDisplay(ordertitleDone, 0)}
+                      {changeArrowDisplay(ordertitleDone, 0, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
@@ -251,7 +249,7 @@ export default function TripListView(props) {
                         setOrderBDateDone(orderBDateDone * -1);
                         setFuncDone(1);
                       }}>
-                      {changeArrowDisplay(orderBDateDone, 1)}
+                      {changeArrowDisplay(orderBDateDone, 1, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
@@ -261,7 +259,7 @@ export default function TripListView(props) {
                         setOrderEDateDone(orderEDateDone * -1);
                         setFuncDone(2);
                       }}>
-                      {changeArrowDisplay(orderEDateDone, 2)}
+                      {changeArrowDisplay(orderEDateDone, 2, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell />

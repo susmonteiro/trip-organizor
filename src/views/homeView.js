@@ -1,9 +1,10 @@
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 import Image from './../resapp.jpg';
+
 import LoginView from './loginView.js';
 
 const styles = {

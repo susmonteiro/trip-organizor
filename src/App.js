@@ -8,10 +8,8 @@ import { Route, Routes } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import HomePresenter from './presenters/homePresenter.js';
-import SearchPresenter from './presenters/searchPresenter';
-import AttractionsListPresenter from './presenters/attractionsListPresenter';
+import AttractionsPresenter from './presenters/attractionsPresenter';
 import TripListPresenter from './presenters/tripListPresenter';
-import MapPresenter from './presenters/mapPresenter';
 import AddTripPresenter from './presenters/addTripPresenter';
 
 import Stack from '@mui/material/Stack';
@@ -28,9 +26,6 @@ const theme = createTheme({
     },
     icons: {
       favourite: '#EE7D61'
-    },
-    background: {
-      default: '#3B6064'
     }
   }
 });
@@ -50,16 +45,7 @@ function App(props) {
           <Route path="/" element={<HomePresenter />} />
           <Route path="/trips" element={<TripListPresenter model={props.model} />} />
           <Route path="/newTrip" element={<AddTripPresenter model={props.model} />} />
-          <Route
-            path="/attractions"
-            element={
-              <div className="row">
-                <AttractionsListPresenter model={props.model} />
-                <MapPresenter model={props.model} />
-              </div>
-            }
-          />
-          <Route path="/search" element={<SearchPresenter model={props.model} />} />
+          <Route path="/attractions" element={<AttractionsPresenter model={props.model} />} />
         </Routes>
       </Stack>
     </ThemeProvider>

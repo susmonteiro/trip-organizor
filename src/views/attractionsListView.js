@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
 // import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Checkbox } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import { Link } from 'react-router-dom';
+
+import { AccountButton, BackButton } from './../components/customButtons.js';
+import TopBar from './../components/topBar.js';
 
 /* function returnButton(isFav) {
   if (isFav) {
@@ -26,7 +32,7 @@ import { Link } from 'react-router-dom';
     );  
 } */
 
-export default function DataTable(props) {
+export default function AttractionsListView(props) {
   const activities = props.activities;
 
   const columns = [
@@ -67,27 +73,34 @@ export default function DataTable(props) {
   ];
 
   return (
-    <div className="column" style={{ height: '100%', width: '100%' }}>
-      <DataGrid
-        ////////////// TODO
-        id={Math.random()}
-        ////////////// TODO
-        rows={props.rows}
-        columns={columns}
-        pageSize={(props.rows && props.rows.length) || 0}
-        disableColumnSelector
-        hideFooter
-        disableSelectionOnClick
-      />
-      <Fab
-        color="secondary"
-        aria-label="add"
-        sx={{ position: 'absolute', bottom: 50, left: 50 }}
-        component={Link}
-        to="/search">
-        {/* TODO change me */}
-        <AddIcon />
-      </Fab>
-    </div>
+    <Box>
+      <TopBar href="trips">My Trips</TopBar>
+      <Box mt={2} ml={2} mr={2}>
+        <Typography color="secondary.darker" fontSize={23} fontWeight={400} textAlign="left">
+          {props.nameOfTrip}
+        </Typography>
+        <Box mt={2}>
+          <DataGrid
+            ////////////// TODO
+            id={Math.random()}
+            ////////////// TODO
+            rows={props.rows}
+            columns={columns}
+            pageSize={(props.rows && props.rows.length) || 0}
+            disableColumnSelector
+            hideFooter
+            disableSelectionOnClick
+          />
+          <Fab
+            color="secondary"
+            aria-label="add"
+            sx={{ position: 'absolute', bottom: 50, left: 50 }}
+            onClick={() => props.onSearching()}>
+            {/* TODO change me */}
+            <AddIcon />
+          </Fab>
+        </Box>
+      </Box>
+    </Box>
   );
 }
