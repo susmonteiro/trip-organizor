@@ -16,20 +16,24 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
-import { AccountButton } from './../elements/customButtons.js';
-
 export default function AttractionsPresenter(props) {
   // constants
   const ACTIVITY_TYPES = [
     ['all', 'All'],
     ['amusements', 'Amusements'],
-    ['interesting_places', 'Tourist Attractions'],
+    ['architecture', 'Landmarks'],
+    ['museums', 'Museums'],
+    ['theatres_and_entertainments', 'Entertainment'],
+    ['historic', 'Historical'],
+    ['natural,urban_environment', 'Nature'],
+    ['religion', 'Religion'],
     ['sport', 'Sport'],
-    ['tourist_facilities', 'Tourist Facilities']
+    ['foods', 'Food & Drinks'],
+    ['shops', 'Shops']
   ];
 
   const DEFAULT_TYPE = ACTIVITY_TYPES[0][0];
-  const ALL_TYPES = 'amusements,interesting_places,sport,tourist_facilities';
+  const ALL_TYPES = ACTIVITY_TYPES.map(([type, _]) => type).join(',');
 
   // variables
   const [searching, setSearching] = React.useState(false);
@@ -113,11 +117,12 @@ export default function AttractionsPresenter(props) {
   }
   /*TEST ATTRACTIONS*/
   return (
-    <Box sx={{ height: '100vh', bgcolor: 'primary.main' }}>
+    <Box sx={{ height: '100vh' }}>
       <Grid
         container
         spacing={0}
         justifyContent="space-between"
+        sx={{ height: '100vh' }}
         direction={{ md: 'row', xs: 'column' }}>
         <Grid item md="7" xs="6">
           <Box sx={{ height: '100%' }}>
