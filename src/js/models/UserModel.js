@@ -30,6 +30,11 @@ export default class UserModel {
     this.notifyObservers();
   }
 
+  //FOR AUTH
+  setUserID(id){
+    this.userID = id;
+    this.notifyObservers() //we must change all the data to the current user 
+  }
   /**/
   addAttractionToTrip(attr) {
     this.attractions = [...this.attractions, attr];
