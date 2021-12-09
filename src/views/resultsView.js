@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -6,7 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
 
 export default function ResultsView(props) {
   return (
@@ -23,13 +23,10 @@ export default function ResultsView(props) {
               <ListItem key={site.properties.xid} disablePadding>
                 <ListItemButton
                   onClick={() => {
-                    console.log(site.properties);
                     props.onAddAttraction(site.properties);
-                  }}
-                  component={Link}
-                  to="/attractions">
+                  }}>
                   {/* TODO change me */}
-                  <ListItemIcon sx={{ color: 'primary.main' }}>
+                  <ListItemIcon sx={{ color: 'secondary.darker' }}>
                     <AddLocationIcon />
                   </ListItemIcon>
                   <ListItemText primary={site.properties.name} />

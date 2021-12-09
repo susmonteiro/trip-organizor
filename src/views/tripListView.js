@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
-import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,7 +13,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 //ICONs-MATERIAL IMPORTS
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -22,6 +20,8 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
+//CUSTOM COMPONENTS
+import { AccountButton } from './../components/customButtons.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS
@@ -113,6 +113,7 @@ export default function TripListView(props) {
 
   return (
     <div>
+      <AccountButton />
       <br />
       <Grid container spacing={2}>
         <Grid item xs={10}>
@@ -122,9 +123,6 @@ export default function TripListView(props) {
         </Grid>
         <Grid item xs={2}>
           <Stack spacing={2}>
-            <IconButton size="large" onClick={() => console.log('User wants to see profile')}>
-              <AccountCircleOutlinedIcon fontSize="inherit" />
-            </IconButton>
             <Button
               id="addNewTrip"
               display="right"

@@ -31,6 +31,9 @@ export default function AddTripView(props) {
       <TextField
         id="titleInput"
         fullWidth
+        inputProps={{
+          maxlength: 50
+        }}
         label="What will be the name of your trip?"
         variant="standard"
         error={props.validateTitleExist(props.title)}
