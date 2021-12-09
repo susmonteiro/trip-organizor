@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -25,7 +26,7 @@ export default function ResultsView(props) {
                     props.onAddAttraction(site.properties);
                   }}>
                   {/* TODO change me */}
-                  <ListItemIcon sx={{ color: 'primary.main' }}>
+                  <ListItemIcon sx={{ color: 'secondary.darker' }}>
                     <AddLocationIcon />
                   </ListItemIcon>
                   <ListItemText primary={site.properties.name} />

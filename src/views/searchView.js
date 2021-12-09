@@ -34,6 +34,8 @@ export default function SearchView(props) {
               label="Search"
               variant="standard"
               fullWidth
+              autoComplete="off"
+              color="secondary"
               error={props.showHelpText}
               helperText={props.showHelpText && 'Name cannot be empty'}
               onChange={(event) => props.onChangeQuery(event.target.value)}
@@ -41,7 +43,7 @@ export default function SearchView(props) {
             />
           </Grid>
           <Grid item lg="5" md="4" xs="5">
-            <FormControl variant="standard" fullWidth>
+            <FormControl variant="standard" fullWidth color="secondary">
               <InputLabel id="select-type-input">Type</InputLabel>
               <Select
                 id="select-type"
@@ -63,6 +65,7 @@ export default function SearchView(props) {
                 inputFormat="dd/MM/yyyy"
                 value={props.date}
                 onChange={(value) => props.onChangeDate(value)}
+                InputProps={{ color: 'secondary' }}
                 renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
               />
             </LocalizationProvider>
@@ -71,6 +74,7 @@ export default function SearchView(props) {
             <Box textAlign="right">
               <Button
                 disabled={!props.query || props.query.length < 3}
+                color="secondary"
                 variant="contained"
                 startIcon={<SearchIcon />}
                 onClick={() => props.onSearch()}>

@@ -115,44 +115,46 @@ export default function AttractionsPresenter(props) {
   return (
     <Grid container spacing={0} justifyContent="space-between">
       <Grid item md="6" xs="12">
-        {(searching && (
-          <Stack>
-            <SearchView
-              activities={ACTIVITY_TYPES}
-              query={query}
-              type={type}
-              date={date}
-              showHelpText={helpText}
-              onChangeQuery={(txt) => {
-                setQuery(txt);
-                txt.length > 2 && setHelpText(false);
-              }}
-              onChangeType={(type) => {
-                setType(type);
-                searchAttraction();
-              }}
-              onChangeDate={(date) => setDate(date)}
-              onSearch={searchAttraction}
-              onNotSearching={() => setSearching(false)}
-            />
-            {promiseNoData(promise, data, error) || (
-              <ResultsView
-                attractions={data.features}
-                error={error}
-                onAddAttraction={(site) => addAttraction(site)}
+        <Box sx={{ height: '100%', bgcolor: 'primary.main' }}>
+          {(searching && (
+            <Stack>
+              <SearchView
+                activities={ACTIVITY_TYPES}
+                query={query}
+                type={type}
+                date={date}
+                showHelpText={helpText}
+                onChangeQuery={(txt) => {
+                  setQuery(txt);
+                  txt.length > 2 && setHelpText(false);
+                }}
+                onChangeType={(type) => {
+                  setType(type);
+                  searchAttraction();
+                }}
+                onChangeDate={(date) => setDate(date)}
+                onSearch={searchAttraction}
+                onNotSearching={() => setSearching(false)}
               />
-            )}
-          </Stack>
-        )) || (
-          <AttractionsListView
-            nameOfTrip={currentTrip}
-            rows={createRows(attractions, currentTrip)}
-            activities={ACTIVITY_TYPES.map(([, name]) => name)}
-            changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
-            changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
-            onSearching={() => setSearching(true)}
-          />
-        )}
+              {promiseNoData(promise, data, error) || (
+                <ResultsView
+                  attractions={data.features}
+                  error={error}
+                  onAddAttraction={(site) => addAttraction(site)}
+                />
+              )}
+            </Stack>
+          )) || (
+            <AttractionsListView
+              nameOfTrip={currentTrip}
+              rows={createRows(attractions, currentTrip)}
+              activities={ACTIVITY_TYPES.map(([, name]) => name)}
+              changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+              changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+              onSearching={() => setSearching(true)}
+            />
+          )}
+        </Box>
       </Grid>
       <Grid item md="6" xs="0">
         {getCoord() && (

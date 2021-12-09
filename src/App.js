@@ -26,9 +26,6 @@ const theme = createTheme({
     },
     icons: {
       favourite: '#EE7D61'
-    },
-    background: {
-      default: '#3B6064'
     }
   }
 });
