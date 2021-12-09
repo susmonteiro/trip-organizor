@@ -7,7 +7,7 @@ function MapView(props) {
   console.log(props);
   return (
     <div className="column">
-      <MapContainer center={props.currentLocation} zoom={props.zoom}>
+      <MapContainer center={props.currentLocation()} zoom={props.zoom}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -31,9 +31,7 @@ function MapView(props) {
                       ? props.data.wikipedia_extracts.text
                       : "Sorry, we don't have additional information on this site."}
                   </p>
-                  {props.data.preview ? (
-                    <img src={props.data.preview.source} height="150px" width="150px" />
-                  ) : null}
+                  {props.data.preview ? <img src={props.data.preview.source} /> : null}
                 </div>
               )}
             </Popup>

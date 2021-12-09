@@ -31,6 +31,9 @@ export default function AddTripView(props) {
       <TextField
         id="titleInput"
         fullWidth
+        inputProps={{
+          maxlength: 50
+        }}
         label="What will be the name of your trip?"
         variant="standard"
         error={props.validateTitleExist(props.title)}
@@ -55,6 +58,7 @@ export default function AddTripView(props) {
             label="City"
             variant="standard"
             error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
+            inputProps={{ maxLength: 20 }}
             helperText={
               props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
             }

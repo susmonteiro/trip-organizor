@@ -82,4 +82,11 @@ export default class UserModel {
   tripAttrEmpty(tripAttr) {
     return tripAttr === '' ? 'empty' : tripAttr === null ? 'null' : false;
   }
+
+  //BETA
+  changeFinished(trip) {
+    trip.finished = !trip.finished;
+    this.notifyObservers();
+  }
+  //BETA
 }

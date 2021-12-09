@@ -38,9 +38,13 @@ nightlife-marker {
 /* Map View */
 
 /*Needed for React-Leaflet*/
-.leaflet-container {  width: 100vw;  height: 100vh; }
-.leaflet-container {  width: 100%; }
-
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+}
+.leaflet-container {
+  width: 100%;
+}
 
 .row {
   display: flex;
@@ -76,6 +80,6 @@ nightlife-marker {
   color: var(--favourite);
 }
 
-.MuiIconButton-colorPrimary{
-    color: var(--favourite);
+.MuiIconButton-colorPrimary {
+  color: var(--favourite);
 }
