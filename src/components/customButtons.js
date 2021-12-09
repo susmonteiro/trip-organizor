@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 
 //ICONs-MATERIAL IMPORTS
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export default function CustomButton(props) {
@@ -27,8 +27,8 @@ export function BackButton(props) {
 export function AccountButton() {
   return (
     <Box textAlign="right" mr={2}>
-      <IconButton color="secondary" size="large" href="/">
-        <AccountCircleOutlinedIcon fontSize="inherit" />
+      <IconButton color="secondary" variant="contained" size="large" href="/">
+        <AccountCircleIcon fontSize="inherit" />
       </IconButton>
     </Box>
   );
