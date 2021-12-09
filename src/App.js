@@ -22,7 +22,7 @@ const theme = createTheme({
     },
     secondary: {
       main: '#CFB9AC',
-      darker: '#a59287'
+      dark: '#a59287'
     },
     background: {
       main: '#FFFFFF'

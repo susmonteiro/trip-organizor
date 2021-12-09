@@ -33,7 +33,9 @@ export default function AttractionsPresenter(props) {
   ];
 
   const DEFAULT_TYPE = ACTIVITY_TYPES[0][0];
-  const ALL_TYPES = ACTIVITY_TYPES.map(([type, _]) => type).join(',');
+  const ALL_TYPES = ACTIVITY_TYPES.filter((_, idx) => idx !== 0)
+    .map(([type, _]) => type)
+    .join(',');
 
   // variables
   const [searching, setSearching] = React.useState(false);

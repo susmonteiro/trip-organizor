@@ -22,14 +22,18 @@ export default function CustomButton(props) {
 
 export function BackButton(props) {
   return (
-    <Button size="large" color="secondary" startIcon={<ArrowBackIosNewIcon />} {...props}></Button>
+    <Button
+      size="large"
+      sx={{ color: 'primary.faded' }}
+      startIcon={<ArrowBackIosNewIcon />}
+      {...props}></Button>
   );
 }
 
 export function AccountButton() {
   return (
     <Box textAlign="right" mr={2}>
-      <IconButton color="secondary" variant="contained" size="large" href="/">
+      <IconButton sx={{ color: 'primary.faded' }} variant="contained" size="large" href="/">
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
     </Box>
@@ -40,6 +44,7 @@ export function AddButton(props) {
   return (
     <Fab
       color="secondary"
+      dark="true"
       aria-label="add"
       sx={{ position: 'absolute', bottom: 50, left: 50 }}
       {...props}>

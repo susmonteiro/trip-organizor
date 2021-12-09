@@ -10,13 +10,15 @@ import Typography from '@mui/material/Typography';
 
 export default function ResultsView(props) {
   return (
-    <Box>
+    <Box ml={{ lg: 12, md: 6, xs: 6 }} mr={{ lg: 12, md: 6, xs: 6 }}>
       {(props.error !== null && <h1>{props.error}</h1>) ||
         ((!props.attractions || props.attractions.length === 0) && (
           /* TODO change me */
-          <Typography variant="h6" align="center" m={5}>
-            No results found :(
-          </Typography>
+          <Box mt={15}>
+            <Typography color="primary.faded" align="center" m={5}>
+              NO RESULTS FOUND... TRY SOMETHING ELSE!
+            </Typography>
+          </Box>
         )) || (
           <List>
             {props.attractions.map((site) => (
@@ -26,7 +28,7 @@ export default function ResultsView(props) {
                     props.onAddAttraction(site.properties);
                   }}>
                   {/* TODO change me */}
-                  <ListItemIcon sx={{ color: 'secondary.darker' }}>
+                  <ListItemIcon sx={{ color: 'secondary.dark' }}>
                     <AddLocationIcon />
                   </ListItemIcon>
                   <ListItemText primary={site.properties.name} />
