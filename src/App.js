@@ -24,8 +24,23 @@ const theme = createTheme({
       main: '#CFB9AC',
       darker: '#a59287'
     },
+    background: {
+      main: '#FFFFFF'
+    },
     icons: {
       favourite: '#EE7D61'
+    },
+    chips: {
+      amusements: '#FFA90A',
+      architecture: '#E37463',
+      museums: '#1F8484',
+      entertainment: '#A677A6',
+      historic: '#841C26',
+      natural: '#9EA550',
+      religion: '#AE6147',
+      sport: '#5C7457',
+      food_drinks: '#FF781F',
+      shops: '#385580'
     }
   }
 });
