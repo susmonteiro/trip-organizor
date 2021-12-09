@@ -125,7 +125,7 @@ export default function AttractionsListView(props) {
             hideFooter
             disableSelectionOnClick
           />
-          <AddButton />
+          <AddButton onClick={() => props.onSearching()} />
         </Box>
       </Box>
     </Box>

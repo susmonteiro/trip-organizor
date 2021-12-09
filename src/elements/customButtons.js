@@ -42,7 +42,7 @@ export function AddButton(props) {
       color="secondary"
       aria-label="add"
       sx={{ position: 'absolute', bottom: 50, left: 50 }}
-      onClick={() => props.onSearching()}>
+      {...props}>
       {/* TODO change me */}
       <AddIcon />
     </Fab>
