@@ -21,7 +21,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 //CUSTOM COMPONENTS
-import { AccountButton } from './../components/customButtons.js';
+import { AccountButton } from './../elements/customButtons.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS

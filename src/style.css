@@ -54,6 +54,7 @@ nightlife-marker {
 }
 
 .column {
+  height: 100%;
   display: flex;
   flex-direction: column;
   flex-basis: 100%;

@@ -8,7 +8,7 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import Stack from '@mui/material/Stack';
 
-import CustomButton from '../components/customButtons.js';
+import CustomButton from '../elements/customButtons.js';
 
 export default function LoginView(props) {
   return (

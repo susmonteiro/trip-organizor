@@ -12,11 +12,9 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 
-import { AccountButton, BackButton } from './../components/customButtons.js';
-import TopBar from './../components/topBar.js';
+import { AccountButton, BackButton, AddButton } from './../elements/customButtons.js';
+import TopBar from './../elements/topBar.js';
 
 /* function returnButton(isFav) {
   if (isFav) {
@@ -127,14 +125,7 @@ export default function AttractionsListView(props) {
             hideFooter
             disableSelectionOnClick
           />
-          <Fab
-            color="secondary"
-            aria-label="add"
-            sx={{ position: 'absolute', bottom: 50, left: 50 }}
-            onClick={() => props.onSearching()}>
-            {/* TODO change me */}
-            <AddIcon />
-          </Fab>
+          <AddButton />
         </Box>
       </Box>
     </Box>
