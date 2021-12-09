@@ -27,7 +27,7 @@ export default function SearchView(props) {
           mt={1}
           alignItems="flex-end"
           onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
-          <Grid item lg="12" md="12" xs="12">
+          <Grid item lg={12} md={12} xs={12}>
             <TextField
               id="search-bar"
               value={props.query || ''}
@@ -42,7 +42,7 @@ export default function SearchView(props) {
               sx={{ minWidth: 200 }}
             />
           </Grid>
-          <Grid item lg="5" md="4" xs="5">
+          <Grid item lg={5} md={4} xs={5}>
             <FormControl variant="standard" fullWidth color="secondary">
               <InputLabel id="select-type-input">Type</InputLabel>
               <Select
@@ -58,7 +58,7 @@ export default function SearchView(props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item lg="4" md="4" xs="4">
+          <Grid item lg={4} md={4} xs={4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label="Date"
@@ -70,7 +70,7 @@ export default function SearchView(props) {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item lg="3" md="4" xs="3">
+          <Grid item lg={3} md={4} xs={3}>
             <Box textAlign="right">
               <Button
                 disabled={!props.query || props.query.length < 3}

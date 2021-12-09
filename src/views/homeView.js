@@ -23,8 +23,8 @@ export default function HomeView(props) {
   return (
     <Paper square="true" style={styles.paperContainer}>
       <Grid container spacing={2} justifyContent="space-around" mt={{ xs: 0, md: 15 }}>
-        <Grid item md="1" xs="1" />
-        <Grid item md="3" xs="6">
+        <Grid item md={1} xs={1} />
+        <Grid item md={3} xs={6}>
           <Typography
             color="primary"
             textAlign={{ xs: 'left', md: 'center' }}
@@ -33,8 +33,8 @@ export default function HomeView(props) {
             TripOrganizor
           </Typography>
         </Grid>
-        <Grid item md="4" display={{ xs: 'none', md: 'block' }} />
-        <Grid item md="3" xs="4" mt={{ xs: 0, md: 25 }}>
+        <Grid item md={4} display={{ xs: 'none', md: 'block' }} />
+        <Grid item md={3} xs={4} mt={{ xs: 0, md: 25 }}>
           <Box>
             <LoginView
               authType={props.authType}
@@ -44,7 +44,7 @@ export default function HomeView(props) {
             />
           </Box>
         </Grid>
-        <Grid item md="1" xs="1" />
+        <Grid item md={1} xs={1} />
       </Grid>
     </Paper>
   );

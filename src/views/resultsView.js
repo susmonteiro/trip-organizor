@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 export default function ResultsView(props) {
   return (
-    <Box sx={{ width: '50%' }}>
+    <Box>
       {(props.error !== null && <h1>{props.error}</h1>) ||
         ((!props.attractions || props.attractions.length === 0) && (
           /* TODO change me */

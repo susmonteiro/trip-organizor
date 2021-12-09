@@ -124,7 +124,7 @@ export default function AttractionsPresenter(props) {
         justifyContent="space-between"
         sx={{ height: '100vh' }}
         direction={{ md: 'row', xs: 'column' }}>
-        <Grid item md="7" xs="6">
+        <Grid item md={7} xs={6}>
           <Box sx={{ height: '100%' }}>
             {(searching && (
               <Stack>
@@ -166,7 +166,7 @@ export default function AttractionsPresenter(props) {
             )}
           </Box>
         </Grid>
-        <Grid item md="5" xs="6">
+        <Grid item md={5} xs={6}>
           {getCoord() && (
             <MapView
               currentLocation={() => {
