@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DataTable from '../views/attractionsListView';
+import AttractionsListView from '../views/attractionsListView';
 import MapView from '../views/mapView.js';
-import SearchView from '../views/searchView';
 import ResultsView from '../views/resultsView';
+import SearchView from '../views/searchView';
 
 import SitesSource from '../sitesSource';
 import AttractionModel from './../js/models/AttractionModel.js';
@@ -12,8 +12,11 @@ import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
 import useModelProperty from './../useModelProperty.js';
 
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+
+import { AccountButton } from './../components/customButtons.js';
 
 export default function AttractionsPresenter(props) {
   // constants
@@ -141,14 +144,15 @@ export default function AttractionsPresenter(props) {
             )}
           </Stack>
         )) || (
-          <DataTable
+          <AttractionsListView
+            nameOfTrip={currentTrip}
             rows={createRows(attractions, currentTrip)}
             activities={ACTIVITY_TYPES.map(([, name]) => name)}
             changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
             changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
             onSearching={() => setSearching(true)}
           />
-        )}{' '}
+        )}
       </Grid>
       <Grid item md="6" xs="0">
         {getCoord() && (

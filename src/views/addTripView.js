@@ -32,7 +32,7 @@ export default function AddTripView(props) {
         id="titleInput"
         fullWidth
         inputProps={{
-          maxlength: 100
+          maxlength: 50
         }}
         label="What will be the name of your trip?"
         variant="standard"
