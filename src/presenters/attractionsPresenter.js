@@ -121,16 +121,15 @@ export default function AttractionsPresenter(props) {
   /*TEST ATTRACTIONS*/
   return (
     <Box
-      bgcolor="red"
       height="auto"
       display="flex"
       flexWrap="wrap"
       flexDirection={{ md: 'row', xs: 'column' }}
       height="100%">
-      <Box bgcolor="green" flex={0.6} max-height="100%">
+      <Box flex={0.6} max-height="100%">
         {(searching && (
-          <Box bgcolor="orange" height="100%">
-            <Box bgcolor="pink">
+          <Box height="100%">
+            <Box>
               <SearchView
                 activities={ACTIVITY_TYPES}
                 query={query}
@@ -157,7 +156,7 @@ export default function AttractionsPresenter(props) {
                 }}
               />
             </Box>
-            <Box mt={5} mb={5} overflow="auto" bgcolor="purple" sx={{ maxHeight: '50vh' }}>
+            <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
               {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
                 promiseNoData(promise, data, error) || (
                   <Box>
