@@ -105,7 +105,6 @@ export default function AttractionsPresenter(props) {
 
     if (!query || query.length < 3) {
       setHelpText(true);
-      console.error('Please type more');
     } else
       setPromise(
         SitesSource.getSuggestion(
@@ -156,19 +155,20 @@ export default function AttractionsPresenter(props) {
                     setPromise(null);
                   }}
                 />
-                {(promiseNoData(promise, data, error) && (
+                {(!promise && (
                   <Box mt={10}>
                     <Typography color="primary.faded" align="center">
                       START TYPING!
                     </Typography>
                   </Box>
-                )) || (
-                  <ResultsView
-                    attractions={data.features}
-                    error={error}
-                    onAddAttraction={(site) => addAttraction(site)}
-                  />
-                )}
+                )) ||
+                  promiseNoData(promise, data, error) || (
+                    <ResultsView
+                      attractions={data.features}
+                      error={error}
+                      onAddAttraction={(site) => addAttraction(site)}
+                    />
+                  )}
               </Stack>
             )) || (
               <AttractionsListView
