@@ -114,87 +114,80 @@ export default function AttractionsPresenter(props) {
           coord[1],
           5000, // TODO define constants
           type === DEFAULT_TYPE ? ALL_TYPES : type,
-          50
+          30
         )
       );
   }
   /*TEST ATTRACTIONS*/
   return (
-    <Box sx={{ height: '100vh' }}>
-      <Grid
-        container
-        spacing={0}
-        justifyContent="space-between"
-        sx={{ height: '100vh' }}
-        direction={{ md: 'row', xs: 'column' }}>
-        <Grid item md={7} xs={6}>
-          <Box sx={{ height: '100%' }}>
-            {(searching && (
-              <Stack>
-                <SearchView
-                  activities={ACTIVITY_TYPES}
-                  query={query}
-                  type={type}
-                  date={date}
-                  showHelpText={helpText}
-                  onChangeQuery={(txt) => {
-                    setQuery(txt);
-                    txt.length > 2 && setHelpText(false);
-                  }}
-                  onChangeType={(type) => {
-                    setType(type);
-                    searchAttraction();
-                  }}
-                  onChangeDate={(date) => setDate(date)}
-                  onSearch={searchAttraction}
-                  onNotSearching={() => {
-                    setSearching(false);
-                    setQuery(null);
-                    setType(DEFAULT_TYPE);
-                    setDate(new Date());
-                    setHelpText(false);
-                    setPromise(null);
-                  }}
-                />
-                {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
-                  promiseNoData(promise, data, error) || (
-                    <ResultsView
-                      attractions={data.features}
-                      error={error}
-                      onAddAttraction={(site) => addAttraction(site)}
-                    />
-                  )}
-              </Stack>
-            )) || (
-              <AttractionsListView
-                nameOfTrip={currentTrip}
-                rows={createRows(attractions, currentTrip)}
-                activities={ACTIVITY_TYPES.map(([, name]) => name)}
-                changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
-                changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
-                onSearching={() => setSearching(true)}
-              />
-            )}
-          </Box>
-        </Grid>
-        <Grid item md={5} xs={6}>
-          {getCoord() && (
-            <MapView
-              currentLocation={() => {
-                const a = getCoord();
-                return a;
-              }} // TODO
-              zoom={12}
-              sites={attractions}
-              promise={promise}
-              data={data}
-              error={error}
-              setPromise={setPromise}
-              changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
+    <Box height="100vh" display="flex" flexWrap="wrap" flexDirection={{ md: 'row', xs: 'column' }}>
+      <Box flex={0.6} height="100%">
+        {(searching && (
+          <Box height="100%">
+            <SearchView
+              activities={ACTIVITY_TYPES}
+              query={query}
+              type={type}
+              date={date}
+              showHelpText={helpText}
+              onChangeQuery={(txt) => {
+                setQuery(txt);
+                txt.length > 2 && setHelpText(false);
+              }}
+              onChangeType={(type) => {
+                setType(type);
+                searchAttraction();
+              }}
+              onChangeDate={(date) => setDate(date)}
+              onSearch={searchAttraction}
+              onNotSearching={() => {
+                setSearching(false);
+                setQuery(null);
+                setType(DEFAULT_TYPE);
+                setDate(new Date());
+                setHelpText(false);
+                setPromise(null);
+              }}
             />
-          )}
-        </Grid>
-      </Grid>
+            {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
+              promiseNoData(promise, data, error) || (
+                <Box height="70%">
+                  <ResultsView
+                    attractions={data.features}
+                    error={error}
+                    onAddAttraction={(site) => addAttraction(site)}
+                  />
+                </Box>
+              )}
+          </Box>
+        )) || (
+          <AttractionsListView
+            nameOfTrip={currentTrip}
+            rows={createRows(attractions, currentTrip)}
+            activities={ACTIVITY_TYPES.map(([, name]) => name)}
+            changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
+            changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+            onSearching={() => setSearching(true)}
+          />
+        )}
+      </Box>
+      <Box flex={0.4} height="90%">
+        {getCoord() && (
+          <MapView
+            currentLocation={() => {
+              const a = getCoord();
+              return a;
+            }} // TODO
+            zoom={12}
+            sites={attractions}
+            promise={promise}
+            data={data}
+            error={error}
+            setPromise={setPromise}
+            changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
+          />
+        )}
+      </Box>
     </Box>
   );
 }
