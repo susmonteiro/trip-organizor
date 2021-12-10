@@ -2,6 +2,8 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 
+import { ErrorMessageTitle, ErrorMessageInformation } from './elements/showMessages.js';
+
 export default function promiseNoData(promise, data, error) {
   if (!(promise || data || error)) {
     return (
@@ -18,12 +20,10 @@ export default function promiseNoData(promise, data, error) {
   } else if (error) {
     return (
       <Box mt={10}>
-        <Typography color="error.main" align="center" fontSize={20}>
-          THERE WAS AN ERROR FETCHING THE DATA
-        </Typography>
-        <Typography color="error.main" align="center" fontSize={15}>
+        <ErrorMessageTitle>THERE WAS AN ERROR FETCHING THE DATA</ErrorMessageTitle>
+        <ErrorMessageInformation>
           Please try again or contact the developers team
-        </Typography>
+        </ErrorMessageInformation>
       </Box>
     );
   } else {

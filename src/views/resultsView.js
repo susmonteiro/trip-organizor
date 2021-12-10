@@ -8,17 +8,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import Typography from '@mui/material/Typography';
 
+import InformationMessage from './../elements/showMessages.js';
+
 export default function ResultsView(props) {
   return (
     <Box ml={{ lg: 12, md: 6, xs: 6 }} mr={{ lg: 12, md: 6, xs: 6 }}>
       {(props.error !== null && <h1>{props.error}</h1>) ||
         ((!props.attractions || props.attractions.length === 0) && (
           /* TODO change me */
-          <Box mt={10}>
-            <Typography color="primary.faded" align="center">
-              NO RESULTS FOUND... TRY SOMETHING ELSE!
-            </Typography>
-          </Box>
+          <InformationMessage>NO RESULTS FOUND... TRY SOMETHING ELSE!</InformationMessage>
         )) || (
           <List>
             {props.attractions.map((site) => (
