@@ -24,10 +24,10 @@ export function BackButton(props) {
   );
 }
 
-export function AccountButton() {
+export function AccountButton(props) {
   return (
     <Box textAlign="right" mr={2}>
-      <IconButton color="secondary" variant="contained" size="large" href="/">
+      <IconButton color="secondary" variant="contained" size="large" href="/" {...props}>
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
     </Box>

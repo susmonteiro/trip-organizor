@@ -4,7 +4,6 @@ import TripModel from '../js/models/TripModel.js';
 import SitesSource from '../sitesSource.js';
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
-
 export default function AddTripPresenter(props) {
   const [date, setDate] = React.useState([null, null]);
   const [city, setCity] = React.useState(null);

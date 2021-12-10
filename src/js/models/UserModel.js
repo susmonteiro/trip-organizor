@@ -32,7 +32,7 @@ export default class UserModel {
 
   //FOR AUTH
   setUserID(id){
-    this.userID = id;
+    this.currentUser = id;
     this.notifyObservers() //we must change all the data to the current user 
   }
   /**/

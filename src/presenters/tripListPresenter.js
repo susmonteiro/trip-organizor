@@ -1,10 +1,18 @@
+import { Logout } from '@mui/icons-material';
 import * as React from 'react';
 import TripListView from '../views/tripListView';
+import firebase from 'firebase/compat/app'; //v9
+import 'firebase/compat/auth';
+import { signout } from '../js/models/FirebaseModel'
 
 export default function TripListPresenter(props) {
   const [tripList, setTripList] = React.useState(props.model.trips);
   const [showDone, setShowDone] = React.useState(false);
 
+  function doLogout(){
+    props.model.setUserID(null)
+    signout()
+  }
   React.useEffect(function () {
     function obs() {
       setTripList(props.model.trips);
@@ -35,6 +43,7 @@ export default function TripListPresenter(props) {
         setShowDone(!showDone);
       }}
       showDone={showDone}
+      useLogout={() => doLogout()}
     />
   );
 }

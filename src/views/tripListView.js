@@ -22,6 +22,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 //CUSTOM COMPONENTS
 import { AccountButton } from './../components/customButtons.js';
+import { ReadTripsFromFirebase } from '../js/models/FirebaseModel.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS
@@ -113,7 +114,7 @@ export default function TripListView(props) {
 
   return (
     <div>
-      <AccountButton />
+      <AccountButton onClick={() => props.useLogout()}/>
       <br />
       <Grid container spacing={2}>
         <Grid item xs={10}>
