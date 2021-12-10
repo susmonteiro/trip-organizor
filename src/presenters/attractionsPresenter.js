@@ -120,45 +120,55 @@ export default function AttractionsPresenter(props) {
   }
   /*TEST ATTRACTIONS*/
   return (
-    <Box height="100vh" display="flex" flexWrap="wrap" flexDirection={{ md: 'row', xs: 'column' }}>
-      <Box flex={0.6} height="100%">
+    <Box
+      bgcolor="red"
+      height="auto"
+      display="flex"
+      flexWrap="wrap"
+      flexDirection={{ md: 'row', xs: 'column' }}
+      height="100%">
+      <Box bgcolor="green" flex={0.6} max-height="100%">
         {(searching && (
-          <Box height="100%">
-            <SearchView
-              activities={ACTIVITY_TYPES}
-              query={query}
-              type={type}
-              date={date}
-              showHelpText={helpText}
-              onChangeQuery={(txt) => {
-                setQuery(txt);
-                txt.length > 2 && setHelpText(false);
-              }}
-              onChangeType={(type) => {
-                setType(type);
-                searchAttraction();
-              }}
-              onChangeDate={(date) => setDate(date)}
-              onSearch={searchAttraction}
-              onNotSearching={() => {
-                setSearching(false);
-                setQuery(null);
-                setType(DEFAULT_TYPE);
-                setDate(new Date());
-                setHelpText(false);
-                setPromise(null);
-              }}
-            />
-            {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
-              promiseNoData(promise, data, error) || (
-                <Box height="70%">
-                  <ResultsView
-                    attractions={data.features}
-                    error={error}
-                    onAddAttraction={(site) => addAttraction(site)}
-                  />
-                </Box>
-              )}
+          <Box bgcolor="orange" height="100%">
+            <Box bgcolor="pink">
+              <SearchView
+                activities={ACTIVITY_TYPES}
+                query={query}
+                type={type}
+                date={date}
+                showHelpText={helpText}
+                onChangeQuery={(txt) => {
+                  setQuery(txt);
+                  txt.length > 2 && setHelpText(false);
+                }}
+                onChangeType={(type) => {
+                  setType(type);
+                  searchAttraction();
+                }}
+                onChangeDate={(date) => setDate(date)}
+                onSearch={searchAttraction}
+                onNotSearching={() => {
+                  setSearching(false);
+                  setQuery(null);
+                  setType(DEFAULT_TYPE);
+                  setDate(new Date());
+                  setHelpText(false);
+                  setPromise(null);
+                }}
+              />
+            </Box>
+            <Box mt={5} mb={5} overflow="auto" bgcolor="purple" sx={{ maxHeight: '50vh' }}>
+              {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
+                promiseNoData(promise, data, error) || (
+                  <Box>
+                    <ResultsView
+                      attractions={data.features}
+                      error={error}
+                      onAddAttraction={(site) => addAttraction(site)}
+                    />
+                  </Box>
+                )}
+            </Box>
           </Box>
         )) || (
           <AttractionsListView
