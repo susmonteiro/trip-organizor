@@ -147,7 +147,14 @@ export default function AttractionsPresenter(props) {
                   }}
                   onChangeDate={(date) => setDate(date)}
                   onSearch={searchAttraction}
-                  onNotSearching={() => setSearching(false)}
+                  onNotSearching={() => {
+                    setSearching(false);
+                    setQuery(null);
+                    setType(DEFAULT_TYPE);
+                    setDate(new Date());
+                    setHelpText(false);
+                    setPromise(null);
+                  }}
                 />
                 {(promiseNoData(promise, data, error) && (
                   <Box mt={10}>
@@ -168,7 +175,7 @@ export default function AttractionsPresenter(props) {
                 nameOfTrip={currentTrip}
                 rows={createRows(attractions, currentTrip)}
                 activities={ACTIVITY_TYPES.map(([, name]) => name)}
-                changeLiked={(id) => props.model.changeIsAttractionLiked(id)} // 0 for testing but should be current tripas
+                changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
                 changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
                 onSearching={() => setSearching(true)}
               />
