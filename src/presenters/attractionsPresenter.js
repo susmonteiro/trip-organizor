@@ -91,7 +91,7 @@ export default function AttractionsPresenter(props) {
         id: site.xid,
         name: site.name,
         date: date.getTime(),
-        type: ACTIVITY_TYPES.find((type) => site.kinds.split(',').includes(type.code)).name,
+        type: ACTIVITY_TYPES.find((type) => site.kinds.split(',').includes(type.code)),
         trip: props.model.tripCurrent
       });
 

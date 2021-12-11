@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
@@ -59,7 +60,10 @@ export default function AttractionsListView(props) {
       headerName: 'Type',
       type: 'singleSelect',
       valueOptions: activities,
-      width: 130
+      width: 130,
+      renderCell: (params) => {
+        return <Chip label={params.row.Type.name} sx={{ bgcolor: params.row.Type.color }} />;
+      }
     },
     {
       field: 'date',
