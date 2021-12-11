@@ -72,7 +72,7 @@ export default function AttractionsPresenter(props) {
       (attraction) => attraction.attrTrip === currentTrip
     );
     let rows = filteredAttractions.map((attraction) => ({
-      id: attraction.attrID,
+      id: attraction.attrKey,
       Name: attraction.attrName,
       Type: attraction.attrType,
       date: new Date(attraction.attrDate),
@@ -84,7 +84,9 @@ export default function AttractionsPresenter(props) {
 
   // search attraction functions
   function addAttraction(site) {
-    if (attractions.find((attr) => attr.attrID === site.xid && attr.attrTrip === currentTrip)) {
+    const newKey = site.xid + currentTrip;
+
+    if (attractions.find((attr) => attr.attrKey === newKey)) {
       console.log('attraction already exists :/');
     } else {
       let attraction = new AttractionModel({
@@ -178,8 +180,8 @@ export default function AttractionsPresenter(props) {
               nameOfTrip={currentTrip}
               rows={createRows(attractions, currentTrip)}
               activities={ACTIVITY_TYPES.map(([, name]) => name)}
-              changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
-              changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+              changeLiked={(key) => props.model.changeIsAttractionLiked(key)}
+              changeCompleted={(key) => props.model.changeIsAttractionCompleted(key)}
               onSearching={() => {
                 setSearching(true);
                 setQuery(null);
