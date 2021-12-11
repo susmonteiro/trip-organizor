@@ -49,9 +49,9 @@ export default function SearchView(props) {
                 value={props.type}
                 label="Type"
                 onChange={(event) => props.onChangeType(event.target.value)}>
-                {props.activities.map(([key, value]) => (
-                  <MenuItem key={key} value={key}>
-                    {value}
+                {props.activities.map((type) => (
+                  <MenuItem key={type.code} value={type.code}>
+                    {type.name}
                   </MenuItem>
                 ))}
               </Select>

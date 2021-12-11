@@ -20,29 +20,28 @@ import InformationMessage from './../elements/showMessages.js';
 
 export default function AttractionsPresenter(props) {
   // constants
+
   const ACTIVITY_TYPES = [
-    ['all', 'All'],
-    ['amusements', 'Amusements'],
-    ['architecture', 'Landmarks'],
-    ['museums', 'Museums'],
-    ['theatres_and_entertainments', 'Entertainment'],
-    ['historic', 'Historical'],
-    ['natural,urban_environment', 'Nature'],
-    ['religion', 'Religion'],
-    ['sport', 'Sport'],
-    ['foods', 'Food & Drinks'],
-    ['shops', 'Shops']
+    { code: 'amusements', name: 'Amusements', color: 'chips.amusements' },
+    { code: 'architecture', name: 'Landmarks', color: 'chips.architecture' },
+    { code: 'museums', name: 'Museums', color: 'chips.museums' },
+    { code: 'theatres_and_entertainments', name: 'Entertainments', color: 'chips.entertainment' },
+    { code: 'historic', name: 'Historic', color: 'chips.historic' },
+    { code: 'natural,urban_environment', name: 'Nature', color: 'chips.natural' },
+    { code: 'religion', name: 'Religion', color: 'chips.religion' },
+    { code: 'sport', name: 'Sports', color: 'chips.sport' },
+    { code: 'foods', name: 'Food & Drink', color: 'chips.food_drinks' },
+    { code: 'shops', name: 'Shops', color: 'chips.shops' }
   ];
 
-  const DEFAULT_TYPE = ACTIVITY_TYPES[0][0];
-  const ALL_TYPES = ACTIVITY_TYPES.filter((_, idx) => idx !== 0)
-    .map(([type, _]) => type)
-    .join(',');
+  const ALL_TYPES = ACTIVITY_TYPES.map((type) => type.code).join(',');
+  console.log(ALL_TYPES);
+  const DEFAULT_TYPE = { code: ALL_TYPES, name: 'All' };
 
   // variables
   const [searching, setSearching] = React.useState(false);
   const [query, setQuery] = React.useState(null);
-  const [type, setType] = React.useState(DEFAULT_TYPE);
+  const [type, setType] = React.useState(ALL_TYPES);
   const [date, setDate] = React.useState(new Date());
   const [helpText, setHelpText] = React.useState(false);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
@@ -92,7 +91,9 @@ export default function AttractionsPresenter(props) {
         id: site.xid,
         name: site.name,
         date: date.getTime(),
-        type: site.kinds,
+        type: ACTIVITY_TYPES.filter((type) => site.kinds.split(',').includes(type.code)).map(
+          (type) => type.name
+        ),
         trip: props.model.tripCurrent
       });
 
@@ -120,7 +121,7 @@ export default function AttractionsPresenter(props) {
           coord[0],
           coord[1],
           5000, // TODO define constants
-          type === DEFAULT_TYPE ? ALL_TYPES : type,
+          type,
           30
         )
       );
@@ -138,7 +139,7 @@ export default function AttractionsPresenter(props) {
           <Box height="100%">
             <Box>
               <SearchView
-                activities={ACTIVITY_TYPES}
+                activities={[DEFAULT_TYPE, ...ACTIVITY_TYPES]}
                 query={query}
                 type={type}
                 date={date}
@@ -178,13 +179,13 @@ export default function AttractionsPresenter(props) {
             <AttractionsListView
               nameOfTrip={currentTrip}
               rows={createRows(attractions, currentTrip)}
-              activities={ACTIVITY_TYPES.map(([, name]) => name)}
+              activities={ACTIVITY_TYPES.map((type) => type.name)}
               changeLiked={(key) => props.model.changeIsAttractionLiked(key)}
               changeCompleted={(key) => props.model.changeIsAttractionCompleted(key)}
               onSearching={() => {
                 setSearching(true);
                 setQuery(null);
-                setType(DEFAULT_TYPE);
+                setType(ALL_TYPES);
                 setDate(new Date());
                 setHelpText(false);
                 setPromise(null);
