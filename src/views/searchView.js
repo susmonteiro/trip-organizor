@@ -19,7 +19,7 @@ export default function SearchView(props) {
   return (
     <Box>
       <TopBar onClick={() => props.onNotSearching()}>Attractions</TopBar>
-      <Box ml={2} mr={2}>
+      <Box ml={{ lg: 10, md: 5, xs: 5 }} mr={{ lg: 10, md: 5, xs: 5 }}>
         <Grid
           container
           spacing={2}
@@ -27,7 +27,7 @@ export default function SearchView(props) {
           mt={1}
           alignItems="flex-end"
           onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
-          <Grid item lg="12" md="12" xs="12">
+          <Grid item xs={12}>
             <TextField
               id="search-bar"
               value={props.query || ''}
@@ -35,15 +35,14 @@ export default function SearchView(props) {
               variant="standard"
               fullWidth
               autoComplete="off"
-              color="secondary"
+              color="primary"
               error={props.showHelpText}
-              helperText={props.showHelpText && 'Name cannot be empty'}
+              helperText={props.showHelpText && 'Please type more'}
               onChange={(event) => props.onChangeQuery(event.target.value)}
-              sx={{ minWidth: 200 }}
             />
           </Grid>
-          <Grid item lg="5" md="4" xs="5">
-            <FormControl variant="standard" fullWidth color="secondary">
+          <Grid item lg={5} md={4} xs={5}>
+            <FormControl variant="standard" fullWidth color="primary">
               <InputLabel id="select-type-input">Type</InputLabel>
               <Select
                 id="select-type"
@@ -58,23 +57,22 @@ export default function SearchView(props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item lg="4" md="4" xs="4">
+          <Grid item lg={4} md={4} xs={4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label="Date"
                 inputFormat="dd/MM/yyyy"
                 value={props.date}
                 onChange={(value) => props.onChangeDate(value)}
-                InputProps={{ color: 'secondary' }}
                 renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item lg="3" md="4" xs="3">
+          <Grid item lg={3} md={4} xs={3}>
             <Box textAlign="right">
               <Button
                 disabled={!props.query || props.query.length < 3}
-                color="secondary"
+                color="primary"
                 variant="contained"
                 startIcon={<SearchIcon />}
                 onClick={() => props.onSearch()}>

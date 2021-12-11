@@ -110,7 +110,7 @@ export default function AttractionsListView(props) {
     <Box>
       <TopBar href="trips">My Trips</TopBar>
       <Box mt={2} ml={2} mr={2}>
-        <Typography color="secondary.darker" fontSize={23} fontWeight={400} textAlign="left">
+        <Typography color="primary" fontSize={23} fontWeight={500} textAlign="left">
           {props.nameOfTrip}
         </Typography>
         <Box mt={2}>

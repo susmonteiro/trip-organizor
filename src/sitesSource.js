@@ -17,12 +17,7 @@ export const SitesSource = {
         })
     );
   },
-  /* Usage example for getSuggestion
-  SitesSource.getCoords('Stockholm').then((coords) =>{
-    SitesSource.getSuggestion("ABBA", coords.lat, coords.lon, 5000, "museums")
-    .then((res) => {console.log(res)})
-  })
-  */
+
   getSuggestion(name, lat, lon, radius, kinds = '', maxNumberResults = 10) {
     let searchParams = {
       lon: lon,

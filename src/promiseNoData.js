@@ -1,3 +1,9 @@
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+
+import { ErrorMessageTitle, ErrorMessageInformation } from './elements/showMessages.js';
+
 export default function promiseNoData(promise, data, error) {
   if (!(promise || data || error)) {
     return (
@@ -7,16 +13,18 @@ export default function promiseNoData(promise, data, error) {
     );
   } else if (promise !== null && !data && !error) {
     return (
-      <div>
-        {/* TODO change me */}
-        <img src="https://www.csc.kth.se/~cristi/loading.gif"></img>
-      </div>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} mt={10}>
+        <CircularProgress />
+      </Box>
     );
   } else if (error) {
     return (
-      <div>
-        <span>{error}</span>
-      </div>
+      <Box mt={10}>
+        <ErrorMessageTitle>THERE WAS AN ERROR FETCHING THE DATA</ErrorMessageTitle>
+        <ErrorMessageInformation>
+          Please try again or contact the developers team
+        </ErrorMessageInformation>
+      </Box>
     );
   } else {
     return false;

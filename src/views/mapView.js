@@ -6,6 +6,8 @@ import { Icon } from "leaflet";
 import marker from "../markers/marker.svg"
 import favMarker from "../markers/favMarker.svg"
 
+import Box from '@mui/material/Box';
+
 function MapView(props) {
   const markerIcon = new Icon({
     iconUrl: marker,
@@ -20,7 +22,7 @@ function MapView(props) {
 
   console.log(props);
   return (
-    <div className="column">
+    <Box>
       <MapContainer center={props.currentLocation()} zoom={props.zoom}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -55,7 +57,7 @@ function MapView(props) {
           </Marker>
         ))}
       </MapContainer>
-    </div>
+    </Box>
   );
 }
 /*
