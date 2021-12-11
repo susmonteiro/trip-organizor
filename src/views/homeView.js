@@ -21,7 +21,7 @@ const styles = {
 
 export default function HomeView(props) {
   return (
-    <Paper square="true" style={styles.paperContainer}>
+    <Paper square={true} style={styles.paperContainer}>
       <Grid container spacing={2} justifyContent="space-around" mt={{ xs: 0, md: 15 }}>
         <Grid item md={1} xs={1} />
         <Grid item md={3} xs={6}>

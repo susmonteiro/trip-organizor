@@ -31,20 +31,20 @@ function MapView(props) {
         />
         {props.sites.map((site) => (
           <Marker
-            icon={site.attrIsFav ? favMarkerIcon : markerIcon}
-            position={[site.attrCoord[0], site.attrCoord[1]]}
-            key={site.attrKey}
+            icon={site.isFav ? favMarkerIcon : markerIcon}
+            position={[site.coord[0], site.coord[1]]}
+            key={site.key}
             eventHandlers={{
               click: () => {
-                props.setPromise(SitesSource.getDetails(site.attrID));
-                // props.changeCurrAttr(site.attrID);
+                props.setPromise(SitesSource.getDetails(site.id));
+                // props.changeCurrAttr(site.id);
               }
             }}>
             <Popup>
               {promiseNoData(props.promise, props.data, props.error) || (
                 <div>
                   <h2 className="popup-title">
-                    {site.attrName ? site.attrName : "This site's name is not available"}
+                    {site.name ? site.name : "This site's name is not available"}
                   </h2>
                   <p className="popup-description">
                     {props.data.wikipedia_extracts

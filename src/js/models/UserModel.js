@@ -93,8 +93,8 @@ export default class UserModel {
   // TODO ? --> I'm changing the property of the attraction here because when reading from the db, the attractions have no methods anymore
   changeIsAttractionCompleted(key) {
     this.attractions.map((attr) => {
-      if (attr.attrKey === key) {
-        attr.attrFinished = !attr.attrFinished;
+      if (attr.key === key) {
+        attr.finished = !attr.finished;
         this.notifyObservers();
       }
     });
@@ -102,8 +102,8 @@ export default class UserModel {
 
   changeIsAttractionLiked(key) {
     this.attractions.map((attr) => {
-      if (attr.attrKey === key) {
-        attr.attrIsFav = !attr.attrIsFav;
+      if (attr.key === key) {
+        attr.isFav = !attr.isFav;
         this.notifyObservers();
       }
     });
@@ -111,7 +111,7 @@ export default class UserModel {
 
   deleteAttraction(key) {
     this.attractions = [...this.attractions].filter((attr) => {
-      return attr.attrKey !== key;
+      return attr.key !== key;
     });
     this.notifyObservers();
   }

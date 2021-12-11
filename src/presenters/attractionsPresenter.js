@@ -65,18 +65,18 @@ export default function AttractionsPresenter(props) {
     return trip ? trip.coord : null;
   }
 
-  const tripAttractions = attractions.filter((attraction) => attraction.attrTrip === currentTrip);
+  const tripAttractions = attractions.filter((attraction) => attraction.trip === currentTrip);
   // attractions list functions
   function createRows(attractions, currentTrip) {
     //this function formats all the rows with the information needed
 
     let rows = tripAttractions.map((attraction) => ({
-      id: attraction.attrKey,
-      Name: attraction.attrName,
-      Type: attraction.attrType,
-      date: new Date(attraction.attrDate),
-      isFavourite: attraction.attrIsFav,
-      isFinished: attraction.attrFinished
+      id: attraction.key,
+      Name: attraction.name,
+      Type: attraction.type,
+      date: new Date(attraction.date),
+      isFavourite: attraction.isFav,
+      isFinished: attraction.finished
     }));
     return rows;
   }
@@ -85,15 +85,15 @@ export default function AttractionsPresenter(props) {
   function addAttraction(site) {
     const newKey = site.xid + currentTrip;
 
-    if (attractions.find((attr) => attr.attrKey === newKey)) {
+    if (attractions.find((attr) => attr.key === newKey)) {
       console.log('attraction already exists :/');
     } else {
       let attraction = new AttractionModel({
-        attrID: site.xid,
-        attrName: site.name,
-        attrDate: date.getTime(),
-        attrType: site.kinds,
-        attrTrip: props.model.tripCurrent
+        id: site.xid,
+        name: site.name,
+        date: date.getTime(),
+        type: site.kinds,
+        trip: props.model.tripCurrent
       });
 
       SitesSource.getDetails(site.xid)

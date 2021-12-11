@@ -1,70 +1,64 @@
 export default class AttractionModel {
   constructor({
-    attrID = null,
-    attrTrip = null,
-    attrName = null,
-    attrCoord = [13, 13],
-    attrIsFav = false,
-    attrFinished = false,
-    attrOnMap = false,
-    attrDate = null,
-    attrNotes = null,
-    attrType = null
+    id = null,
+    trip = null,
+    name = null,
+    coord = [13, 13],
+    isFav = false,
+    finished = false,
+    onMap = false,
+    date = null,
+    type = null
   }) {
-    this.setID(attrID);
-    this.setTrip(attrTrip);
-    this.setKey(attrID, attrTrip);
-    this.setName(attrName);
-    this.setCoord(attrCoord);
-    this.setIsFav(attrIsFav);
-    this.setFinished(attrFinished);
-    this.setOnMap(attrOnMap);
-    this.setDate(attrDate);
-    this.setNotes(attrNotes);
-    this.setType(attrType);
+    this.setID(id);
+    this.setTrip(trip);
+    this.setKey(id, trip);
+    this.setName(name);
+    this.setCoord(coord);
+    this.setIsFav(isFav);
+    this.setFinished(finished);
+    this.setOnMap(onMap);
+    this.setDate(date);
+    this.setType(type);
   }
 
   setID(id) {
-    this.attrID = id;
+    this.id = id;
   }
 
   setTrip(trip) {
-    this.attrTrip = trip;
+    this.trip = trip;
   }
 
   setKey(id, trip) {
-    this.attrKey = id + trip;
+    this.key = id + trip;
   }
 
-  setName(attrName) {
-    this.attrName = attrName;
+  setName(name) {
+    this.name = name;
   }
 
-  setCoord(attrCoord) {
-    this.attrCoord = [...attrCoord];
+  setCoord(coord) {
+    this.coord = [...coord];
   }
 
-  setIsFav(attrIsFav) {
-    this.attrIsFav = attrIsFav;
+  setIsFav(isFav) {
+    this.isFav = isFav;
   }
 
-  setFinished(attrFinished) {
-    this.attrFinished = attrFinished;
+  setFinished(finished) {
+    this.finished = finished;
   }
 
-  setOnMap(attrOnMap) {
-    this.attrOnMap = attrOnMap;
+  setOnMap(onMap) {
+    this.onMap = onMap;
   }
 
-  setDate(attrDate) {
-    this.attrDate = attrDate;
+  setDate(date) {
+    this.date = date;
   }
 
-  setNotes(attrNotes) {
-    this.attrNotes = attrNotes;
-  }
-
-  setType(attrType) {
-    this.attrType = attrType;
+  setType(type) {
+    this.type = type;
   }
 }
