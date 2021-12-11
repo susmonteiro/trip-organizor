@@ -13,6 +13,7 @@ export default class AttractionModel {
   }) {
     this.setID(attrID);
     this.setTrip(attrTrip);
+    this.setKey(attrID, attrTrip);
     this.setName(attrName);
     this.setCoord(attrCoord);
     this.setIsFav(attrIsFav);
@@ -27,8 +28,12 @@ export default class AttractionModel {
     this.attrID = id;
   }
 
-  setTrip(id) {
-    this.attrTrip = id;
+  setTrip(trip) {
+    this.attrTrip = trip;
+  }
+
+  setKey(id, trip) {
+    this.attrKey = id + trip;
   }
 
   setName(attrName) {
@@ -62,5 +67,4 @@ export default class AttractionModel {
   setType(attrType) {
     this.attrType = attrType;
   }
-
 }
