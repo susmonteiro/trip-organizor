@@ -17,7 +17,8 @@ function MapView(props) {
 
   const favMarkerIcon = new Icon({
     iconUrl: favMarker,
-    iconSize: [25*1.2, 40*1.2]
+    iconSize: [25*1.2, 40*1.2],
+    iconAnchor: [25*1.2/2,40*1.2]
   });
 
   console.log(props);
