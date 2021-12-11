@@ -188,6 +188,7 @@ export default function AttractionsPresenter(props) {
                 setHelpText(false);
                 setPromise(null);
               }}
+              deleteAttraction={(id) => props.model.deleteAttraction(id)}
             />
           </Box>
         )}
