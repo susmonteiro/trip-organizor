@@ -45,6 +45,7 @@ export default function AttractionsPresenter(props) {
   const [type, setType] = React.useState(DEFAULT_TYPE);
   const [date, setDate] = React.useState(new Date());
   const [helpText, setHelpText] = React.useState(false);
+  const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promise, setPromise] = React.useState(null);
   React.useEffect(function () {
@@ -83,20 +84,25 @@ export default function AttractionsPresenter(props) {
 
   // search attraction functions
   function addAttraction(site) {
-    let attraction = new AttractionModel({
-      attrID: site.xid,
-      attrName: site.name,
-      attrDate: date.getTime(),
-      attrType: site.kinds,
-      attrTrip: props.model.tripCurrent
-    });
+    if (attractions.find((attr) => attr.attrID === site.xid && attr.attrTrip === currentTrip)) {
+      console.log('attraction already exists :/');
+    } else {
+      let attraction = new AttractionModel({
+        attrID: site.xid,
+        attrName: site.name,
+        attrDate: date.getTime(),
+        attrType: site.kinds,
+        attrTrip: props.model.tripCurrent
+      });
 
-    SitesSource.getDetails(site.xid)
-      .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
-      .then(() => props.model.addAttractionToTrip(attraction))
-      .catch((err) => console.error(err));
+      SitesSource.getDetails(site.xid)
+        .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
+        .then(() => props.model.addAttractionToTrip(attraction))
+        .catch((err) => console.error(err));
+    }
 
     setSearching(false);
+    setCurrentAttraction(null);
   }
 
   function searchAttraction() {
@@ -148,11 +154,7 @@ export default function AttractionsPresenter(props) {
                 onSearch={searchAttraction}
                 onNotSearching={() => {
                   setSearching(false);
-                  setQuery(null);
-                  setType(DEFAULT_TYPE);
-                  setDate(new Date());
-                  setHelpText(false);
-                  setPromise(null);
+                  setCurrentAttraction(null);
                 }}
               />
             </Box>
@@ -164,23 +166,33 @@ export default function AttractionsPresenter(props) {
                       attractions={data.features}
                       error={error}
                       onAddAttraction={(site) => addAttraction(site)}
+                      onSetCurrentAttraction={(id) => setCurrentAttraction(id)}
                     />
                   </Box>
                 )}
             </Box>
           </Box>
         )) || (
-          <AttractionsListView
-            nameOfTrip={currentTrip}
-            rows={createRows(attractions, currentTrip)}
-            activities={ACTIVITY_TYPES.map(([, name]) => name)}
-            changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
-            changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
-            onSearching={() => setSearching(true)}
-          />
+          <Box height="50vh">
+            <AttractionsListView
+              nameOfTrip={currentTrip}
+              rows={createRows(attractions, currentTrip)}
+              activities={ACTIVITY_TYPES.map(([, name]) => name)}
+              changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
+              changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+              onSearching={() => {
+                setSearching(true);
+                setQuery(null);
+                setType(DEFAULT_TYPE);
+                setDate(new Date());
+                setHelpText(false);
+                setPromise(null);
+              }}
+            />
+          </Box>
         )}
       </Box>
-      <Box flex={0.4} height="90%">
+      <Box flex={0.4} height="70vh">
         {getCoord() && (
           <MapView
             currentLocation={() => {

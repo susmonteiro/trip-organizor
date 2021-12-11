@@ -2,23 +2,23 @@ import '../style.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import promiseNoData from './promiseNoData.js';
 import SitesSource from '../sitesSource.js';
-import { Icon } from "leaflet";
-import marker from "../markers/marker.svg"
-import favMarker from "../markers/favMarker.svg"
+import { Icon } from 'leaflet';
+import marker from '../markers/marker.svg';
+import favMarker from '../markers/favMarker.svg';
 
 import Box from '@mui/material/Box';
 
 function MapView(props) {
   const markerIcon = new Icon({
     iconUrl: marker,
-    iconSize: [25*1.2, 40*1.2],
-    iconAnchor: [25*1.2/2,40*1.2]
+    iconSize: [25 * 1.2, 40 * 1.2],
+    iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
   });
 
   const favMarkerIcon = new Icon({
     iconUrl: favMarker,
-    iconSize: [25*1.2, 40*1.2],
-    iconAnchor: [25*1.2/2,40*1.2]
+    iconSize: [25 * 1.2, 40 * 1.2],
+    iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
   });
 
   console.log(props);
@@ -43,7 +43,9 @@ function MapView(props) {
             <Popup>
               {promiseNoData(props.promise, props.data, props.error) || (
                 <div>
-                  <h2 className="popup-title">{site.attrName ? site.attrName : "This site's name is not available"}</h2>
+                  <h2 className="popup-title">
+                    {site.attrName ? site.attrName : "This site's name is not available"}
+                  </h2>
                   <p className="popup-description">
                     {props.data.wikipedia_extracts
                       ? props.data.wikipedia_extracts.text
