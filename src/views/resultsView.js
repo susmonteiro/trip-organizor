@@ -8,6 +8,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 import InformationMessage from './../elements/showMessages.js';
 
@@ -23,14 +25,15 @@ export default function ResultsView(props) {
             <List>
               {props.attractions.map((site) => (
                 <ListItem key={site.properties.xid} disablePadding>
-                  <ListItemButton
+                  <IconButton
+                    aria-label="Add pin"
+                    sx={{ color: 'primary.main' }}
                     onClick={() => {
                       props.onAddAttraction(site.properties);
                     }}>
-                    {/* TODO change me */}
-                    <ListItemIcon sx={{ color: 'secondary.dark' }}>
-                      <AddLocationIcon />
-                    </ListItemIcon>
+                    <AddLocationIcon />
+                  </IconButton>
+                  <ListItemButton onClick={() => props.onSetCurrentAttraction(site.properties.xid)}>
                     <ListItemText primary={site.properties.name} />
                   </ListItemButton>
                 </ListItem>

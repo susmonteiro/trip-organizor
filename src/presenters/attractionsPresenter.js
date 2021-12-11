@@ -45,6 +45,7 @@ export default function AttractionsPresenter(props) {
   const [type, setType] = React.useState(DEFAULT_TYPE);
   const [date, setDate] = React.useState(new Date());
   const [helpText, setHelpText] = React.useState(false);
+  const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promise, setPromise] = React.useState(null);
   React.useEffect(function () {
@@ -56,7 +57,6 @@ export default function AttractionsPresenter(props) {
   // model properties
   const trips = useModelProperty(props.model, 'trips'); // TODO remove
   const currentTrip = useModelProperty(props.model, 'tripCurrent');
-  const currentAttraction = useModelProperty(props.model, 'attractionCurrent');
   const attractions = useModelProperty(props.model, 'attractions');
 
   function getCoord() {
@@ -102,6 +102,7 @@ export default function AttractionsPresenter(props) {
     }
 
     setSearching(false);
+    setCurrentAttraction(null);
   }
 
   function searchAttraction() {
@@ -151,7 +152,10 @@ export default function AttractionsPresenter(props) {
                 }}
                 onChangeDate={(date) => setDate(date)}
                 onSearch={searchAttraction}
-                onNotSearching={() => setSearching(false)}
+                onNotSearching={() => {
+                  setSearching(false);
+                  setCurrentAttraction(null);
+                }}
               />
             </Box>
             <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
@@ -162,6 +166,7 @@ export default function AttractionsPresenter(props) {
                       attractions={data.features}
                       error={error}
                       onAddAttraction={(site) => addAttraction(site)}
+                      onSetCurrentAttraction={(id) => setCurrentAttraction(id)}
                     />
                   </Box>
                 )}
