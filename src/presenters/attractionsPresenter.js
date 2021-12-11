@@ -56,6 +56,7 @@ export default function AttractionsPresenter(props) {
   // model properties
   const trips = useModelProperty(props.model, 'trips'); // TODO remove
   const currentTrip = useModelProperty(props.model, 'tripCurrent');
+  const currentAttraction = useModelProperty(props.model, 'attractionCurrent');
   const attractions = useModelProperty(props.model, 'attractions');
 
   function getCoord() {
@@ -83,18 +84,22 @@ export default function AttractionsPresenter(props) {
 
   // search attraction functions
   function addAttraction(site) {
-    let attraction = new AttractionModel({
-      attrID: site.xid,
-      attrName: site.name,
-      attrDate: date.getTime(),
-      attrType: site.kinds,
-      attrTrip: props.model.tripCurrent
-    });
+    if (attractions.find((attr) => attr.attrID === site.xid && attr.attrTrip === currentTrip)) {
+      console.log('attraction already exists :/');
+    } else {
+      let attraction = new AttractionModel({
+        attrID: site.xid,
+        attrName: site.name,
+        attrDate: date.getTime(),
+        attrType: site.kinds,
+        attrTrip: props.model.tripCurrent
+      });
 
-    SitesSource.getDetails(site.xid)
-      .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
-      .then(() => props.model.addAttractionToTrip(attraction))
-      .catch((err) => console.error(err));
+      SitesSource.getDetails(site.xid)
+        .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
+        .then(() => props.model.addAttractionToTrip(attraction))
+        .catch((err) => console.error(err));
+    }
 
     setSearching(false);
   }
