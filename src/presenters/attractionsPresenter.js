@@ -65,13 +65,12 @@ export default function AttractionsPresenter(props) {
     return trip ? trip.coord : null;
   }
 
+  const tripAttractions = attractions.filter((attraction) => attraction.attrTrip === currentTrip);
   // attractions list functions
   function createRows(attractions, currentTrip) {
     //this function formats all the rows with the information needed
-    let filteredAttractions = attractions.filter(
-      (attraction) => attraction.attrTrip === currentTrip
-    );
-    let rows = filteredAttractions.map((attraction) => ({
+
+    let rows = tripAttractions.map((attraction) => ({
       id: attraction.attrID,
       Name: attraction.attrName,
       Type: attraction.attrType,
@@ -201,7 +200,7 @@ export default function AttractionsPresenter(props) {
               return a;
             }} // TODO
             zoom={12}
-            sites={attractions}
+            sites={tripAttractions}
             promise={promise}
             data={data}
             error={error}
