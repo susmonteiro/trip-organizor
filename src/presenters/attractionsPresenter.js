@@ -146,14 +146,7 @@ export default function AttractionsPresenter(props) {
                 }}
                 onChangeDate={(date) => setDate(date)}
                 onSearch={searchAttraction}
-                onNotSearching={() => {
-                  setSearching(false);
-                  setQuery(null);
-                  setType(DEFAULT_TYPE);
-                  setDate(new Date());
-                  setHelpText(false);
-                  setPromise(null);
-                }}
+                onNotSearching={() => setSearching(false)}
               />
             </Box>
             <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
@@ -170,17 +163,26 @@ export default function AttractionsPresenter(props) {
             </Box>
           </Box>
         )) || (
-          <AttractionsListView
-            nameOfTrip={currentTrip}
-            rows={createRows(attractions, currentTrip)}
-            activities={ACTIVITY_TYPES.map(([, name]) => name)}
-            changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
-            changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
-            onSearching={() => setSearching(true)}
-          />
+          <Box height="50vh">
+            <AttractionsListView
+              nameOfTrip={currentTrip}
+              rows={createRows(attractions, currentTrip)}
+              activities={ACTIVITY_TYPES.map(([, name]) => name)}
+              changeLiked={(id) => props.model.changeIsAttractionLiked(id)}
+              changeCompleted={(id) => props.model.changeIsAttractionCompleted(id)}
+              onSearching={() => {
+                setSearching(true);
+                setQuery(null);
+                setType(DEFAULT_TYPE);
+                setDate(new Date());
+                setHelpText(false);
+                setPromise(null);
+              }}
+            />
+          </Box>
         )}
       </Box>
-      <Box flex={0.4} height="90%">
+      <Box flex={0.4} height="70vh">
         {getCoord() && (
           <MapView
             currentLocation={() => {
