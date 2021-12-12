@@ -2,10 +2,15 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import CustomButton from '../components/customButtons.js';
 
 import Image from './../resapp.jpg';
-
-import LoginView from './loginView.js';
 
 const styles = {
   paperContainer: {
@@ -36,12 +41,80 @@ export default function HomeView(props) {
         <Grid item md={4} display={{ xs: 'none', md: 'block' }} />
         <Grid item md={3} xs={4} mt={{ xs: 0, md: 25 }}>
           <Box>
-            <LoginView
-              authType={props.authType}
-              REGISTER={props.REGISTER}
-              LOGIN={props.LOGIN}
-              onChangeAuthType={(newValue) => props.onChangeAuthType(newValue)}
-            />
+            <Stack sx={{ maxWidth: 300 }}>
+              <TabContext value={props.authType}>
+                <Box sx={{ borderBottom: 1, borderColor: 'primary.main' }}>
+                  <p>{props.user}</p>
+                  <TabList
+                    onChange={(event, newValue) => props.changeAuthType(newValue)}
+                    aria-label="lab API tabs example"
+                    centered>
+                    <Tab label="Login" value={props.LOGIN} />
+                    <Tab label="Register" value={props.REGISTER} />
+                  </TabList>
+                </Box>
+                <TabPanel value={props.LOGIN}>
+                  <Box textAlign="center">
+                    <TextField
+                      id="Email"
+                      label="Email"
+                      variant="standard"
+                      fullWidth
+                      onChange={(event) => props.writeEmail(event.target.value)}
+                    />
+                    <TextField
+                      id="password"
+                      label="Password"
+                      variant="standard"
+                      fullWidth
+                      type="password"
+                      onChange={(event) => props.writePassword(event.target.value)}
+                    />
+                    <Box textAlign="center" mt={5}>
+                      <CustomButton
+                        onClick={(e) => {e.preventDefault(), props.clickLogin()}}>
+                        Login
+                      </CustomButton>
+                    </Box>
+                  </Box>
+                </TabPanel>
+                <TabPanel value={props.REGISTER}>
+                  <Box textAlign="center">
+                    <TextField
+                      id="Email"
+                      label="Email"
+                      variant="standard"
+                      fullWidth
+                      onChange={(event) => props.writeEmail(event.target.value)}
+                    />
+                    <TextField
+                      id="password"
+                      label="Password"
+                      variant="standard"
+                      fullWidth
+                      type="password"
+                      onChange={(event) => props.writePassword(event.target.value)}
+                    />
+                    <TextField
+                      id="verify_password"
+                      label="Repeat Your Password"
+                      variant="standard"
+                      type="password"
+                      fullWidth
+                      onChange={(event) => props.writeVerifyPassword(event.target.value)}
+                    />
+                    <Box textAlign="center" mt={5}>
+                      <CustomButton
+                        onClick={(e) => {
+                          e.preventDefault(), props.clickRegister();
+                        }}>
+                        Register
+                      </CustomButton>
+                    </Box>
+                  </Box>
+                </TabPanel>
+              </TabContext>
+            </Stack>
           </Box>
         </Grid>
         <Grid item md={1} xs={1} />

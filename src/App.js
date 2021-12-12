@@ -60,7 +60,7 @@ function App(props) {
       <CssBaseline />
       <Stack spacing={2}>
         <Routes>
-          <Route path="/" element={<HomePresenter />} />
+          <Route path="/" element={<HomePresenter model={props.model} />} />
           <Route path="/trips" element={<TripListPresenter model={props.model} />} />
           <Route path="/newTrip" element={<AddTripPresenter model={props.model} />} />
           <Route path="/attractions" element={<AttractionsPresenter model={props.model} />} />

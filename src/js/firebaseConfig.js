@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app'; //v9
 import 'firebase/compat/database';
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD6mL4SeWfGObzYnAGT7RXTkl-Z2umBYV8',
@@ -10,7 +11,10 @@ const firebaseConfig = {
   appId: '1:420721287619:web:83dd5777543e446972dd76'
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
-const nameREF = firebase.database().ref('dh2642-rtdb');
-export default nameREF;
+const db = firebase.database();
+export default db;
+
+const auth = getAuth(app);;
+export { auth };

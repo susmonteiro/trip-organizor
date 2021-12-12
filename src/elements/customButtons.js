@@ -30,10 +30,10 @@ export function BackButton(props) {
   );
 }
 
-export function AccountButton() {
+export function AccountButton(props) {
   return (
     <Box textAlign="right" mr={2}>
-      <IconButton sx={{ color: 'primary.faded' }} variant="contained" size="large" href="/">
+      <IconButton sx={{ color: 'primary.faded' }} variant="contained" size="large" href="/" {...props}>
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
     </Box>
