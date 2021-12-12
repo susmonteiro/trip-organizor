@@ -13,7 +13,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 //CUSTOM COMPONENTS
-import TopBar from './../elements/topBar.js';
+import TopBar from '../elements/topBar.js';
 
 export default function SearchView(props) {
   return (

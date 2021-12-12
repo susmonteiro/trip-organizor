@@ -8,8 +8,9 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import CustomButton from '../components/customButtons.js';
-
+import CustomButton from '../elements/customButtons.js';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Image from './../resapp.jpg';
 
 const styles = {
@@ -38,8 +39,17 @@ export default function HomeView(props) {
             TripOrganizor
           </Typography>
         </Grid>
-        <Grid item md={4} display={{ xs: 'none', md: 'block' }} />
-        <Grid item md={3} xs={4} mt={{ xs: 0, md: 25 }}>
+        <Grid item md={4} display={{ xs: 'none', md: 'block' }} >
+        </Grid>
+        <Grid item md={3} xs={4} mt={{ xs: 0, md: 'block' }}>
+         <Box> 
+        {(props.errormssg !== '') &&  
+          <Alert variant="filled" severity="error">
+              <AlertTitle>Error</AlertTitle>
+               {props.errormssg} — <strong>check it out!</strong>
+            </Alert>
+         }
+          </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>
               <TabContext value={props.authType}>

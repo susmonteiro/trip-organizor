@@ -14,8 +14,8 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
 
-import { AccountButton, BackButton, AddButton } from './../elements/customButtons.js';
-import TopBar from './../elements/topBar.js';
+import { AccountButton, BackButton, AddButton } from '../elements/customButtons.js';
+import TopBar from '../elements/topBar.js';
 
 /* function returnButton(isFav) {
   if (isFav) {
@@ -38,7 +38,6 @@ import TopBar from './../elements/topBar.js';
 
 export default function AttractionsListView(props) {
   const activities = props.activities;
-
   const columns = [
     {
       field: 'check',
@@ -61,6 +60,9 @@ export default function AttractionsListView(props) {
       type: 'singleSelect',
       valueOptions: activities,
       width: 130,
+      valueGetter: (params) => {
+        return params.row.Type.name
+      },
       renderCell: (params) => {
         return <Chip label={params.row.Type.name} sx={{ bgcolor: params.row.Type.color }} />;
       }
@@ -109,6 +111,7 @@ export default function AttractionsListView(props) {
       }
     }
   ];
+
 
   return (
     <Box>

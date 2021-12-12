@@ -4,15 +4,15 @@ import firebase from 'firebase/compat/app'; //v9
 import { auth } from '../firebaseConfig';
 import { ref, set, onValue } from "firebase/database";
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
 } from 'firebase/auth';
 
+let logged= false; 
 export default function persistModel(model) {
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      logged = true
       model.setUserID(user.uid) // TODO 
       let loadingFromFirebase = false;
       model.addObserver(function () {
@@ -44,30 +44,22 @@ export default function persistModel(model) {
         }
       });
     } else {
+      logged = false
       if(window.location.pathname !== '/') window.location.href = '/';
     }
   });
 }
-function login(email, password) {
-  signInWithEmailAndPassword(auth, email, password).catch((error) => alert(error.message));
-}
 
-function register(email, password, verify_password) {
-  if (password !== verify_password) {
-    alert('The passwords are not equal');
-    return;
-  }
-  createUserWithEmailAndPassword(auth, email, password).catch((error) => {
-    alert(error.code, error.message);
-  });
-}
 
 function signout() {
   signOut(auth).then(window.location.href = '/').catch(console.log);
 }
 
+function isLogged(){
+  return logged;
+}
+
 export {
-  login,
-  register,
-  signout
+  signout,
+  isLogged
 };
