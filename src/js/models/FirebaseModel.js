@@ -18,7 +18,6 @@ export default function persistModel(model) {
       model.addObserver(function () {
         //whenever the data in the model changes, we want to update the data in the firebase DB
         if (loadingFromFirebase) return; //avoid the case when the data is changed because we are reading from the DB
-        //
         db.ref(user.uid).set({
           // object literal
           tripCurrent: model.tripCurrent,
@@ -41,7 +40,7 @@ export default function persistModel(model) {
         } finally {
           loadingFromFirebase = false;
           console.log(window.location.href)
-          if(window.location.pathname == '/') window.location.href = '/trips' //TODO 
+          if(window.location.pathname == '/') window.location.href = '/trips' 
         }
       });
     } else {
@@ -68,82 +67,7 @@ function signout() {
 }
 
 export {
-  /* SaveTripsFirebase, SaveAttrFirebase, ReadTripsFromFirebase, ReadAttrFromFirebase,*/ login,
+  login,
   register,
   signout
 };
-
-/*
-
-----------------------------------------
-
-
-
-
-function SaveTripsFirebase(new_trips) {
-  var unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      try {
-        console.log(user.uid);
-        db.ref(`${user.uid}`).set({
-          trips: new_trips
-        });
-      } catch (error) {
-        alert(error);
-      }
-    }
-  });
-
-  unsubscribe();
-}
-
-function SaveAttrFirebase(new_attractions) {
-  var unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      try {
-        db.ref(`${user.uid}`).set({
-          attractions: new_attractions
-        });
-      } catch (error) {
-        alert(error);
-      }
-    }
-  });
-
-  unsubscribe();
-}
-
-function ReadTripsFromFirebase({ model }) {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      try {
-        db.ref(`${user.uid}`).on('value', (data) => {
-          if (data.val()) {
-            model.setTrips(data.val().trips || []);
-          }
-        });
-      } catch (error) {
-        alert(error);
-      }
-    }
-  });
-}
-
-function ReadAttrFromFirebase({ model }) {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      try {
-        db.ref(`${user.uid}`).on('value', (data) => {
-          if (data.val()) {
-            model.setAttractions(data.val().attractions || []);
-          }
-        });
-      } catch (error) {
-        alert(error);
-      }
-    }
-  });
-}
-
-
-*/
