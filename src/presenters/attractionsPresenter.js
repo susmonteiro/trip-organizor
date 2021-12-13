@@ -18,6 +18,9 @@ import Stack from '@mui/material/Stack';
 
 import InformationMessage from '../elements/showMessages.js';
 
+import 'firebase/compat/auth';
+import { signout } from '../js/models/FirebaseModel'
+
 export default function AttractionsPresenter(props) {
   // constants
 
@@ -80,6 +83,10 @@ export default function AttractionsPresenter(props) {
     return rows;
   }
 
+  function doLogout(){
+    props.model.setUserID(null)
+    signout()
+  }
   // search attraction functions
   function addAttraction(site) {
     const newKey = site.xid + currentTrip;
@@ -137,6 +144,7 @@ export default function AttractionsPresenter(props) {
           <Box height="100%">
             <Box>
               <SearchView
+                user={props.model.currentUser}
                 activities={[DEFAULT_TYPE, ...ACTIVITY_TYPES]}
                 query={query}
                 type={type}
@@ -156,6 +164,7 @@ export default function AttractionsPresenter(props) {
                   setSearching(false);
                   setCurrentAttraction(null);
                 }}
+                useLogout={() => doLogout()}
               />
             </Box>
             <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
@@ -175,6 +184,7 @@ export default function AttractionsPresenter(props) {
         )) || (
           <Box height="50vh">
             <AttractionsListView
+              user={props.model.currentUser}
               nameOfTrip={currentTrip}
               rows={createRows(attractions, currentTrip)}
               activities={ACTIVITY_TYPES.map((type) => type.name)}
@@ -189,6 +199,7 @@ export default function AttractionsPresenter(props) {
                 setPromise(null);
               }}
               deleteAttraction={(id) => props.model.deleteAttraction(id)}
+              useLogout={() => doLogout()}
             />
           </Box>
         )}

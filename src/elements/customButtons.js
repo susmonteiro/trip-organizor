@@ -4,10 +4,17 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Fab from '@mui/material/Fab';
 
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+
 //ICONs-MATERIAL IMPORTS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export default function CustomButton(props) {
   return (
@@ -51,5 +58,44 @@ export function AddButton(props) {
       {/* TODO change me */}
       <AddIcon />
     </Fab>
+  );
+}
+
+
+
+export function BasicSpeedDial(props) {
+  const doNothing = () => {
+    return
+  }
+  
+  const doLogout = () => {
+    props.useLogout()
+  }
+
+  const actions = [
+    { icon: <PersonIcon />, name: "User ID: " + props.user, event: doNothing },
+    { icon: <LogoutIcon />, name: 'Logout', event: doLogout },
+  ];
+
+
+
+  return (
+    <Box sx={{ height: 100, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: 'absolute', top: 16, right: 16 }}
+        direction="left"
+        icon={<MoreHorizIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={action.event}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
   );
 }

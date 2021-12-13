@@ -26,6 +26,7 @@ export default function TripListPresenter(props) {
   return (
     <TripListView
       trips={tripList}
+      user={props.model.currentUser}
       completeTrip={(trip) => {
         props.model.changeFinished(trip);
       }}
