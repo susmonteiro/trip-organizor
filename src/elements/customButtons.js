@@ -10,7 +10,6 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 //ICONs-MATERIAL IMPORTS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -40,44 +39,36 @@ export function BackButton(props) {
 export function AccountButton(props) {
   return (
     <Box textAlign="right" mr={2}>
-      <IconButton sx={{ color: 'primary.faded' }} variant="contained" size="large" href="/" {...props}>
+      <IconButton
+        sx={{ color: 'primary.faded' }}
+        variant="contained"
+        size="large"
+        href="/"
+        {...props}>
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
     </Box>
   );
 }
 
-export function AddButton(props) {
-  return (
-    <Fab
-      color="secondary"
-      dark="true"
-      aria-label="add"
-      sx={{ position: 'absolute', bottom: 50, left: 50 }}
-      {...props}>
-      {/* TODO change me */}
-      <AddIcon />
-    </Fab>
-  );
+export function RoundButton(props) {
+  return <IconButton color="primary" aria-label="icon button" {...props}></IconButton>;
+  //return <Fab color="secondary" dark="true" aria-label="add" {...props}></Fab>; TODO
 }
-
-
 
 export function BasicSpeedDial(props) {
   const doNothing = () => {
-    return
-  }
-  
+    return;
+  };
+
   const doLogout = () => {
-    props.useLogout()
-  }
+    props.useLogout();
+  };
 
   const actions = [
-    { icon: <PersonIcon />, name: "User ID: " + props.user, event: doNothing },
-    { icon: <LogoutIcon />, name: 'Logout', event: doLogout },
+    { icon: <PersonIcon />, name: 'User ID: ' + props.user, event: doNothing },
+    { icon: <LogoutIcon />, name: 'Logout', event: doLogout }
   ];
-
-
 
   return (
     <Box sx={{ height: 100, transform: 'translateZ(0px)', flexGrow: 1 }}>
@@ -85,8 +76,7 @@ export function BasicSpeedDial(props) {
         ariaLabel="SpeedDial basic example"
         sx={{ position: 'absolute', top: 16, right: 16 }}
         direction="left"
-        icon={<MoreHorizIcon />}
-      >
+        icon={<MoreHorizIcon />}>
         {actions.map((action) => (
           <SpeedDialAction
             key={action.name}

@@ -13,6 +13,8 @@ import usePromise from '../usePromise.js';
 import useModelProperty from './../useModelProperty.js';
 
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
@@ -47,6 +49,8 @@ export default function AttractionsPresenter(props) {
   const [type, setType] = React.useState(ALL_TYPES);
   const [date, setDate] = React.useState(new Date());
   const [helpText, setHelpText] = React.useState(false);
+  const [edit, setEdit] = React.useState(false);
+  const [filter, setFilter] = React.useState(false);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promise, setPromise] = React.useState(null);
@@ -61,25 +65,32 @@ export default function AttractionsPresenter(props) {
   const currentTrip = useModelProperty(props.model, 'tripCurrent');
   const attractions = useModelProperty(props.model, 'attractions');
 
+  let trip = trips.find((trip) => trip.title === currentTrip);
+
   function getCoord() {
     // TODO remove me
-    let trip = trips.find((trip) => trip.title === currentTrip);
     return trip ? trip.coord : null;
+  }
+
+  function getDate() {
+    return trip ? [trip.dateBegin, trip.dateEnd] : null;
   }
 
   const tripAttractions = attractions.filter((attraction) => attraction.trip === currentTrip);
   // attractions list functions
-  function createRows(attractions, currentTrip) {
+  function createRows() {
     //this function formats all the rows with the information needed
 
-    let rows = tripAttractions.map((attraction) => ({
-      id: attraction.key,
-      isCompleted: attraction.finished,
-      isFavourite: attraction.isFav,
-      name: attraction.name,
-      type: attraction.type,
-      date: new Date(attraction.date)
-    }));
+    let rows = tripAttractions
+      .filter((attraction) => type === ALL_TYPES || attraction.type.code === type)
+      .map((attraction) => ({
+        id: attraction.key,
+        isCompleted: attraction.finished,
+        isFavourite: attraction.isFav,
+        name: attraction.name,
+        type: attraction.type,
+        date: new Date(attraction.date)
+      }));
     return rows;
   }
 
@@ -139,96 +150,115 @@ export default function AttractionsPresenter(props) {
         )
       );
   }
-  /*TEST ATTRACTIONS*/
   return (
-    <Box
-      height="auto"
-      display="flex"
-      flexWrap="wrap"
-      flexDirection={{ md: 'row', xs: 'column' }}
-      height="100%">
-      <Box flex={0.6} max-height="100%">
-        {(searching && (
-          <Box height="100%">
-            <Box>
-              <SearchView
+    (trip && (
+      <Box
+        height="auto"
+        display="flex"
+        flexWrap="wrap"
+        flexDirection={{ md: 'row', xs: 'column' }}
+        height="100%">
+        <Box flex={0.6} max-height="100%">
+          {(searching && (
+            <Box height="100%">
+              <Box>
+                <SearchView
+                  user={props.model.currentUser}
+                  activities={[DEFAULT_TYPE, ...ACTIVITY_TYPES]}
+                  query={query}
+                  type={type}
+                  date={date}
+                  showHelpText={helpText}
+                  onChangeQuery={(txt) => {
+                    setQuery(txt);
+                    txt.length > 2 && setHelpText(false);
+                  }}
+                  onChangeType={(type) => {
+                    setType(type);
+                    searchAttraction();
+                  }}
+                  onChangeDate={(date) => setDate(date)}
+                  onSearch={searchAttraction}
+                  onNotSearching={() => {
+                    setSearching(false);
+                    setCurrentAttraction(null);
+                    setType(ALL_TYPES);
+                    setDate(new Date());
+                  }}
+                  useLogout={() => doLogout()}
+                />
+              </Box>
+              <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
+                {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
+                  promiseNoData(promise, data, error) || (
+                    <Box>
+                      <ResultsView
+                        attractions={data.features}
+                        error={error}
+                        onAddAttraction={(site) => addAttraction(site)}
+                        onSetCurrentAttraction={(id) => setCurrentAttraction(id)}
+                      />
+                    </Box>
+                  )}
+              </Box>
+            </Box>
+          )) || (
+            <Box height="50vh">
+              <AttractionsListView
                 user={props.model.currentUser}
-                activities={[DEFAULT_TYPE, ...ACTIVITY_TYPES]}
-                query={query}
+                nameOfTrip={currentTrip}
+                dateOfTrip={getDate()}
+                rows={createRows()}
                 type={type}
                 date={date}
-                showHelpText={helpText}
-                onChangeQuery={(txt) => {
-                  setQuery(txt);
-                  txt.length > 2 && setHelpText(false);
-                }}
+                activities={[DEFAULT_TYPE, ...ACTIVITY_TYPES]}
+                changeLiked={(key) => props.model.changeIsAttractionLiked(key)}
+                changeCompleted={(key) => props.model.changeIsAttractionCompleted(key)}
                 onChangeType={(type) => {
                   setType(type);
                   searchAttraction();
                 }}
                 onChangeDate={(date) => setDate(date)}
-                onSearch={searchAttraction}
-                onNotSearching={() => {
-                  setSearching(false);
-                  setCurrentAttraction(null);
+                onSearching={() => {
+                  setSearching(true);
+                  setQuery(null);
+                  setType(ALL_TYPES);
+                  setDate(new Date());
+                  setHelpText(false);
+                  setPromise(null);
                 }}
+                deleteAttraction={(id) => props.model.deleteAttraction(id)}
                 useLogout={() => doLogout()}
+                edit={edit}
+                onEditing={() => setEdit(!edit)}
+                filter={filter}
+                onFilter={() => setFilter(!filter)}
               />
             </Box>
-            <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
-              {(!promise && <InformationMessage>START TYPING!</InformationMessage>) ||
-                promiseNoData(promise, data, error) || (
-                  <Box>
-                    <ResultsView
-                      attractions={data.features}
-                      error={error}
-                      onAddAttraction={(site) => addAttraction(site)}
-                      onSetCurrentAttraction={(id) => setCurrentAttraction(id)}
-                    />
-                  </Box>
-                )}
-            </Box>
-          </Box>
-        )) || (
-          <Box height="50vh">
-            <AttractionsListView
-              user={props.model.currentUser}
-              nameOfTrip={currentTrip}
-              rows={createRows(attractions, currentTrip)}
-              activities={ACTIVITY_TYPES.map((type) => type.name)}
-              changeLiked={(key) => props.model.changeIsAttractionLiked(key)}
-              changeCompleted={(key) => props.model.changeIsAttractionCompleted(key)}
-              onSearching={() => {
-                setSearching(true);
-                setQuery(null);
-                setType(ALL_TYPES);
-                setDate(new Date());
-                setHelpText(false);
-                setPromise(null);
-              }}
-              deleteAttraction={(id) => props.model.deleteAttraction(id)}
-              useLogout={() => doLogout()}
+          )}
+        </Box>
+        <Box flex={0.4} height="70vh">
+          {getCoord() && (
+            <MapView
+              currentLocation={() => {
+                const a = getCoord();
+                return a;
+              }} // TODO
+              zoom={12}
+              sites={tripAttractions}
+              promise={promise}
+              data={data}
+              error={error}
+              setPromise={setPromise}
+              changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
             />
-          </Box>
-        )}
+          )}
+        </Box>
       </Box>
-      <Box flex={0.4} height="70vh">
-        {getCoord() && (
-          <MapView
-            currentLocation={() => {
-              const a = getCoord();
-              return a;
-            }} // TODO
-            zoom={12}
-            sites={tripAttractions}
-            promise={promise}
-            data={data}
-            error={error}
-            setPromise={setPromise}
-            changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
-          />
-        )}
+    )) || (
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} mt={10}>
+        <CircularProgress />
       </Box>
-    </Box>
+    )
   );
 }

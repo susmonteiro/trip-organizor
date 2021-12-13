@@ -2,8 +2,12 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
+import Select from '@mui/material/Select';
 
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -13,18 +17,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+import AddIcon from '@mui/icons-material/Add';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'; //fav icon shape
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
 
-import { AccountButton, BackButton, AddButton } from '../elements/customButtons.js';
+import CustomButton, { RoundButton } from '../elements/customButtons.js';
 import TopBar from '../elements/topBar.js';
 
 export default function AttractionsListView(props) {
@@ -55,103 +62,92 @@ export default function AttractionsListView(props) {
   function changeArrowDisplay(order, id, func) {
     if (order === 1) {
       if (id === func) {
-        return <ArrowDownwardIcon color="secondary" />;
+        return <ArrowDownwardIcon color="primary" />;
       } else {
         return <ArrowDownwardIcon color="disabled" />;
       }
     } else {
       if (id === func) {
-        return <ArrowUpwardIcon color="secondary" />;
+        return <ArrowUpwardIcon color="primary" />;
       } else {
         return <ArrowUpwardIcon color="disabled" />;
       }
     }
   }
 
-  const columns = [
-    {
-      field: 'check',
-      headerName: 'Completed',
-      width: 120,
-      renderCell: (params) => {
-        return (
-          <Checkbox
-            color="primary"
-            index={params.row.id}
-            checked={params.row.isCompleted}
-            onClick={() => props.changeCompleted(params.row.id)}></Checkbox>
-        );
-      }
-    },
-    { field: 'Name', headerName: 'Name', width: 130 },
-    {
-      field: 'Type',
-      headerName: 'Type',
-      type: 'singleSelect',
-      valueOptions: activities,
-      width: 130,
-      valueGetter: (params) => {
-        return params.row.Type.name;
-      },
-      renderCell: (params) => {
-        return <Chip label={params.row.Type.name} sx={{ bgcolor: params.row.Type.color }} />;
-      }
-    },
-    {
-      field: 'date',
-      headerName: 'Date',
-      type: 'date',
-      width: 130
-    },
-    {
-      field: 'likebutton',
-      headerName: 'Favourite',
-      sortable: false,
-      width: 130,
-      renderCell: (params) => {
-        if (params.row.isFavourite) {
-          return (
-            <IconButton aria-label="like" onClick={() => props.changeLiked(params.row.id)}>
-              <FavoriteIcon />
-            </IconButton>
-          );
-        } else {
-          return (
-            <IconButton aria-label="like" onClick={() => props.changeLiked(params.row.id)}>
-              <FavoriteBorderRoundedIcon />
-            </IconButton>
-          );
-        }
-      }
-    },
-    {
-      field: 'deletebutton',
-      headerName: '',
-      sortable: false,
-      width: 120,
-      renderCell: (params) => {
-        return (
-          <Button
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-            onClick={() => props.deleteAttraction(params.row.id)}>
-            Delete
-          </Button>
-        );
-      }
-    }
-  ];
-
   return (
     <Box>
       <TopBar href="trips" user={props.user} useLogout={props.useLogout}>
         My Trips
       </TopBar>
-      <Box mt={2} ml={2} mr={2}>
-        <Typography color="primary" fontSize={23} fontWeight={500} textAlign="left">
-          {props.nameOfTrip}
-        </Typography>
-        <Box mt={2}>
+      <Box mt={-4} ml={2} mr={2}>
+        <Grid container mr={5} ml={5} mt={3} alignItems="flex-end">
+          <Grid item xs={8}>
+            <Typography color="primary" fontSize={25} fontWeight={500} textAlign="left">
+              {props.nameOfTrip}
+            </Typography>
+            <Typography color="primary" fontSize={15} textAlign="left">
+              {new Date(props.dateOfTrip[0]).toDateString()} —{' '}
+              {new Date(props.dateOfTrip[1]).toDateString()}
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <RoundButton
+              color={props.filter ? 'secondary' : 'primary'}
+              onClick={() => props.onFilter()}>
+              <FilterAltIcon />
+            </RoundButton>
+          </Grid>
+          <Grid item xs={1}>
+            <RoundButton
+              color={props.edit ? 'secondary' : 'primary'}
+              onClick={() => props.onEditing()}>
+              <EditIcon />
+            </RoundButton>
+          </Grid>
+          <Grid item xs={1}>
+            <RoundButton onClick={() => props.onSearching()}>
+              <AddIcon />
+            </RoundButton>
+          </Grid>
+          <Grid item xs={1} />
+          {props.filter && (
+            <Grid item lg={5} md={4} xs={5} mt={3}>
+              <FormControl variant="standard" fullWidth color="primary">
+                <InputLabel id="select-type-input">Type</InputLabel>
+                <Select
+                  id="select-type"
+                  value={props.type}
+                  label="Type"
+                  onChange={(event) => props.onChangeType(event.target.value)}>
+                  {activities.map((type) => (
+                    <MenuItem key={type.code} value={type.code}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          )}
+
+          {/* <Grid item lg={5} md={4} xs={5}>
+            <FormControl variant="standard" fullWidth color="primary">
+              <InputLabel id="select-type-input">Type</InputLabel>
+              <Select
+                id="select-type"
+                value={props.type}
+                label="Type"
+                onChange={(event) => props.onChangeType(event.target.value)}>
+                {props.activities.map((type) => (
+                  <MenuItem key={type.code} value={type.code}>
+                    {type.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid> */}
+        </Grid>
+        <Box mt={1}>
           <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
             <Table stickyHeader aria-label="simple table">
               <TableHead>
@@ -233,10 +229,10 @@ export default function AttractionsListView(props) {
                       <IconButton
                         display="center"
                         variant="contained"
-                        disabled
+                        disabled={!props.edit}
                         color="primary"
                         id={item.id}
-                        onClick={() => props.deleteAttraction(params.row.id)}>
+                        onClick={() => props.deleteAttraction(item.id)}>
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
@@ -245,7 +241,6 @@ export default function AttractionsListView(props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <AddButton onClick={() => props.onSearching()} />
         </Box>
       </Box>
     </Box>
