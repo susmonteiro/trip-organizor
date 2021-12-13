@@ -74,11 +74,11 @@ export default function AttractionsPresenter(props) {
 
     let rows = tripAttractions.map((attraction) => ({
       id: attraction.key,
-      Name: attraction.name,
-      Type: attraction.type,
-      date: new Date(attraction.date),
+      isCompleted: attraction.finished,
       isFavourite: attraction.isFav,
-      isFinished: attraction.finished
+      name: attraction.name,
+      type: attraction.type,
+      date: new Date(attraction.date)
     }));
     return rows;
   }

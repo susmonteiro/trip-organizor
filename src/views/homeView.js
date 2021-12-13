@@ -40,7 +40,7 @@ export default function HomeView(props) {
           </Typography>
         </Grid>
         <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
-        <Grid item md={3} xs={4} mt={{ xs: 0, md: 'block' }}>
+        <Grid item md={3} xs={4} mt={{ xs: 'none', md: 'block' }}>
           <Box>
             {props.errormssg !== '' && (
               <Alert variant="filled" severity="error">
