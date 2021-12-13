@@ -11,11 +11,17 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import TripListView from '../views/tripListView';
 import AddTripView from '../views/tripListView';
+import { signout } from '../js/models/FirebaseModel'
 
 export default function TripListPresenter(props) {
   const [tripList, setTripList] = React.useState(props.model.trips);
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
+
+  function doLogout(){
+    props.model.setUserID(null)
+    signout()
+  }
 
   React.useEffect(function () {
     function obs() {
@@ -101,6 +107,7 @@ export default function TripListPresenter(props) {
           }}
           showDone={showDone}
           showAddChange={(show) => setShowAdd(show)}
+          useLogout={() => doLogout()}
         />
       </div>
       <div>{addTripSideBar()}</div>
