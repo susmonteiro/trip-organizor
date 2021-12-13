@@ -39,16 +39,15 @@ export default function HomeView(props) {
             TripOrganizor
           </Typography>
         </Grid>
-        <Grid item md={4} display={{ xs: 'none', md: 'block' }} >
-        </Grid>
+        <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
         <Grid item md={3} xs={4} mt={{ xs: 0, md: 'block' }}>
-         <Box> 
-        {(props.errormssg !== '') &&  
-          <Alert variant="filled" severity="error">
-              <AlertTitle>Error</AlertTitle>
-               {props.errormssg} — <strong>check it out!</strong>
-            </Alert>
-         }
+          <Box>
+            {props.errormssg !== '' && (
+              <Alert variant="filled" severity="error">
+                <AlertTitle>Error</AlertTitle>
+                {props.errormssg} — <strong>check it out!</strong>
+              </Alert>
+            )}
           </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>
@@ -72,17 +71,22 @@ export default function HomeView(props) {
                       fullWidth
                       onChange={(event) => props.writeEmail(event.target.value)}
                     />
-                    <TextField
-                      id="password"
-                      label="Password"
-                      variant="standard"
-                      fullWidth
-                      type="password"
-                      onChange={(event) => props.writePassword(event.target.value)}
-                    />
+                    <Box textAlign="center" mt={1}>
+                      <TextField
+                        id="password"
+                        label="Password"
+                        variant="standard"
+                        fullWidth
+                        type="password"
+                        onChange={(event) => props.writePassword(event.target.value)}
+                      />{' '}
+                    </Box>
+
                     <Box textAlign="center" mt={5}>
                       <CustomButton
-                        onClick={(e) => {e.preventDefault(), props.clickLogin()}}>
+                        onClick={(e) => {
+                          e.preventDefault(), props.clickLogin();
+                        }}>
                         Login
                       </CustomButton>
                     </Box>
@@ -97,22 +101,26 @@ export default function HomeView(props) {
                       fullWidth
                       onChange={(event) => props.writeEmail(event.target.value)}
                     />
-                    <TextField
-                      id="password"
-                      label="Password"
-                      variant="standard"
-                      fullWidth
-                      type="password"
-                      onChange={(event) => props.writePassword(event.target.value)}
-                    />
-                    <TextField
-                      id="verify_password"
-                      label="Repeat Your Password"
-                      variant="standard"
-                      type="password"
-                      fullWidth
-                      onChange={(event) => props.writeVerifyPassword(event.target.value)}
-                    />
+                    <Box textAlign="center" mt={1}>
+                      <TextField
+                        id="password"
+                        label="Password"
+                        variant="standard"
+                        fullWidth
+                        type="password"
+                        onChange={(event) => props.writePassword(event.target.value)}
+                      />
+                    </Box>
+                    <Box textAlign="center" mt={1}>
+                      <TextField
+                        id="verify_password"
+                        label="Repeat Your Password"
+                        variant="standard"
+                        type="password"
+                        fullWidth
+                        onChange={(event) => props.writeVerifyPassword(event.target.value)}
+                      />
+                    </Box>
                     <Box textAlign="center" mt={5}>
                       <CustomButton
                         onClick={(e) => {
