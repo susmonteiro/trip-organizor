@@ -13,7 +13,7 @@ export default function persistModel(model) {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       logged = true
-      model.setUserID(user.uid) // TODO 
+      model.setUserID(user.uid) 
       let loadingFromFirebase = false;
       model.addObserver(function () {
         //whenever the data in the model changes, we want to update the data in the firebase DB

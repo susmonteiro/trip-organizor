@@ -115,7 +115,7 @@ export default function AttractionsListView(props) {
 
   return (
     <Box>
-      <TopBar href="trips">My Trips</TopBar>
+      <TopBar href="trips" user={props.user} useLogout={props.useLogout}>My Trips</TopBar>
       <Box mt={2} ml={2} mr={2}>
         <Typography color="primary" fontSize={23} fontWeight={500} textAlign="left">
           {props.nameOfTrip}
