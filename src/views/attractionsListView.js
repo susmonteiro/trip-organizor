@@ -31,26 +31,26 @@ export default function AttractionsListView(props) {
   const activities = props.activities;
 
   let [func, setFunc] = React.useState(0);
-  let [orderTitle, setOrderTitle] = React.useState(1);
+  let [orderName, setOrderName] = React.useState(1);
   let [orderType, setOrderType] = React.useState(1);
   let [orderDate, setOrderDate] = React.useState(1);
 
   function compare(a, b) {
     switch (func) {
       case 0:
-        if (a.title < b.title) return -1 * orderTitle;
-        else if (a.title > b.title) return 1 * orderTitle;
+        if (a.name < b.name) return -1 * orderName;
+        else if (a.name > b.name) return 1 * orderName;
         else return 0;
       case 1:
+        if (a.type.name < b.type.name) return -1 * orderType;
+        else if (a.type.name > b.type.name) return 1 * orderType;
+        else return 0;
+      case 2:
         if (a.date < b.date) return -1 * orderDate;
         else if (a.date > b.date) return 1 * orderDate;
         else return 0;
     }
   }
-
-  const handleClick = () => {
-    setOpen(true);
-  };
 
   function changeArrowDisplay(order, id, func) {
     if (order === 1) {
@@ -161,10 +161,10 @@ export default function AttractionsListView(props) {
                     Attraction Name
                     <IconButton
                       onClick={() => {
-                        setOrderTitle(orderTitle * -1);
+                        setOrderName(orderName * -1);
                         setFunc(0);
                       }}>
-                      {changeArrowDisplay(orderTitle, 0, func)}
+                      {changeArrowDisplay(orderName, 0, func)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center" width="20%">
@@ -177,7 +177,7 @@ export default function AttractionsListView(props) {
                       {changeArrowDisplay(orderType, 1, func)}
                     </IconButton>
                   </TableCell>
-                  <TableCell align="center" width="25%">
+                  <TableCell align="center" width="20%">
                     Date
                     <IconButton
                       onClick={() => {
@@ -187,6 +187,7 @@ export default function AttractionsListView(props) {
                       {changeArrowDisplay(orderDate, 2, func)}
                     </IconButton>
                   </TableCell>
+                  <TableCell width="5%" />
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -228,23 +229,22 @@ export default function AttractionsListView(props) {
                       />
                     </TableCell>
                     <TableCell align="center">{new Date(item.date).toDateString()}</TableCell>
+                    <TableCell width="5%">
+                      <IconButton
+                        display="center"
+                        variant="contained"
+                        disabled
+                        color="primary"
+                        id={item.id}
+                        onClick={() => props.deleteAttraction(params.row.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-
-          {/* <DataGrid
-            ////////////// TODO
-            id={Math.random()}
-            ////////////// TODO
-            rows={props.rows}
-            columns={columns}
-            pageSize={(props.rows && props.rows.length) || 0}
-            disableColumnSelector
-            hideFooter
-            disableSelectionOnClick
-          /> */}
           <AddButton onClick={() => props.onSearching()} />
         </Box>
       </Box>

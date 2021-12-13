@@ -1,45 +1,13 @@
 /* COLOR PALETTE */
 
-:root {
-  --main: #3b6064;
-  --main-faded: #566c6e;
-
-  --secondary: #cfb9ac;
-  --secondary-dark: #a59287;
-
-  --favourite: #ee7d61;
-}
-
-/* Markers and buttons */
-museum-marker {
-  color: #f2ae98;
-}
-
-food-marker {
-  color: #bb98f2;
-}
-
-outdoor-marker {
-  color: #bbcead;
-}
-
-shop-marker {
-  color: null; /* TODO */
-}
-
-nature-marker {
-  color: null; /* TODO */
-}
-
-nightlife-marker {
-  color: null; /* TODO */
-}
-
-/* Map View */
-
 /*MapContainer sizing React-Leaflet*/
-.leaflet-container {  width: 100vw;  height: 100vh; }
-.leaflet-container {  width: 100%; }
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+}
+.leaflet-container {
+  width: 100%;
+}
 
 .popup-title {
   text-align: center;
@@ -68,29 +36,4 @@ nightlife-marker {
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
-}
-
-/* Attractions Table View */
-
-/* TODO :overwritte MUI styles*/
-.attractions-grid {
-  background-color: var(--main);
-}
-.MuiDataGrid-cell {
-  color: var(--secondary);
-}
-
-.MuiDataGrid-columnHeaderTitle {
-  color: var(--secondary);
-}
-.like-grid-button {
-  justify-content: center;
-}
-
-.MuiIconButton-colorPrimary {
-  color: var(--favourite);
-}
-
-.MuiIconButton-colorPrimary {
-  color: var(--favourite);
 }
