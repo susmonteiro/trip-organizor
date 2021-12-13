@@ -152,8 +152,8 @@ export default function AttractionsListView(props) {
           {props.nameOfTrip}
         </Typography>
         <Box mt={2}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+          <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
+            <Table stickyHeader aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell width="15%" />
