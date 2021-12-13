@@ -12,7 +12,7 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import PersonIcon from '@mui/icons-material/Person';
+import PublicIcon from '@mui/icons-material/Public';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
@@ -64,8 +64,8 @@ export function AddButton(props) {
 
 
 export function BasicSpeedDial(props) {
-  const doNothing = () => {
-    return
+  const goTrips = () => {
+    window.location.href = '/trips'
   }
   
   const doLogout = () => {
@@ -73,7 +73,7 @@ export function BasicSpeedDial(props) {
   }
 
   const actions = [
-    { icon: <PersonIcon />, name: "User ID: " + props.user, event: doNothing },
+    { icon: <PublicIcon />, name: "My Trips", event: goTrips },
     { icon: <LogoutIcon />, name: 'Logout', event: doLogout },
   ];
 
