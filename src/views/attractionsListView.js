@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
 
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -22,6 +23,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -110,23 +112,65 @@ export default function AttractionsListView(props) {
               <AddIcon />
             </RoundButton>
           </Grid>
+
           <Grid item xs={1} />
           {props.filter && (
-            <Grid item lg={5} md={4} xs={5} mt={3}>
-              <FormControl variant="standard" fullWidth color="primary">
-                <InputLabel id="select-type-input">Type</InputLabel>
-                <Select
-                  id="select-type"
-                  value={props.type}
-                  label="Type"
-                  onChange={(event) => props.onChangeType(event.target.value)}>
-                  {activities.map((type) => (
-                    <MenuItem key={type.code} value={type.code}>
-                      {type.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Grid container mt={3}>
+              <Grid item xs={5}>
+                <FormControl variant="standard" fullWidth color="primary">
+                  <InputLabel id="select-type-input">Type</InputLabel>
+                  <Select
+                    id="select-type"
+                    value={props.type}
+                    label="Type"
+                    onChange={(event) => props.onChangeType(event.target.value)}>
+                    {activities.map((type) => (
+                      <MenuItem key={type.code} value={type.code}>
+                        {type.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={3} />
+              <Grid item xs={1}>
+                <IconButton
+                  display="center"
+                  variant="contained"
+                  id="show checked"
+                  onClick={() => {
+                    props.showChecked();
+                  }}>
+                  {props.checked ? <CheckBoxIcon color="primary" /> : <CheckBoxOutlineBlankIcon />}
+                </IconButton>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton
+                  display="center"
+                  variant="contained"
+                  id="show favourites"
+                  onClick={() => {
+                    props.showFavourites();
+                  }}>
+                  {props.favourites ? (
+                    <FavoriteIcon color="favourite" />
+                  ) : (
+                    <FavoriteBorderRoundedIcon />
+                  )}
+                </IconButton>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton
+                  display="center"
+                  variant="contained"
+                  id="reset"
+                  onClick={() => {
+                    props.resetFilter();
+                  }}>
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={1} />
             </Grid>
           )}
 
@@ -226,15 +270,16 @@ export default function AttractionsListView(props) {
                     </TableCell>
                     <TableCell align="center">{new Date(item.date).toDateString()}</TableCell>
                     <TableCell width="5%">
-                      <IconButton
-                        display="center"
-                        variant="contained"
-                        disabled={!props.edit}
-                        color="primary"
-                        id={item.id}
-                        onClick={() => props.deleteAttraction(item.id)}>
-                        <DeleteIcon />
-                      </IconButton>
+                      {props.edit && (
+                        <IconButton
+                          display="center"
+                          variant="contained"
+                          color="primary"
+                          id={item.id}
+                          onClick={() => props.deleteAttraction(item.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

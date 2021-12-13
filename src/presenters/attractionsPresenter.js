@@ -51,6 +51,8 @@ export default function AttractionsPresenter(props) {
   const [helpText, setHelpText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
   const [filter, setFilter] = React.useState(false);
+  const [checked, setChecked] = React.useState(true);
+  const [favourites, setFavourites] = React.useState(false);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promise, setPromise] = React.useState(null);
@@ -77,11 +79,18 @@ export default function AttractionsPresenter(props) {
   }
 
   const tripAttractions = attractions.filter((attraction) => attraction.trip === currentTrip);
+
+  const filteredAttractions = tripAttractions.filter(
+    (attraction) =>
+      (type === ALL_TYPES || attraction.type.code === type) &&
+      (checked || !attraction.finished) &&
+      (!favourites || attraction.isFav)
+  );
   // attractions list functions
   function createRows() {
     //this function formats all the rows with the information needed
 
-    let rows = tripAttractions
+    let rows = filteredAttractions
       .filter((attraction) => type === ALL_TYPES || attraction.type.code === type)
       .map((attraction) => ({
         id: attraction.key,
@@ -233,6 +242,16 @@ export default function AttractionsPresenter(props) {
                 onEditing={() => setEdit(!edit)}
                 filter={filter}
                 onFilter={() => setFilter(!filter)}
+                checked={checked}
+                showChecked={() => setChecked(!checked)}
+                favourites={favourites}
+                showFavourites={() => setFavourites(!favourites)}
+                resetFilter={() => {
+                  setChecked(true);
+                  setFavourites(false);
+                  setType(ALL_TYPES);
+                  setFilter(false);
+                }}
               />
             </Box>
           )}
@@ -245,7 +264,7 @@ export default function AttractionsPresenter(props) {
                 return a;
               }} // TODO
               zoom={12}
-              sites={tripAttractions}
+              sites={searching ? tripAttractions : filteredAttractions}
               promise={promise}
               data={data}
               error={error}
