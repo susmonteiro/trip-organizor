@@ -19,7 +19,7 @@ import Stack from '@mui/material/Stack';
 import InformationMessage from '../elements/showMessages.js';
 
 import 'firebase/compat/auth';
-import { signout } from '../js/models/FirebaseModel'
+import { signout } from '../js/models/FirebaseModel';
 
 export default function AttractionsPresenter(props) {
   // constants
@@ -83,9 +83,9 @@ export default function AttractionsPresenter(props) {
     return rows;
   }
 
-  function doLogout(){
-    props.model.setUserID(null)
-    signout()
+  function doLogout() {
+    props.model.setUserID(null);
+    signout();
   }
   // search attraction functions
   function addAttraction(site) {
@@ -125,7 +125,7 @@ export default function AttractionsPresenter(props) {
           query,
           coord[0],
           coord[1],
-          5000, // TODO define constants
+          50000, // TODO define constants
           type,
           30
         )
