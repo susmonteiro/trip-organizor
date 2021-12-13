@@ -103,6 +103,9 @@ export default function HomeView(props) {
                       variant="standard"
                       fullWidth
                       type="password"
+                      helperText={
+                        "At least 6 characters"
+                      }
                       onChange={(event) => props.writePassword(event.target.value)}
                     />
                     <TextField

@@ -12,7 +12,7 @@ export default function HomePresenter(props) {
   const [password, setPassword] = React.useState('');
   const [verify_password, setVerifyPassword] = React.useState('');
   const [error, setError] = React.useState('');
-  const [success, setSuccess] = React.useState('');
+  const [success, setSuccess] = React.useState(''); //TODO or delete
   //We want to be without a session when we are at this page
   const REGISTER = '1';
   const LOGIN = '0';
@@ -37,10 +37,9 @@ export default function HomePresenter(props) {
   }
   function login(email, password) {
     setError('')
-    setSuccess('')
     signInWithEmailAndPassword(auth, email, password).catch((error) =>{
       putErrorString(error.message);
-    }).then(()=> { if(error== '') setSuccess("You are logged in! Wait...")});
+    })
   }
   
   function register(email, password, verify_password) {
