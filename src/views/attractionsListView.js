@@ -46,7 +46,7 @@ import TopBar from '../elements/topBar.js';
 export default function AttractionsListView(props) {
   const activities = props.activities;
 
-  let [func, setFunc] = React.useState(0);
+  let [func, setFunc] = React.useState(2);
   let [orderName, setOrderName] = React.useState(1);
   let [orderType, setOrderType] = React.useState(1);
   let [orderDate, setOrderDate] = React.useState(1);
