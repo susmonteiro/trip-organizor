@@ -129,12 +129,13 @@ export default function TripListPresenter(props) {
                 setValidate(false);
               }}
               addTrip={() => {
+                console.log(data);
                 props.model.addTrip(
                   new TripModel(
                     title,
-                    'country',
-                    'countrycode',
-                    'city',
+                    country,
+                    data.country,
+                    data.name,
                     date[0].getTime(),
                     date[1].getTime(),
                     [data.lat, data.lon],

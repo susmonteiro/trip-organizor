@@ -201,8 +201,15 @@ export default function TripListView(props) {
                       action={undoAction}
                     /> */}
                   </TableCell>
-                  <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
-                    {item.title}
+                  <TableCell align="left" onClick={() => props.tripChoice(item.title)}>
+                    <img
+                      loading="lazy"
+                      width="20"
+                      src={`https://flagcdn.com/w20/${item.countryCode.toLowerCase()}.png`}
+                      srcSet={`https://flagcdn.com/w40/${item.countryCode.toLowerCase()}.png 2x`}
+                      alt=""
+                    />
+                    {'  ' + item.title}
                   </TableCell>
                   <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateBegin).toDateString()}
@@ -292,7 +299,16 @@ export default function TripListView(props) {
                           action={undoAction}
                         /> */}
                       </TableCell>
-                      <TableCell align="center">{item.title}</TableCell>
+                      <TableCell align="center">
+                        <img
+                          loading="lazy"
+                          width="20"
+                          src={`https://flagcdn.com/w20/${item.countryCode.toLowerCase()}.png`}
+                          srcSet={`https://flagcdn.com/w40/${item.countryCode.toLowerCase()}.png 2x`}
+                          alt=""
+                        />
+                        {'  ' + item.title}
+                      </TableCell>
                       <TableCell align="center">
                         {new Date(item.dateBegin).toDateString()}
                       </TableCell>
