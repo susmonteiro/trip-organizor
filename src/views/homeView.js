@@ -79,6 +79,7 @@ export default function HomeView(props) {
                         fullWidth
                         type="password"
                         onChange={(event) => props.writePassword(event.target.value)}
+                        onKeyUp={(event) => event.key === 'Enter' && props.clickLogin()}
                       />{' '}
                     </Box>
 
@@ -120,6 +121,7 @@ export default function HomeView(props) {
                         type="password"
                         fullWidth
                         onChange={(event) => props.writeVerifyPassword(event.target.value)}
+                        onKeyUp={(event) => event.key === 'Enter' && props.clickRegister()}
                       />
                     </Box>
                     <Box textAlign="center" mt={5}>
