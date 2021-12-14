@@ -23,6 +23,9 @@ import InformationMessage from '../elements/showMessages.js';
 import 'firebase/compat/auth';
 import { signout } from '../js/models/FirebaseModel';
 
+const RADIUS = 50000;
+const NUM_RESULTS = 30;
+
 export default function AttractionsPresenter(props) {
   // constants
 
@@ -113,6 +116,8 @@ export default function AttractionsPresenter(props) {
 
     if (attractions.find((attr) => attr.key === newKey)) {
       console.log('attraction already exists :/');
+    } else if (date < trip.dateBegin || date > dateEnd) {
+      console.log('invalid date');
     } else {
       let attraction = new AttractionModel({
         id: site.xid,
@@ -148,16 +153,7 @@ export default function AttractionsPresenter(props) {
     if (!query || query.length < 3) {
       setHelpText(true);
     } else
-      setPromise(
-        SitesSource.getSuggestion(
-          query,
-          coord[0],
-          coord[1],
-          50000, // TODO define constants
-          type,
-          30
-        )
-      );
+      setPromise(SitesSource.getSuggestion(query, coord[0], coord[1], RADIUS, type, NUM_RESULTS));
   }
   return (
     (trip && (
@@ -177,6 +173,8 @@ export default function AttractionsPresenter(props) {
                   query={query}
                   type={type}
                   date={date}
+                  minDate={trip.dateBegin}
+                  maxDate={trip.dateEnd}
                   showHelpText={helpText}
                   onChangeQuery={(txt) => {
                     setQuery(txt);
@@ -232,7 +230,7 @@ export default function AttractionsPresenter(props) {
                   setSearching(true);
                   setQuery(null);
                   setType(ALL_TYPES);
-                  setDate(new Date());
+                  setDate(new Date(trip.dateBegin));
                   setHelpText(false);
                   setPromise(null);
                 }}

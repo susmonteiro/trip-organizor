@@ -18,7 +18,9 @@ import TopBar from '../elements/topBar.js';
 export default function SearchView(props) {
   return (
     <Box>
-      <TopBar onClick={() => props.onNotSearching()} user={props.user} useLogout={props.useLogout}>Attractions</TopBar>
+      <TopBar onClick={() => props.onNotSearching()} user={props.user} useLogout={props.useLogout}>
+        Attractions
+      </TopBar>
       <Box ml={{ lg: 10, md: 5, xs: 5 }} mr={{ lg: 10, md: 5, xs: 5 }}>
         <Grid
           container
@@ -62,6 +64,8 @@ export default function SearchView(props) {
               <DesktopDatePicker
                 label="Date"
                 inputFormat="dd/MM/yyyy"
+                minDate={props.minDate}
+                maxDate={props.maxDate}
                 value={props.date}
                 onChange={(value) => props.onChangeDate(value)}
                 renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
