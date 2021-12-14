@@ -91,7 +91,7 @@ export default function AttractionsListView(props) {
       </TopBar>
       <Box mt={-4} ml={2} mr={2}>
         <Grid container pr={5} pl={5} mt={3} alignItems="flex-end">
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <Typography color="primary" fontSize={25} fontWeight={500} textAlign="left">
               {props.nameOfTrip}
             </Typography>
@@ -135,7 +135,6 @@ export default function AttractionsListView(props) {
               <AddIcon />
             </RoundButton>
           </Grid>
-          <Grid item xs={1} />
           {props.filter && (
             <Grid container mt={3}>
               <Grid item xs={3}>
@@ -154,7 +153,6 @@ export default function AttractionsListView(props) {
                   </Select>
                 </FormControl>
               </Grid>
-
               <Grid item xs={3} ml={5}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DesktopDatePicker
@@ -169,7 +167,7 @@ export default function AttractionsListView(props) {
                   />
                 </LocalizationProvider>
               </Grid>
-              <Grid item xs={1} ml={-5} />
+              <Grid item xs={2} ml={-5} />
               <Grid item xs={1}>
                 <Tooltip title="Filter By Date" placement="bottom">
                   <IconButton
@@ -234,7 +232,6 @@ export default function AttractionsListView(props) {
                   </IconButton>
                 </Tooltip>
               </Grid>
-              <Grid item xs={1} />
             </Grid>
           )}
         </Grid>
