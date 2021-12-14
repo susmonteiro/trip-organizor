@@ -11,12 +11,18 @@ import SitesSource from '../sitesSource.js';
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
 import Grid from '@mui/material/Grid';
+import { signout } from '../js/models/FirebaseModel';
 
 export default function TripListPresenter(props) {
   //////////////////////////////TRIP LIST PRESENTER//////////////////////////////
   const [tripList, setTripList] = React.useState(props.model.trips);
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
+
+  function doLogout() {
+    props.model.setUserID(null);
+    signout();
+  }
 
   React.useEffect(function () {
     function obs() {
