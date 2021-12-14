@@ -7,6 +7,7 @@ import Fab from '@mui/material/Fab';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
+import Tooltip from '@mui/material/Tooltip';
 
 //ICONs-MATERIAL IMPORTS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -52,7 +53,16 @@ export function AccountButton(props) {
 }
 
 export function RoundButton(props) {
-  return <IconButton color="primary" aria-label="icon button" {...props}></IconButton>;
+  return (
+    <Tooltip title={props.title} placement="top">
+      <IconButton
+        color={props.color || 'primary'}
+        aria-label="icon button"
+        onClick={() => props.onClick()}>
+        {props.children}
+      </IconButton>
+    </Tooltip>
+  );
   //return <Fab color="secondary" dark="true" aria-label="add" {...props}></Fab>; TODO
 }
 

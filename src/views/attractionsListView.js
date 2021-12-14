@@ -17,6 +17,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Tooltip from '@mui/material/Tooltip';
 
 import AddIcon from '@mui/icons-material/Add';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -95,6 +96,7 @@ export default function AttractionsListView(props) {
           </Grid>
           <Grid item xs={1}>
             <RoundButton
+              title="Filter"
               color={props.filter ? 'secondary' : 'primary'}
               onClick={() => props.onFilter()}>
               <FilterAltIcon />
@@ -102,13 +104,14 @@ export default function AttractionsListView(props) {
           </Grid>
           <Grid item xs={1}>
             <RoundButton
+              title="Edit"
               color={props.edit ? 'secondary' : 'primary'}
               onClick={() => props.onEditing()}>
               <EditIcon />
             </RoundButton>
           </Grid>
           <Grid item xs={1}>
-            <RoundButton onClick={() => props.onSearching()}>
+            <RoundButton title="Add Attraction" onClick={() => props.onSearching()}>
               <AddIcon />
             </RoundButton>
           </Grid>
@@ -134,41 +137,51 @@ export default function AttractionsListView(props) {
               </Grid>
               <Grid item xs={5} />
               <Grid item xs={1}>
-                <IconButton
-                  display="center"
-                  variant="contained"
-                  id="show checked"
-                  onClick={() => {
-                    props.showChecked();
-                  }}>
-                  {props.checked ? <CheckBoxIcon color="primary" /> : <CheckBoxOutlineBlankIcon />}
-                </IconButton>
+                <Tooltip title="Show Completed Attractions" placement="bottom">
+                  <IconButton
+                    display="center"
+                    variant="contained"
+                    id="show checked"
+                    onClick={() => {
+                      props.showChecked();
+                    }}>
+                    {props.checked ? (
+                      <CheckBoxIcon color="primary" />
+                    ) : (
+                      <CheckBoxOutlineBlankIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
               </Grid>
               <Grid item xs={1}>
-                <IconButton
-                  display="center"
-                  variant="contained"
-                  id="show favourites"
-                  onClick={() => {
-                    props.showFavourites();
-                  }}>
-                  {props.favourites ? (
-                    <FavoriteIcon color="favourite" />
-                  ) : (
-                    <FavoriteBorderRoundedIcon />
-                  )}
-                </IconButton>
+                <Tooltip title="Show Only Favourite" placement="bottom">
+                  <IconButton
+                    display="center"
+                    variant="contained"
+                    id="show favourites"
+                    onClick={() => {
+                      props.showFavourites();
+                    }}>
+                    {props.favourites ? (
+                      <FavoriteIcon color="favourite" />
+                    ) : (
+                      <FavoriteBorderRoundedIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
               </Grid>
               <Grid item xs={1}>
-                <IconButton
-                  display="center"
-                  variant="contained"
-                  id="reset"
-                  onClick={() => {
-                    props.resetFilter();
-                  }}>
-                  <CloseIcon />
-                </IconButton>
+                <Tooltip title="Reset Filters" placement="bottom">
+                  <IconButton
+                    display="center"
+                    variant="contained"
+                    id="reset"
+                    onClick={() => {
+                      props.resetFilter();
+                    }}>
+                    <CloseIcon />
+                  </IconButton>
+                </Tooltip>
               </Grid>
               <Grid item xs={1} />
             </Grid>
