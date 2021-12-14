@@ -101,14 +101,14 @@ export default function AttractionsListView(props) {
             </Typography>
           </Grid>
           <Grid item xs={1}>
-            {(props.rows.length === 0 && (
+            {(props.numberOfAttractions === 0 && (
               <DisabledButton>
                 <FilterAltIcon />
               </DisabledButton>
             )) || (
               <RoundButton
                 title="Filter"
-                disabled={props.rows.length === 0}
+                disabled={props.numberOfAttractions === 0}
                 color={props.filter ? 'secondary' : 'primary'}
                 onClick={() => props.onFilter()}>
                 <FilterAltIcon />
@@ -116,14 +116,14 @@ export default function AttractionsListView(props) {
             )}
           </Grid>
           <Grid item xs={1}>
-            {(props.rows.length === 0 && (
+            {(props.numberOfAttractions === 0 && (
               <DisabledButton>
                 <EditIcon />
               </DisabledButton>
             )) || (
               <RoundButton
                 title="Edit"
-                disabled={props.rows.length === 0}
+                disabled={props.numberOfAttractions === 0}
                 color={props.edit ? 'secondary' : 'primary'}
                 onClick={() => props.onEditing()}>
                 <EditIcon />
@@ -220,7 +220,7 @@ export default function AttractionsListView(props) {
             </Grid>
           )}
         </Grid>
-        {props.rows.length === 0 ? (
+        {props.numberOfAttractions === 0 ? (
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <InformationMessage>
               PRESS

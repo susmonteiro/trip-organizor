@@ -215,6 +215,7 @@ export default function AttractionsPresenter(props) {
                 nameOfTrip={currentTrip}
                 dateOfTrip={getDate()}
                 rows={createRows()}
+                numberOfAttractions={tripAttractions.length}
                 type={type}
                 date={date}
                 minDate={trip.dateBegin}
