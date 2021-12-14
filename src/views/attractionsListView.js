@@ -35,9 +35,9 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Checkbox } from '@mui/material';
 
 import CustomButton, { RoundButton, DisabledButton } from '../elements/customButtons.js';
 import InformationMessage from '../elements/showMessages.js';
@@ -159,6 +159,7 @@ export default function AttractionsListView(props) {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DesktopDatePicker
                     label="Date"
+                    disabled={!props.filterDate}
                     inputFormat="dd/MM/yyyy"
                     minDate={props.minDate}
                     maxDate={props.maxDate}
@@ -168,7 +169,24 @@ export default function AttractionsListView(props) {
                   />
                 </LocalizationProvider>
               </Grid>
-              <Grid item xs={2} ml={-5} />
+              <Grid item xs={1} ml={-5} />
+              <Grid item xs={1}>
+                <Tooltip title="Filter By Date" placement="bottom">
+                  <IconButton
+                    display="center"
+                    variant="contained"
+                    id="filter date"
+                    onClick={() => {
+                      props.onFilterDate();
+                    }}>
+                    {props.filterDate ? (
+                      <LightModeIcon color="primary" />
+                    ) : (
+                      <LightModeOutlinedIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </Grid>
               <Grid item xs={1}>
                 <Tooltip title="Show Completed Attractions" placement="bottom">
                   <IconButton

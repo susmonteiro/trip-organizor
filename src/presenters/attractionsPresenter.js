@@ -57,12 +57,13 @@ export default function AttractionsPresenter(props) {
   const [searching, setSearching] = React.useState(false);
   const [query, setQuery] = React.useState(null);
   const [type, setType] = React.useState(ALL_TYPES);
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState(null);
   const [helpText, setHelpText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
   const [filter, setFilter] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
   const [favourites, setFavourites] = React.useState(false);
+  const [filterDate, setFilterDate] = React.useState(false);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promise, setPromise] = React.useState(null);
@@ -94,6 +95,7 @@ export default function AttractionsPresenter(props) {
     //this function formats all the rows with the information needed
     let rows = filteredAttractions
       .filter((attraction) => type === ALL_TYPES || attraction.type.code === type)
+      .filter((attraction) => !filterDate || attraction.date === date.getTime())
       .map((attraction) => ({
         id: attraction.key,
         isCompleted: attraction.finished,
@@ -108,6 +110,19 @@ export default function AttractionsPresenter(props) {
   function doLogout() {
     props.model.setUserID(null);
     signout();
+  }
+
+  function resetVariables() {
+    setCurrentAttraction(null);
+    setType(ALL_TYPES);
+    setDate(new Date(trip.dateBegin));
+    setQuery(null);
+    setHelpText(false);
+    setPromise(null);
+    setChecked(true);
+    setFavourites(false);
+    setFilter(false);
+    setFilterDate(false);
   }
   // search attraction functions
   function addAttraction(site) {
@@ -141,7 +156,7 @@ export default function AttractionsPresenter(props) {
     }
 
     setSearching(false);
-    setCurrentAttraction(null);
+    resetVariables();
   }
 
   function searchAttraction() {
@@ -187,9 +202,7 @@ export default function AttractionsPresenter(props) {
                   onSearch={searchAttraction}
                   onNotSearching={() => {
                     setSearching(false);
-                    setCurrentAttraction(null);
-                    setType(ALL_TYPES);
-                    setDate(new Date(trip.dateBegin));
+                    resetVariables();
                   }}
                   useLogout={() => doLogout()}
                 />
@@ -230,11 +243,7 @@ export default function AttractionsPresenter(props) {
                 onChangeDate={(date) => setDate(date)}
                 onSearching={() => {
                   setSearching(true);
-                  setQuery(null);
-                  setType(ALL_TYPES);
-                  setDate(new Date(trip.dateBegin));
-                  setHelpText(false);
-                  setPromise(null);
+                  resetVariables();
                 }}
                 deleteAttraction={(id) => props.model.deleteAttraction(id)}
                 useLogout={() => doLogout()}
@@ -242,15 +251,17 @@ export default function AttractionsPresenter(props) {
                 onEditing={() => setEdit(!edit)}
                 filter={filter}
                 onFilter={() => setFilter(!filter)}
+                filterDate={filterDate}
+                onFilterDate={() => {
+                  !date && setDate(new Date(trip.dateBegin));
+                  setFilterDate(!filterDate);
+                }}
                 checked={checked}
                 showChecked={() => setChecked(!checked)}
                 favourites={favourites}
                 showFavourites={() => setFavourites(!favourites)}
                 resetFilter={() => {
-                  setChecked(true);
-                  setFavourites(false);
-                  setType(ALL_TYPES);
-                  setFilter(false);
+                  resetVariables();
                 }}
               />
             </Box>
