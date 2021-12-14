@@ -1,24 +1,28 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import Fab from '@mui/material/Fab';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 
-import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import AddIcon from '@mui/icons-material/Add';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -35,7 +39,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
 
-import CustomButton, { RoundButton } from '../elements/customButtons.js';
+import CustomButton, { RoundButton, DisabledButton } from '../elements/customButtons.js';
 import InformationMessage from '../elements/showMessages.js';
 import TopBar from '../elements/topBar.js';
 
@@ -97,27 +101,40 @@ export default function AttractionsListView(props) {
             </Typography>
           </Grid>
           <Grid item xs={1}>
-            <RoundButton
-              title="Filter"
-              color={props.filter ? 'secondary' : 'primary'}
-              onClick={() => props.onFilter()}>
-              <FilterAltIcon />
-            </RoundButton>
+            {(props.rows.length === 0 && (
+              <DisabledButton>
+                <FilterAltIcon />
+              </DisabledButton>
+            )) || (
+              <RoundButton
+                title="Filter"
+                disabled={props.rows.length === 0}
+                color={props.filter ? 'secondary' : 'primary'}
+                onClick={() => props.onFilter()}>
+                <FilterAltIcon />
+              </RoundButton>
+            )}
           </Grid>
           <Grid item xs={1}>
-            <RoundButton
-              title="Edit"
-              color={props.edit ? 'secondary' : 'primary'}
-              onClick={() => props.onEditing()}>
-              <EditIcon />
-            </RoundButton>
+            {(props.rows.length === 0 && (
+              <DisabledButton>
+                <EditIcon />
+              </DisabledButton>
+            )) || (
+              <RoundButton
+                title="Edit"
+                disabled={props.rows.length === 0}
+                color={props.edit ? 'secondary' : 'primary'}
+                onClick={() => props.onEditing()}>
+                <EditIcon />
+              </RoundButton>
+            )}
           </Grid>
           <Grid item xs={1}>
             <RoundButton title="Add Attraction" onClick={() => props.onSearching()}>
               <AddIcon />
             </RoundButton>
           </Grid>
-
           <Grid item xs={1} />
           {props.filter && (
             <Grid container mt={3}>
@@ -137,7 +154,21 @@ export default function AttractionsListView(props) {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={5} />
+
+              <Grid item xs={3} ml={5}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    label="Date"
+                    inputFormat="dd/MM/yyyy"
+                    minDate={props.minDate}
+                    maxDate={props.maxDate}
+                    value={props.date}
+                    onChange={(value) => props.onChangeDate(value)}
+                    renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={2} ml={-5} />
               <Grid item xs={1}>
                 <Tooltip title="Show Completed Attractions" placement="bottom">
                   <IconButton

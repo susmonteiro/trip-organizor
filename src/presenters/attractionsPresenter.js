@@ -46,6 +46,13 @@ export default function AttractionsPresenter(props) {
   console.log(ALL_TYPES);
   const DEFAULT_TYPE = { code: ALL_TYPES, name: 'All' };
 
+  // model properties
+  const trips = useModelProperty(props.model, 'trips'); // TODO remove
+  const currentTrip = useModelProperty(props.model, 'tripCurrent');
+  const attractions = useModelProperty(props.model, 'attractions');
+
+  let trip = trips.find((trip) => trip.title === currentTrip);
+
   // variables
   const [searching, setSearching] = React.useState(false);
   const [query, setQuery] = React.useState(null);
@@ -64,13 +71,6 @@ export default function AttractionsPresenter(props) {
   }, []);
 
   const [data, error] = usePromise(promise);
-
-  // model properties
-  const trips = useModelProperty(props.model, 'trips'); // TODO remove
-  const currentTrip = useModelProperty(props.model, 'tripCurrent');
-  const attractions = useModelProperty(props.model, 'attractions');
-
-  let trip = trips.find((trip) => trip.title === currentTrip);
 
   function getCoord() {
     // TODO remove me
@@ -92,7 +92,6 @@ export default function AttractionsPresenter(props) {
   // attractions list functions
   function createRows() {
     //this function formats all the rows with the information needed
-
     let rows = filteredAttractions
       .filter((attraction) => type === ALL_TYPES || attraction.type.code === type)
       .map((attraction) => ({
@@ -116,7 +115,7 @@ export default function AttractionsPresenter(props) {
 
     if (attractions.find((attr) => attr.key === newKey)) {
       console.log('attraction already exists :/');
-    } else if (date < trip.dateBegin || date > dateEnd) {
+    } else if (date < trip.dateBegin || date > trip.dateEnd) {
       console.log('invalid date');
     } else {
       let attraction = new AttractionModel({
@@ -190,7 +189,7 @@ export default function AttractionsPresenter(props) {
                     setSearching(false);
                     setCurrentAttraction(null);
                     setType(ALL_TYPES);
-                    setDate(new Date());
+                    setDate(new Date(trip.dateBegin));
                   }}
                   useLogout={() => doLogout()}
                 />
@@ -218,6 +217,8 @@ export default function AttractionsPresenter(props) {
                 rows={createRows()}
                 type={type}
                 date={date}
+                minDate={trip.dateBegin}
+                maxDate={trip.dateEnd}
                 activities={[DEFAULT_TYPE, ...ACTIVITY_TYPES]}
                 changeLiked={(key) => props.model.changeIsAttractionLiked(key)}
                 changeCompleted={(key) => props.model.changeIsAttractionCompleted(key)}
