@@ -15,9 +15,6 @@ import useModelProperty from './../useModelProperty.js';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-
 import InformationMessage from '../elements/showMessages.js';
 
 import 'firebase/compat/auth';
@@ -131,10 +128,11 @@ export default function AttractionsPresenter(props) {
     const newKey = site.xid + currentTrip;
 
     if (attractions.find((attr) => attr.key === newKey)) {
-      console.log('attraction already exists :/'); // TODO
       setErrorAddAttraction(site.name + ' already exists in your attractions');
+      return;
     } else if (date < trip.dateBegin || date > trip.dateEnd) {
       console.log('invalid date');
+      return;
     } else {
       let attraction = new AttractionModel({
         id: site.xid,
@@ -271,7 +269,7 @@ export default function AttractionsPresenter(props) {
             </Box>
           )}
         </Box>
-        <Box flex={0.4} height="70vh">
+        <Box flex={0.4} height="70vh" display={{ md: 'block', xs: 'none' }}>
           {getCoord() && (
             <MapView
               currentLocation={() => {

@@ -90,7 +90,7 @@ export default function AttractionsListView(props) {
         My Trips
       </TopBar>
       <Box mt={-4} ml={2} mr={2}>
-        <Grid container mr={5} ml={5} mt={3} alignItems="flex-end">
+        <Grid container pr={5} pl={5} mt={3} alignItems="flex-end">
           <Grid item xs={8}>
             <Typography color="primary" fontSize={25} fontWeight={500} textAlign="left">
               {props.nameOfTrip}
