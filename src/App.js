@@ -24,14 +24,14 @@ const theme = createTheme({
       main: '#CFB9AC',
       dark: '#a59287'
     },
+    favourite: {
+      main: '#DD4747'
+    },
     error: {
       main: '#ff3333'
     },
     background: {
       main: '#FFFFFF'
-    },
-    icons: {
-      favourite: '#EE7D61'
     },
     chips: {
       amusements: '#FFA90A',

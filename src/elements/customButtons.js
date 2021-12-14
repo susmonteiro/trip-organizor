@@ -10,7 +10,6 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 //ICONs-MATERIAL IMPORTS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import PublicIcon from '@mui/icons-material/Public';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -52,18 +51,9 @@ export function AccountButton(props) {
   );
 }
 
-export function AddButton(props) {
-  return (
-    <Fab
-      color="secondary"
-      dark="true"
-      aria-label="add"
-      sx={{ position: 'absolute', bottom: 50, left: 50 }}
-      {...props}>
-      {/* TODO change me */}
-      <AddIcon />
-    </Fab>
-  );
+export function RoundButton(props) {
+  return <IconButton color="primary" aria-label="icon button" {...props}></IconButton>;
+  //return <Fab color="secondary" dark="true" aria-label="add" {...props}></Fab>; TODO
 }
 
 export function BasicSpeedDial(props) {
