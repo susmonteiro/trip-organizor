@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from 'firebase/auth';
+import { isLogged } from '../js/models/FirebaseModel'
 
 export default function HomePresenter(props) { 
   const [email, setEmail] = React.useState('');
@@ -53,14 +54,19 @@ export default function HomePresenter(props) {
     }).then(setSuccess("You are logged in! Wait.."));;
   }
   
+  function resetError(){
+    setError('')
+  }
 
   return (
     <HomeView
+      isLogged = {isLogged()}
       userid ={props.model.currentUser}
       authType={authType}
       REGISTER={REGISTER}
       LOGIN={LOGIN}
       errormssg={error}
+      resetError={() => resetError()}
       changeAuthType={(newType) => setAuthType(newType)}
       writeEmail={(email) => setEmail(email)}
       writePassword={(pas) => setPassword(pas)}

@@ -11,7 +11,9 @@ import TextField from '@mui/material/TextField';
 import CustomButton from '../elements/customButtons.js';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import Snackbar from '@mui/material/Snackbar';
 import Image from './../resapp.jpg';
+import { height } from '@mui/system';
 
 const styles = {
   paperContainer: {
@@ -42,12 +44,18 @@ export default function HomeView(props) {
         <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
         <Grid item md={3} xs={4} mt={{ xs: 'none', md: 'block' }}>
           <Box>
-            {props.errormssg !== '' && (
+          <Snackbar open={props.errormssg !== ''} autoHideDuration={5000} onClose={props.resetError} anchorOrigin={{ vertical:'top', horizontal:'right' }}>
+            <Alert variant="filled" severity="error" sx={{ width: '100%', height: 50,}}>
+              {props.errormssg}
+            </Alert>
+          </Snackbar>
+            
+            {/* OLD ERROR CARD= props.errormssg !== '' && (
               <Alert variant="filled" severity="error">
                 <AlertTitle>Error</AlertTitle>
                 {props.errormssg} — <strong>check it out!</strong>
-              </Alert>
-            )}
+              </Alert>)
+            */}
           </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>
@@ -55,7 +63,10 @@ export default function HomeView(props) {
                 <Box sx={{ borderBottom: 1, borderColor: 'primary.main' }}>
                   <p>{props.user}</p>
                   <TabList
-                    onChange={(event, newValue) => props.changeAuthType(newValue)}
+                    onChange={(event, newValue) => {
+                      props.changeAuthType(newValue); 
+                      props.resetError}
+                    }
                     aria-label="lab API tabs example"
                     centered>
                     <Tab label="Login" value={props.LOGIN} />
