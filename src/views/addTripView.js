@@ -125,7 +125,6 @@ export default function AddTripView(props) {
       <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateRangePicker
-          disablePast
           value={props.date}
           inputFormat="dd/MM/yyyy"
           maxDate={getWeeksAfter(props.date[0], 4)}
