@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import Fab from '@mui/material/Fab';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -35,6 +36,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Checkbox } from '@mui/material';
 
 import CustomButton, { RoundButton } from '../elements/customButtons.js';
+import InformationMessage from '../elements/showMessages.js';
 import TopBar from '../elements/topBar.js';
 
 export default function AttractionsListView(props) {
@@ -187,102 +189,117 @@ export default function AttractionsListView(props) {
             </Grid>
           )}
         </Grid>
-        <Box mt={1}>
-          <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
-            <Table stickyHeader aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell width="15%" />
-                  <TableCell align="center" width="40%">
-                    Attraction Name
-                    <IconButton
-                      onClick={() => {
-                        setOrderName(orderName * -1);
-                        setFunc(0);
-                      }}>
-                      {changeArrowDisplay(orderName, 0, func)}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center" width="15%">
-                    Type
-                    <IconButton
-                      onClick={() => {
-                        setOrderType(orderType * -1);
-                        setFunc(1);
-                      }}>
-                      {changeArrowDisplay(orderType, 1, func)}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center" width="20%">
-                    Date
-                    <IconButton
-                      onClick={() => {
-                        setOrderDate(orderDate * -1);
-                        setFunc(2);
-                      }}>
-                      {changeArrowDisplay(orderDate, 2, func)}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell width="10%" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {props.rows.sort(compare).map((item) => (
-                  <TableRow hover key={item.id}>
-                    <TableCell>
+        {props.rows.length === 0 ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <InformationMessage>
+              PRESS
+              <IconButton
+                aria-label="add button"
+                color="primary"
+                onClick={() => props.onSearching()}>
+                <AddIcon />
+              </IconButton>
+              TO ADD YOUR FIRST ATTRACTION
+            </InformationMessage>
+          </Box>
+        ) : (
+          <Box mt={1}>
+            <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
+              <Table stickyHeader aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell width="15%" />
+                    <TableCell align="center" width="40%">
+                      Attraction Name
                       <IconButton
-                        display="center"
-                        variant="contained"
-                        id={item.id}
                         onClick={() => {
-                          props.changeCompleted(item.id);
+                          setOrderName(orderName * -1);
+                          setFunc(0);
                         }}>
-                        {item.isCompleted ? (
-                          <CheckBoxIcon color="primary" />
-                        ) : (
-                          <CheckBoxOutlineBlankIcon />
-                        )}
-                      </IconButton>
-                      <IconButton
-                        display="center"
-                        variant="contained"
-                        id={item.id}
-                        onClick={() => {
-                          props.changeLiked(item.id);
-                        }}>
-                        {item.isFavourite ? (
-                          <FavoriteIcon color="favourite" />
-                        ) : (
-                          <FavoriteBorderRoundedIcon />
-                        )}
+                        {changeArrowDisplay(orderName, 0, func)}
                       </IconButton>
                     </TableCell>
-                    <TableCell align="left">{item.name}</TableCell>
-                    <TableCell align="center">
-                      <Chip
-                        label={item.type.name}
-                        sx={{ bgcolor: item.type.color, color: 'white' }}
-                      />
+                    <TableCell align="center" width="15%">
+                      Type
+                      <IconButton
+                        onClick={() => {
+                          setOrderType(orderType * -1);
+                          setFunc(1);
+                        }}>
+                        {changeArrowDisplay(orderType, 1, func)}
+                      </IconButton>
                     </TableCell>
-                    <TableCell align="center">{new Date(item.date).toDateString()}</TableCell>
-                    <TableCell width="10%">
-                      {props.edit && (
+                    <TableCell align="center" width="20%">
+                      Date
+                      <IconButton
+                        onClick={() => {
+                          setOrderDate(orderDate * -1);
+                          setFunc(2);
+                        }}>
+                        {changeArrowDisplay(orderDate, 2, func)}
+                      </IconButton>
+                    </TableCell>
+                    <TableCell width="10%" />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {props.rows.sort(compare).map((item) => (
+                    <TableRow hover key={item.id}>
+                      <TableCell>
                         <IconButton
                           display="center"
                           variant="contained"
-                          color="primary"
                           id={item.id}
-                          onClick={() => props.deleteAttraction(item.id)}>
-                          <DeleteIcon />
+                          onClick={() => {
+                            props.changeCompleted(item.id);
+                          }}>
+                          {item.isCompleted ? (
+                            <CheckBoxIcon color="primary" />
+                          ) : (
+                            <CheckBoxOutlineBlankIcon />
+                          )}
                         </IconButton>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+                        <IconButton
+                          display="center"
+                          variant="contained"
+                          id={item.id}
+                          onClick={() => {
+                            props.changeLiked(item.id);
+                          }}>
+                          {item.isFavourite ? (
+                            <FavoriteIcon color="favourite" />
+                          ) : (
+                            <FavoriteBorderRoundedIcon />
+                          )}
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align="left">{item.name}</TableCell>
+                      <TableCell align="center">
+                        <Chip
+                          label={item.type.name}
+                          sx={{ bgcolor: item.type.color, color: 'white' }}
+                        />
+                      </TableCell>
+                      <TableCell align="center">{new Date(item.date).toDateString()}</TableCell>
+                      <TableCell width="10%">
+                        {props.edit && (
+                          <IconButton
+                            display="center"
+                            variant="contained"
+                            color="primary"
+                            id={item.id}
+                            onClick={() => props.deleteAttraction(item.id)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        )}
       </Box>
     </Box>
   );
