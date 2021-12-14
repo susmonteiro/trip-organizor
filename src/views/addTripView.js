@@ -143,7 +143,12 @@ export default function AddTripView(props) {
       </LocalizationProvider>
       <br />
       <Stack spacing={2} direction="row">
-        <Button variant="contained" href="/trips">
+        <Button
+          variant="contained"
+          onClick={() => {
+            props.clean();
+            props.showAddChange(!props.showAdd);
+          }}>
           Cancel
         </Button>
         <Button
@@ -155,8 +160,10 @@ export default function AddTripView(props) {
             props.checkForContent(props.date[0]) ||
             props.checkForContent(props.date[1])
           }
-          onClick={() => props.addTrip()}
-          href="/trips">
+          onClick={() => {
+            props.addTrip();
+            props.showAddChange(!props.showAdd);
+          }}>
           Let´s travel now!
         </Button>
       </Stack>

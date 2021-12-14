@@ -1,5 +1,6 @@
 //MATERIAL IMPORTS
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -21,8 +22,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 //CUSTOM COMPONENTS
-import { BasicSpeedDial } from '../elements/customButtons.js';
-
+import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS
@@ -113,32 +113,34 @@ export default function TripListView(props) {
   );
 
   return (
-    <div>
-      <BasicSpeedDial useLogout={props.useLogout} user={props.user}/>
-      {/*<AccountButton onClick={() => props.useLogout()}/>*/}
-      <br />
+    <Box>
       <Grid container spacing={2}>
         <Grid item xs={10}>
-          <Typography variant="h4" component="div" gutterBottom>
-            MY TRIPS
-          </Typography>
+          <Box mt={7} ml={3}>
+            <Typography variant="h4" component="div" gutterBottom>
+              My trips
+            </Typography>
+          </Box>
         </Grid>
         <Grid item xs={2}>
-          <Stack spacing={2}>
-            <Button
-              id="addNewTrip"
-              display="right"
-              variant="contained"
-              href="/newTrip"
-              startIcon={<FlightIcon />}>
-              Add Trip!
-            </Button>
-            <br />
-          </Stack>
+          <Box mb={3} mr={2}>
+            <Stack spacing={2}>
+              <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
+              <CustomButton
+                id="addNewTrip"
+                display="right"
+                variant="contained"
+                //href="/newTrip"
+                onClick={() => props.showAddChange(!props.showAdd)}
+                startIcon={<FlightIcon />}>
+                Add Trip!
+              </CustomButton>
+            </Stack>
+          </Box>
         </Grid>
       </Grid>
       <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+        <Table stickyHeader aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell />
@@ -176,7 +178,6 @@ export default function TripListView(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(props)}
             {props.trips
               .filter((trip) => trip.finished === false)
               .sort(compare)
@@ -224,11 +225,11 @@ export default function TripListView(props) {
         </Table>
       </TableContainer>
       {/* HERE BEGINS THE SHOW COMPLETED TRIPS SECTION */}
-      <Button onClick={() => props.showDoneChange()}>SHOW COMPLETED</Button>
+      <Button onClick={() => props.showDoneChange(!props.showDone)}>SHOW COMPLETED</Button>
       {props.showDone === false ? (
-        <div></div>
+        <Box></Box>
       ) : (
-        <div>
+        <Box>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
@@ -268,7 +269,6 @@ export default function TripListView(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {console.log(props)}
                 {props.trips
                   .filter((trip) => trip.finished === true)
                   .sort(compareDone)
@@ -308,8 +308,8 @@ export default function TripListView(props) {
               </TableBody>
             </Table>
           </TableContainer>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }

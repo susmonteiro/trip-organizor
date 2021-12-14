@@ -40,7 +40,12 @@ export function BackButton(props) {
 export function AccountButton(props) {
   return (
     <Box textAlign="right" mr={2}>
-      <IconButton sx={{ color: 'primary.faded' }} variant="contained" size="large" href="/" {...props}>
+      <IconButton
+        sx={{ color: 'primary.faded' }}
+        variant="contained"
+        size="large"
+        href="/"
+        {...props}>
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
     </Box>
@@ -61,23 +66,19 @@ export function AddButton(props) {
   );
 }
 
-
-
 export function BasicSpeedDial(props) {
   const goTrips = () => {
-    window.location.href = '/trips'
-  }
-  
+    window.location.href = '/trips';
+  };
+
   const doLogout = () => {
-    props.useLogout()
-  }
+    props.useLogout();
+  };
 
   const actions = [
-    { icon: <PublicIcon />, name: "My Trips", event: goTrips },
-    { icon: <LogoutIcon />, name: 'Logout', event: doLogout },
+    { icon: <PublicIcon />, name: 'My Trips', event: goTrips },
+    { icon: <LogoutIcon />, name: 'Logout', event: doLogout }
   ];
-
-
 
   return (
     <Box sx={{ height: 100, transform: 'translateZ(0px)', flexGrow: 1 }}>
@@ -85,8 +86,7 @@ export function BasicSpeedDial(props) {
         ariaLabel="SpeedDial basic example"
         sx={{ position: 'absolute', top: 16, right: 16 }}
         direction="left"
-        icon={<MoreHorizIcon />}
-      >
+        icon={<MoreHorizIcon />}>
         {actions.map((action) => (
           <SpeedDialAction
             key={action.name}
