@@ -88,6 +88,7 @@ export default function TripListPresenter(props) {
               showAddChange={(show) => {
                 setShowAddTrip(show);
               }}
+              useLogout={() => doLogout()}
             />
           </Box>
         </Grid>
