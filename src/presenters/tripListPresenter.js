@@ -131,6 +131,9 @@ export default function TripListPresenter(props) {
                 props.model.addTrip(
                   new TripModel(
                     title,
+                    'country',
+                    'countrycode',
+                    'city',
                     date[0].getTime(),
                     date[1].getTime(),
                     [data.lat, data.lon],
