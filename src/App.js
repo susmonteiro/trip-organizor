@@ -10,7 +10,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import HomePresenter from './presenters/homePresenter.js';
 import AttractionsPresenter from './presenters/attractionsPresenter';
 import TripListPresenter from './presenters/tripListPresenter';
-import AddTripPresenter from './presenters/addTripPresenter';
 
 import Stack from '@mui/material/Stack';
 
@@ -28,7 +27,7 @@ const theme = createTheme({
       main: '#DD4747'
     },
     error: {
-      main: '#ff3333'
+      main: '#b84b3b'
     },
     background: {
       main: '#FFFFFF'
