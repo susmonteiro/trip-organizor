@@ -1,12 +1,18 @@
 export default class TripModel {
   constructor(
     title = '',
+    country = '',
+    countryCode = '',
+    city = '',
     dateBegin = new Date(),
     dateEnd = new Date(),
     coord = [null, null],
     finished = false
   ) {
     this.setTitle(title);
+    this.setCountry(country);
+    this.setCountryCode(countryCode);
+    this.setCity(city);
     this.setDateBegin(dateBegin);
     this.setDateEnd(dateEnd);
     this.setCoord(coord);
@@ -15,6 +21,15 @@ export default class TripModel {
 
   setTitle(title) {
     this.title = title;
+  }
+  setCountry(country) {
+    this.country = country;
+  }
+  setCountryCode(countryCode) {
+    this.countryCode = countryCode;
+  }
+  setCity(city) {
+    this.city = city;
   }
   setDateBegin(dateBegin) {
     this.dateBegin = dateBegin;
