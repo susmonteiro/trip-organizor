@@ -64,6 +64,7 @@ export default function AttractionsPresenter(props) {
   const [checked, setChecked] = React.useState(true);
   const [favourites, setFavourites] = React.useState(false);
   const [filterDate, setFilterDate] = React.useState(false);
+  const [errorAddAttraction, setErrorAddAttraction] = React.useState('');
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promise, setPromise] = React.useState(null);
@@ -123,13 +124,15 @@ export default function AttractionsPresenter(props) {
     setFavourites(false);
     setFilter(false);
     setFilterDate(false);
+    setErrorAddAttraction('');
   }
   // search attraction functions
   function addAttraction(site) {
     const newKey = site.xid + currentTrip;
 
     if (attractions.find((attr) => attr.key === newKey)) {
-      console.log('attraction already exists :/');
+      console.log('attraction already exists :/'); // TODO
+      setErrorAddAttraction(site.name + ' already exists in your attractions');
     } else if (date < trip.dateBegin || date > trip.dateEnd) {
       console.log('invalid date');
     } else {
@@ -153,10 +156,9 @@ export default function AttractionsPresenter(props) {
         .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
         .then(() => props.model.addAttractionToTrip(attraction))
         .catch((err) => console.error(err));
+      setSearching(false);
+      resetVariables();
     }
-
-    setSearching(false);
-    resetVariables();
   }
 
   function searchAttraction() {
@@ -205,6 +207,8 @@ export default function AttractionsPresenter(props) {
                     resetVariables();
                   }}
                   useLogout={() => doLogout()}
+                  errorDuplicated={errorAddAttraction}
+                  resetError={() => setErrorAddAttraction('')}
                 />
               </Box>
               <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
