@@ -14,6 +14,7 @@ import natural from '../markers/natural.svg';
 import naturalFav from '../markers/natural-fav.svg';
 import religion from '../markers/religion.svg';
 import religionFav from '../markers/religion-fav.svg';
+import search from '../markers/search.svg';
 import shops from '../markers/shops.svg';
 import shopsFav from '../markers/shops-fav.svg';
 import sport from '../markers/sport.svg';
@@ -44,6 +45,8 @@ export default function markers(name, fav) {
       return fav ? shopsFav : shops;
     case 'sport':
       return fav ? sportFav : sport;
+    case 'temporary':
+      return search;
     default:
       return fav ? favMarker : marker;
   }

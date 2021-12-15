@@ -290,14 +290,20 @@ export default function AttractionsListView(props) {
                 </TableHead>
                 <TableBody>
                   {props.rows.sort(compare).map((item) => (
-                    <TableRow hover key={item.id}>
+                    <TableRow
+                      hover
+                      key={item.key}
+                      onClick={() => {
+                        props.openPopup(item.id);
+                        console.log('Clicked ', item.id);
+                      }}>
                       <TableCell>
                         <IconButton
                           display="center"
                           variant="contained"
-                          id={item.id}
+                          id={item.key}
                           onClick={() => {
-                            props.changeCompleted(item.id);
+                            props.changeCompleted(item.key);
                           }}>
                           {item.isCompleted ? (
                             <CheckBoxIcon color="primary" />
@@ -308,9 +314,9 @@ export default function AttractionsListView(props) {
                         <IconButton
                           display="center"
                           variant="contained"
-                          id={item.id}
+                          id={item.key}
                           onClick={() => {
-                            props.changeLiked(item.id);
+                            props.changeLiked(item.key);
                           }}>
                           {item.isFavourite ? (
                             <FavoriteIcon color="favourite" />
@@ -333,8 +339,8 @@ export default function AttractionsListView(props) {
                             display="center"
                             variant="contained"
                             color="primary"
-                            id={item.id}
-                            onClick={() => props.deleteAttraction(item.id)}>
+                            id={item.key}
+                            onClick={() => props.deleteAttraction(item.key)}>
                             <DeleteIcon />
                           </IconButton>
                         )}

@@ -39,6 +39,20 @@ function MapView(props) {
                 // props.changeCurrAttr(site.id);
               }
             }}>
+            {/* TEMPORARY MARKER */}
+            {props.tmpAttraction && (
+              <Marker
+                icon={createMarker('temporary', false)}
+                position={[props.tmpAttraction.coord[0], props.tmpAttraction.coord[1]]}
+                key={props.tmpAttraction.key}
+                eventHandlers={{
+                  click: () => {
+                    props.setPromise(SitesSource.getDetails(props.tmpAttraction.id));
+                  }
+                }}></Marker>
+            )}
+            {/* {(props.openPopup === site.id && props.setPopup()) ||
+              props.setPromise(SitesSource.getDetails(site.id))} */}
             <Popup>
               {promiseNoData(props.promise, props.data, props.error) || (
                 <Box>
