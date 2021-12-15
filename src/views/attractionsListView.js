@@ -47,8 +47,8 @@ export default function AttractionsListView(props) {
   const activities = props.activities;
 
   let [func, setFunc] = React.useState(2);
-  let [orderName, setOrderName] = React.useState(1);
-  let [orderType, setOrderType] = React.useState(1);
+  let [orderName, setOrderName] = React.useState(-1);
+  let [orderType, setOrderType] = React.useState(-1);
   let [orderDate, setOrderDate] = React.useState(1);
 
   function compare(a, b) {

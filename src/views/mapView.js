@@ -1,25 +1,21 @@
 import '../style.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import promiseNoData from './promiseNoData.js';
+import promiseNoData from './../promiseNoData.js';
 import SitesSource from '../sitesSource.js';
 import { Icon } from 'leaflet';
-import marker from '../markers/marker.svg';
-import favMarker from '../markers/favMarker.svg';
 
 import Box from '@mui/material/Box';
 
-function MapView(props) {
-  const markerIcon = new Icon({
-    iconUrl: marker,
-    iconSize: [25 * 1.2, 40 * 1.2],
-    iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
-  });
+import markers from './../markers/markers.js';
 
-  const favMarkerIcon = new Icon({
-    iconUrl: favMarker,
-    iconSize: [25 * 1.2, 40 * 1.2],
-    iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
-  });
+function MapView(props) {
+  function createMarker(marker, fav) {
+    return new Icon({
+      iconUrl: markers(marker, fav),
+      iconSize: [25 * 1.2, 40 * 1.2],
+      iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
+    });
+  }
 
   console.log(props);
   return (
@@ -31,7 +27,9 @@ function MapView(props) {
         />
         {props.sites.map((site) => (
           <Marker
-            icon={site.isFav ? favMarkerIcon : markerIcon}
+            icon={
+              site.isFav ? createMarker(site.type.code, true) : createMarker(site.type.code, false)
+            }
             position={[site.coord[0], site.coord[1]]}
             key={site.key}
             eventHandlers={{
