@@ -5,6 +5,7 @@ import SitesSource from '../sitesSource.js';
 import { Icon } from 'leaflet';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import markers from './../markers/markers.js';
 
@@ -40,19 +41,20 @@ function MapView(props) {
             }}>
             <Popup>
               {promiseNoData(props.promise, props.data, props.error) || (
-                <div>
-                  <h2 className="popup-title">
+                <Box>
+                  <Typography color="primary" fontSize={18} fontWeight={500}>
                     {site.name ? site.name : "This site's name is not available"}
-                  </h2>
-                  <p className="popup-description">
+                  </Typography>
+                  <Typography fontSize={14}>
                     {props.data.wikipedia_extracts
                       ? props.data.wikipedia_extracts.text
-                      : "Sorry, we don't have additional information on this site."}
-                  </p>
+                      : "Sorry, we don't have information on this site."}
+                  </Typography>
                   {props.data.preview ? (
                     <img className="popup-image" src={props.data.preview.source} />
                   ) : null}
-                </div>
+                  <br />
+                </Box>
               )}
             </Popup>
           </Marker>
