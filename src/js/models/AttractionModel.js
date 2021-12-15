@@ -6,7 +6,6 @@ export default class AttractionModel {
     coord = [13, 13],
     isFav = false,
     finished = false,
-    onMap = false,
     date = null,
     type = null
   }) {
@@ -17,7 +16,6 @@ export default class AttractionModel {
     this.setCoord(coord);
     this.setIsFav(isFav);
     this.setFinished(finished);
-    this.setOnMap(onMap);
     this.setDate(date);
     this.setType(type);
   }
@@ -48,10 +46,6 @@ export default class AttractionModel {
 
   setFinished(finished) {
     this.finished = finished;
-  }
-
-  setOnMap(onMap) {
-    this.onMap = onMap;
   }
 
   setDate(date) {
