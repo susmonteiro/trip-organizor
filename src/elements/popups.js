@@ -17,14 +17,14 @@ import PublicIcon from '@mui/icons-material/Public';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-export default function ErrorPopupTop(props) {
+export function ErrorPopupTop(props) {
   return (
     <Snackbar
       open={props.errormsg !== ''}
-      autoHideDuration={7000}
+      autoHideDuration={5000}
       onClose={props.onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-      <Alert variant="filled" severity="error" sx={{ width: '100%', height: 50 }}>
+      <Alert variant="filled" severity={props.type} sx={{ width: '100%', height: 50 }}>
         {props.errormsg}
       </Alert>
     </Snackbar>
@@ -35,10 +35,10 @@ export function ErrorPopupBottom(props) {
   return (
     <Snackbar
       open={props.errormsg !== ''}
-      autoHideDuration={7000}
+      autoHideDuration={5000}
       onClose={props.onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
-      <Alert variant="filled" severity="error" sx={{ width: '100%', height: 50 }}>
+      <Alert variant="filled" severity={props.type} sx={{ width: '100%', height: 50 }}>
         {props.errormsg}
       </Alert>
     </Snackbar>

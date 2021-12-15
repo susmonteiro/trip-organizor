@@ -23,6 +23,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 //CUSTOM COMPONENTS
 import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
+import {ErrorPopupBottom, ErrorPopupTop} from '../elements/popups.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS
@@ -193,7 +194,7 @@ export default function TripListView(props) {
                       }}>
                       <CheckBoxOutlineBlankIcon />
                     </IconButton>
-                    {/* <Snackbar
+                    {props.completed && <ErrorPopupBottom type={"info"} errormsg={"Woohoo! Trip completed. What´ll be your next adventure?"} onClose={props.timeoutSnack}/>/* <Snackbar
                       open={!open}
                       autoHideDuration={500}
                       onClose={handleClose}

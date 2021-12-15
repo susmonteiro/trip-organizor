@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 //CUSTOM COMPONENTS
 import TopBar from '../elements/topBar.js';
-import { ErrorPopupBottom } from './../elements/popups.js';
+import { ErrorPopupBottom } from '../elements/popups.js';
 
 export default function SearchView(props) {
   return (

@@ -6,11 +6,11 @@ import ResultsView from '../views/resultsView';
 import SearchView from '../views/searchView';
 
 import SitesSource from '../sitesSource';
-import AttractionModel from './../js/models/AttractionModel.js';
+import AttractionModel from '../js/models/AttractionModel.js';
 
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
-import useModelProperty from './../useModelProperty.js';
+import useModelProperty from '../useModelProperty.js';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';

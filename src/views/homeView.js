@@ -14,8 +14,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Snackbar from '@mui/material/Snackbar';
 import Image from './../resapp.jpg';
 import { height } from '@mui/system';
-
-import ErrorPopupTop from './../elements/popups.js';
+import {ErrorPopupTop, ErrorPopupBottom} from '../elements/popups.js';
 
 const styles = {
   paperContainer: {
@@ -46,7 +45,7 @@ export default function HomeView(props) {
         <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
         <Grid item md={3} xs={4} mt={{ xs: 'none', md: 'block' }}>
           <Box>
-            <ErrorPopupTop errormsg={props.errormsg} onClose={props.resetError}></ErrorPopupTop>
+            <ErrorPopupTop type={"error"} errormsg={props.errormsg} onClose={props.resetError}></ErrorPopupTop>
           </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>

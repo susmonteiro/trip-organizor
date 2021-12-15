@@ -43,7 +43,7 @@ export default function TripListPresenter(props) {
   const [title, setTitle] = React.useState(null);
   //const [tripList, setTripList] = React.useState(props.model.trips); //I think I can delete this
   const [validate, setValidate] = React.useState(false);
-
+  const [completed, setCompleted] = React.useState(false)
   let status = null;
 
   const [promise, setPromise] = React.useState(null);
@@ -60,6 +60,7 @@ export default function TripListPresenter(props) {
       status = data.status;
     }
   }
+
   //////////////////////////////ADD TRIP PRESENTER//////////////////////////////
   return (
     <Box>
@@ -68,8 +69,10 @@ export default function TripListPresenter(props) {
           <Box>
             <TripListView
               trips={tripList}
+              completed={completed}
               completeTrip={(trip) => {
                 props.model.changeFinished(trip);
+                setCompleted(true)
               }}
               removeTrip={(deleteTrip) => {
                 props.model.removeTrip(deleteTrip);
@@ -87,7 +90,9 @@ export default function TripListPresenter(props) {
               showAdd={showAddTrip}
               showAddChange={(show) => {
                 setShowAddTrip(show);
+                status = null;
               }}
+              timeoutSnack ={() => setCompleted(false)}
               useLogout={() => doLogout()}
             />
           </Box>
@@ -118,7 +123,7 @@ export default function TripListPresenter(props) {
               //Main function to change data in the model
               showAdd={showAddTrip}
               showAddChange={(show) => {
-                setShowAddTrip(show);
+                setShowAddTrip(show);                
               }}
               clean={() => {
                 console.log('I´m cleaning');
