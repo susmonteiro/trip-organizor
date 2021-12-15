@@ -17,7 +17,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-export function ErrorPopupTop(props) {
+export function PopupTop(props) {
   return (
     <Snackbar
       open={props.errormsg !== ''}
@@ -31,7 +31,7 @@ export function ErrorPopupTop(props) {
   );
 }
 
-export function ErrorPopupBottom(props) {
+export function PopupBottom(props) {
   return (
     <Snackbar
       open={props.errormsg !== ''}

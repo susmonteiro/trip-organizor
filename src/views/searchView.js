@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 //CUSTOM COMPONENTS
 import TopBar from '../elements/topBar.js';
-import { ErrorPopupBottom } from '../elements/popups.js';
+import { PopupBottom } from '../elements/popups.js';
 
 export default function SearchView(props) {
   return (
@@ -87,7 +87,7 @@ export default function SearchView(props) {
           </Grid>
         </Grid>
       </Box>
-      <ErrorPopupBottom errormsg={props.errorDuplicated} onClose={props.resetError} />
+      <PopupBottom errormsg={props.errorDuplicated} onClose={props.resetError} />
     </Box>
   );
 }
