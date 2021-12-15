@@ -1,7 +1,7 @@
 import '../style.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import promiseNoData from './../promiseNoData.js';
-import SitesSource from '../sitesSource.js';
+import promiseNoData from './../js/promiseNoData.js';
+import SitesSource from '../js/sitesSource.js';
 import { Icon } from 'leaflet';
 
 import Box from '@mui/material/Box';

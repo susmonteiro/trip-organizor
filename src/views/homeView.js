@@ -9,11 +9,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import CustomButton from '../elements/customButtons.js';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Snackbar from '@mui/material/Snackbar';
-import Image from './../resapp.jpg';
-import { height } from '@mui/system';
+import Image from './../triporganizor.jpg';
 import { PopupTop } from '../elements/popups.js';
 
 const styles = {

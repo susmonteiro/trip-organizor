@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import HomeView from '../views/homeView';
-import firebase from 'firebase/compat/app';
 import { auth } from '../js/firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { isLogged } from '../js/models/FirebaseModel';

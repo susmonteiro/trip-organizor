@@ -5,12 +5,12 @@ import MapView from '../views/mapView.js';
 import ResultsView from '../views/resultsView';
 import SearchView from '../views/searchView';
 
-import SitesSource from '../sitesSource';
+import SitesSource from '../js/sitesSource';
 import AttractionModel from '../js/models/AttractionModel.js';
 
-import promiseNoData from '../promiseNoData.js';
-import usePromise from '../usePromise.js';
-import useModelProperty from '../useModelProperty.js';
+import promiseNoData from '../js/promiseNoData.js';
+import usePromise from '../js/usePromise.js';
+import useModelProperty from '../js/useModelProperty.js';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';

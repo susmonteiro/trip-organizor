@@ -1,4 +1,4 @@
-import countries from './countryList.js';
+import countries from '../js/countryList.js';
 
 import * as React from 'react';
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import AddTripView from '../views/addTripView';
 import TripModel from '../js/models/TripModel.js';
 import SitesSource from '../sitesSource.js';
-import promiseNoData from '../promiseNoData.js';
+import promiseNoData from '../js/promiseNoData.js';
 import usePromise from '../usePromise.js';
 export default function AddTripPresenter(props) {
   const [date, setDate] = React.useState([null, null]);

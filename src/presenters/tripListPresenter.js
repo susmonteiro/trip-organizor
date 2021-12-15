@@ -7,9 +7,9 @@ import Divider from '@mui/material/Divider';
 import TripListView from '../views/tripListView';
 import AddTripView from '../views/addTripView';
 import TripModel from '../js/models/TripModel.js';
-import SitesSource from '../sitesSource.js';
-import promiseNoData from '../promiseNoData.js';
-import usePromise from '../usePromise.js';
+import SitesSource from '../js/sitesSource.js';
+import promiseNoData from '../js/promiseNoData.js';
+import usePromise from '../js/usePromise.js';
 import Grid from '@mui/material/Grid';
 import { signout } from '../js/models/FirebaseModel';
 

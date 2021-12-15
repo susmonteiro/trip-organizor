@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 
-import { ErrorMessageTitle, ErrorMessageInformation } from './elements/showMessages.js';
+import { ErrorMessageTitle, ErrorMessageInformation } from '../elements/showMessages.js';
 
 export default function promiseNoData(promise, data, error) {
   if (!(promise || data || error)) {
