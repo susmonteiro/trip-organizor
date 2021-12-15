@@ -18,6 +18,8 @@ function MapView(props) {
     });
   }
 
+  const sites = props.tmpAttraction ? [props.tmpAttraction, ...props.sites] : props.sites;
+
   console.log(props);
   return (
     <Box>
@@ -26,33 +28,22 @@ function MapView(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {props.sites.map((site) => (
+        {sites.map((site) => (
           <Marker
             icon={
-              site.isFav ? createMarker(site.type.code, true) : createMarker(site.type.code, false)
+              site.type
+                ? site.isFav
+                  ? createMarker(site.type.code, true)
+                  : createMarker(site.type.code, false)
+                : createMarker('temporary', false)
             }
             position={[site.coord[0], site.coord[1]]}
             key={site.key}
             eventHandlers={{
               click: () => {
                 props.setPromise(SitesSource.getDetails(site.id));
-                // props.changeCurrAttr(site.id);
               }
             }}>
-            {/* TEMPORARY MARKER */}
-            {props.tmpAttraction && (
-              <Marker
-                icon={createMarker('temporary', false)}
-                position={[props.tmpAttraction.coord[0], props.tmpAttraction.coord[1]]}
-                key={props.tmpAttraction.key}
-                eventHandlers={{
-                  click: () => {
-                    props.setPromise(SitesSource.getDetails(props.tmpAttraction.id));
-                  }
-                }}></Marker>
-            )}
-            {/* {(props.openPopup === site.id && props.setPopup()) ||
-              props.setPromise(SitesSource.getDetails(site.id))} */}
             <Popup>
               {promiseNoData(props.promise, props.data, props.error) || (
                 <Box>
