@@ -9,7 +9,6 @@ export default function HomePresenter(props) {
   const [password, setPassword] = React.useState('');
   const [verify_password, setVerifyPassword] = React.useState('');
   const [error, setError] = React.useState('');
-  const [success, setSuccess] = React.useState(''); //TODO or delete
   //We want to be without a session when we are at this page
   const REGISTER = '1';
   const LOGIN = '0';
@@ -46,11 +45,9 @@ export default function HomePresenter(props) {
       setError('The passwords are not equal');
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .catch((error) => {
-        putErrorString(error.message);
-      })
-      .then(setSuccess('You are logged in! Wait..'));
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      putErrorString(error.message);
+    });
   }
 
   function resetError() {
