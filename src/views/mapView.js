@@ -20,7 +20,6 @@ function MapView(props) {
 
   const sites = props.tmpAttraction ? [props.tmpAttraction, ...props.sites] : props.sites;
 
-  console.log(props);
   return (
     <Box>
       <MapContainer center={props.currentLocation()} zoom={props.zoom}>

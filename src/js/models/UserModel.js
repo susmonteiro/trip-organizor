@@ -31,9 +31,9 @@ export default class UserModel {
   }
 
   //FOR AUTH
-  setUserID(id){
+  setUserID(id) {
     this.currentUser = id;
-    this.notifyObservers() //we must change all the data to the current user 
+    this.notifyObservers(); //we must change all the data to the current user
   }
   /**/
   addAttractionToTrip(attr) {
@@ -62,7 +62,7 @@ export default class UserModel {
         try {
           cb();
         } catch (error) {
-          ///missing
+          // TODO missing
           console.error(error);
         }
       }, 0)

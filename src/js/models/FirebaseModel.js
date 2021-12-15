@@ -2,18 +2,15 @@ import db from '../firebaseConfig';
 import * as React from 'react';
 import firebase from 'firebase/compat/app'; //v9
 import { auth } from '../firebaseConfig';
-import { ref, set, onValue } from "firebase/database";
-import {
-  signOut,
-  onAuthStateChanged
-} from 'firebase/auth';
+import { ref, set, onValue } from 'firebase/database';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 
-let logged= false; 
+let logged = false;
 export default function persistModel(model) {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      logged = true
-      model.setUserID(user.uid) 
+      logged = true;
+      model.setUserID(user.uid);
       let loadingFromFirebase = false;
       model.addObserver(function () {
         //whenever the data in the model changes, we want to update the data in the firebase DB
@@ -39,27 +36,24 @@ export default function persistModel(model) {
           console.error(e);
         } finally {
           loadingFromFirebase = false;
-          console.log(window.location.href)
-          if(window.location.pathname == '/') window.location.href = '/trips' 
+          if (window.location.pathname == '/') window.location.href = '/trips';
         }
       });
     } else {
-      logged = false
-      if(window.location.pathname !== '/') window.location.href = '/';
+      logged = false;
+      if (window.location.pathname !== '/') window.location.href = '/';
     }
   });
 }
 
-
 function signout() {
-  signOut(auth).then(window.location.href = '/').catch(console.log);
+  signOut(auth)
+    .then((window.location.href = '/'))
+    .catch(console.error);
 }
 
-function isLogged(){
+function isLogged() {
   return logged;
 }
 
-export {
-  signout,
-  isLogged
-};
+export { signout, isLogged };

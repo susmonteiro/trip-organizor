@@ -41,7 +41,6 @@ export default function AttractionsPresenter(props) {
   ];
 
   const ALL_TYPES = ACTIVITY_TYPES.map((type) => type.code).join(',');
-  console.log(ALL_TYPES);
   const DEFAULT_TYPE = { code: ALL_TYPES, name: 'All' };
 
   // model properties
@@ -142,7 +141,7 @@ export default function AttractionsPresenter(props) {
     SitesSource.getDetails(site.xid)
       .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
       .then(() => setCurrentAttraction(attraction))
-      .catch((err) => console.error(err));
+      .catch((err) => setErrorAddAttraction('There was an error. Please try again.'));
   }
 
   // search attraction functions
@@ -153,7 +152,7 @@ export default function AttractionsPresenter(props) {
       setErrorAddAttraction(site.name + ' already exists in your attractions');
       return;
     } else if (date < trip.dateBegin || date > trip.dateEnd) {
-      console.log('invalid date');
+      setErrorAddAttraction('The date chosen is invalid');
       return;
     } else {
       let attraction = new AttractionModel({
@@ -175,7 +174,8 @@ export default function AttractionsPresenter(props) {
       SitesSource.getDetails(site.xid)
         .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
         .then(() => props.model.addAttractionToTrip(attraction))
-        .catch((err) => console.error(err));
+        .catch((err) => setErrorAddAttraction('There was an error. Please try again.'));
+
       setSearching(false);
       resetVariables();
       setSuccessAddAttraction(site.name + ' added to your attractions');

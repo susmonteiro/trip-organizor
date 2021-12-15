@@ -299,7 +299,6 @@ export default function AttractionsListView(props) {
                       key={item.key}
                       onClick={() => {
                         props.openPopup(item.id);
-                        console.log('Clicked ', item.id);
                       }}>
                       <TableCell>
                         <IconButton
