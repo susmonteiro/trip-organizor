@@ -60,10 +60,14 @@ export default function AttractionsListView(props) {
       case 1:
         if (a.type.name < b.type.name) return -1 * orderType;
         else if (a.type.name > b.type.name) return 1 * orderType;
+        else if (a.name < b.name) return -1;
+        else if (a.name > b.name) return 1;
         else return 0;
       case 2:
         if (a.date < b.date) return -1 * orderDate;
         else if (a.date > b.date) return 1 * orderDate;
+        else if (a.name < b.name) return -1;
+        else if (a.name > b.name) return 1;
         else return 0;
     }
   }
