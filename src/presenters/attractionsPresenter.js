@@ -19,6 +19,7 @@ import InformationMessage from '../elements/showMessages.js';
 
 import 'firebase/compat/auth';
 import { signout } from '../js/models/FirebaseModel';
+import { PopupBottom } from '../elements/popups.js';
 
 const RADIUS = 50000;
 const NUM_RESULTS = 30;
@@ -62,6 +63,7 @@ export default function AttractionsPresenter(props) {
   const [favourites, setFavourites] = React.useState(false);
   const [filterDate, setFilterDate] = React.useState(false);
   const [errorAddAttraction, setErrorAddAttraction] = React.useState('');
+  const [successAddAttraction, setSuccessAddAttraction] = React.useState('');
   const [openPopup, setOpenPopup] = React.useState(null);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
@@ -176,6 +178,7 @@ export default function AttractionsPresenter(props) {
         .catch((err) => console.error(err));
       setSearching(false);
       resetVariables();
+      setSuccessAddAttraction(site.name + ' added to your attractions');
     }
   }
 
@@ -192,7 +195,7 @@ export default function AttractionsPresenter(props) {
   function searchAttraction() {
     let coord = getCoord();
 
-    if (!query || canSearch(query)) {
+    if (!query || !canSearch(query)) {
       setHelpText(true);
     } else
       setPromiseAttr(
@@ -302,6 +305,11 @@ export default function AttractionsPresenter(props) {
               />
             </Box>
           )}
+          <PopupBottom
+            message={successAddAttraction}
+            type={'success'}
+            onClose={() => setSuccessAddAttraction('')}
+          />
         </Box>
         <Box flex={0.4} height="70vh" /* display={{ md: 'block', xs: 'none' }} */>
           {getCoord() && (

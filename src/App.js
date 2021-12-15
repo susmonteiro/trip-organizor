@@ -29,6 +29,12 @@ const theme = createTheme({
     error: {
       main: '#b84b3b'
     },
+    success: {
+      main: '#3B6064'
+    },
+    info: {
+      main: '#3B6064'
+    },
     background: {
       main: '#FFFFFF'
     },

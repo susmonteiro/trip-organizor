@@ -87,7 +87,7 @@ export default function SearchView(props) {
           </Grid>
         </Grid>
       </Box>
-      <PopupBottom message={props.errorDuplicated} onClose={props.resetError} />
+      <PopupBottom message={props.errorDuplicated} type={'error'} onClose={props.resetError} />
     </Box>
   );
 }

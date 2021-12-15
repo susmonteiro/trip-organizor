@@ -21,7 +21,7 @@ export function PopupTop(props) {
   return (
     <Snackbar
       open={props.message !== ''}
-      autoHideDuration={5000}
+      autoHideDuration={7000}
       onClose={props.onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
       <Alert variant="filled" severity={props.type} sx={{ width: '100%', height: 50 }}>
@@ -35,7 +35,7 @@ export function PopupBottom(props) {
   return (
     <Snackbar
       open={props.message !== ''}
-      autoHideDuration={5000}
+      autoHideDuration={7000}
       onClose={props.onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
       <Alert variant="filled" severity={props.type} sx={{ width: '100%', height: 50 }}>

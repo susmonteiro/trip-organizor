@@ -14,7 +14,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Snackbar from '@mui/material/Snackbar';
 import Image from './../resapp.jpg';
 import { height } from '@mui/system';
-import { PopupTop, PopupBottom } from '../elements/popups.js';
+import { PopupTop } from '../elements/popups.js';
 
 const styles = {
   paperContainer: {
