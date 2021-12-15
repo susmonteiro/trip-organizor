@@ -179,10 +179,20 @@ export default function AttractionsPresenter(props) {
     }
   }
 
+  function canSearch(text) {
+    return (
+      text &&
+      text.length >= 3 &&
+      text
+        .split('')
+        .find((letter) => (letter > 'a' && letter < 'z') || (letter > 'A' && letter < 'Z'))
+    );
+  }
+
   function searchAttraction() {
     let coord = getCoord();
 
-    if (!query || query.length < 3) {
+    if (!query || canSearch(query)) {
       setHelpText(true);
     } else
       setPromiseAttr(
@@ -229,6 +239,7 @@ export default function AttractionsPresenter(props) {
                   useLogout={() => doLogout()}
                   errorDuplicated={errorAddAttraction}
                   resetError={() => setErrorAddAttraction('')}
+                  canSearch={canSearch(query)}
                 />
               </Box>
               <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>

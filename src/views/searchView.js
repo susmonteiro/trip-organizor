@@ -76,7 +76,7 @@ export default function SearchView(props) {
           <Grid item lg={3} md={4} xs={3}>
             <Box textAlign="right">
               <Button
-                disabled={!props.query || props.query.length < 3}
+                disabled={!props.query || !props.canSearch}
                 color="primary"
                 variant="contained"
                 startIcon={<SearchIcon />}
