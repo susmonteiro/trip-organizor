@@ -198,7 +198,7 @@ export default function TripListView(props) {
                       props.completed && (
                         <PopupBottom
                           type={'info'}
-                          errormsg={'Woohoo! Trip completed. What´ll be your next adventure?'}
+                          message={'Woohoo! Trip completed. What´ll be your next adventure?'}
                           onClose={props.timeoutSnack}
                         />
                       ) /* <Snackbar

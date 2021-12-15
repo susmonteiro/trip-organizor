@@ -119,14 +119,14 @@ export default function AddTripView(props) {
       {props.status === 'OK' && (
         <PopupBottom
           type={'success'}
-          errormsg={'Woohoo! Your destination is valid!'}
+          message={'Woohoo! Your destination is valid!'}
           onClose={props.timeoutSnack}
         />
       )}
       {props.status === 'NOT_FOUND' && (
         <PopupBottom
           type={'error'}
-          errormsg={"Sorry, your destination doesn't exist"}
+          message={"Sorry, your destination doesn't exist"}
           onClose={props.timeoutSnack}
         />
       )}

@@ -45,10 +45,7 @@ export default function HomeView(props) {
         <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
         <Grid item md={3} xs={4} mt={{ xs: 'none', md: 'block' }}>
           <Box>
-            <PopupTop
-              type={'error'}
-              errormsg={props.errormsg}
-              onClose={props.resetError}></PopupTop>
+            <PopupTop type={'error'} message={props.message} onClose={props.resetError}></PopupTop>
           </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>

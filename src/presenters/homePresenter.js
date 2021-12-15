@@ -65,7 +65,7 @@ export default function HomePresenter(props) {
       authType={authType}
       REGISTER={REGISTER}
       LOGIN={LOGIN}
-      errormsg={error}
+      message={error}
       resetError={() => resetError()}
       changeAuthType={(newType) => setAuthType(newType)}
       writeEmail={(email) => setEmail(email)}

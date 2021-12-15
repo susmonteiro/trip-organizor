@@ -20,12 +20,12 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 export function PopupTop(props) {
   return (
     <Snackbar
-      open={props.errormsg !== ''}
+      open={props.message !== ''}
       autoHideDuration={5000}
       onClose={props.onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
       <Alert variant="filled" severity={props.type} sx={{ width: '100%', height: 50 }}>
-        {props.errormsg}
+        {props.message}
       </Alert>
     </Snackbar>
   );
@@ -34,12 +34,12 @@ export function PopupTop(props) {
 export function PopupBottom(props) {
   return (
     <Snackbar
-      open={props.errormsg !== ''}
+      open={props.message !== ''}
       autoHideDuration={5000}
       onClose={props.onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
       <Alert variant="filled" severity={props.type} sx={{ width: '100%', height: 50 }}>
-        {props.errormsg}
+        {props.message}
       </Alert>
     </Snackbar>
   );
