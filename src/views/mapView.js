@@ -17,8 +17,8 @@ function MapView(props) {
   function createMarker(marker, fav, siteID, currID) {
     return new Icon({
       iconUrl: markers(marker, fav),
-      iconSize: siteID===currID?[25 * 1.5, 40 * 1.5]:[25 * 1.2, 40 * 1.2],
-      iconAnchor:  siteID===currID?[25 * 1.5 / 2, 40 * 1.5]:[(25 * 1.2) / 2, 40 * 1.2]
+      iconSize: siteID === currID ? [25 * 1.5, 40 * 1.5] : [25 * 1.2, 40 * 1.2],
+      iconAnchor: siteID === currID ? [(25 * 1.5) / 2, 40 * 1.5] : [(25 * 1.2) / 2, 40 * 1.2]
     });
   }
 
@@ -45,6 +45,7 @@ function MapView(props) {
             eventHandlers={{
               click: () => {
                 props.setPromise(SitesSource.getDetails(site.id, props.setPromiseImage));
+                props.resetPopup();
               }
             }}>
             <Popup>
@@ -59,8 +60,8 @@ function MapView(props) {
                       : "Sorry, we don't have information on this site."}
                   </Typography>
                   {promiseNoData(props.promiseImage, props.dataImage, props.errorImage, true) || (
-                     <img className="popup-image" src={props.data.preview.source} />
-                   )}
+                    <img className="popup-image" src={props.data.preview.source} />
+                  )}
                   <br />
                   {!site.type && (
                     <Box textAlign="center">

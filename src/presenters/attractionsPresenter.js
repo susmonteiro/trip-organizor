@@ -129,6 +129,7 @@ export default function AttractionsPresenter(props) {
     setFilter(false);
     setFilterDate(false);
     setErrorPopup('');
+    setOpenPopup(null);
   }
 
   function createTemporaryAttraction(site) {
@@ -299,7 +300,10 @@ export default function AttractionsPresenter(props) {
                 resetFilter={() => {
                   resetVariables();
                 }}
-                openPopup={(id) => setOpenPopup(id)}
+                openPopup={(id) => {
+                  setOpenPopup(id);
+                  setPromiseMap(null);
+                }}
                 successPopup={successPopup}
                 resetError={() => setSuccessPopup('')}
               />
@@ -322,7 +326,7 @@ export default function AttractionsPresenter(props) {
               setPromiseImage={setPromiseImage}
               changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
               openPopup={openPopup}
-              setPopup={() => setOpenPopup(null)}
+              resetPopup={() => setOpenPopup(null)}
               tmpAttraction={currentAttraction}
               addAttraction={() => addAttraction(currentAttraction.details)}
             />
