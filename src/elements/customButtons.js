@@ -58,12 +58,21 @@ export function RoundButton(props) {
       <IconButton
         color={props.color || 'primary'}
         aria-label="icon button"
+        disabled={props.disabled}
         onClick={() => props.onClick()}>
         {props.children}
       </IconButton>
     </Tooltip>
   );
   //return <Fab color="secondary" dark="true" aria-label="add" {...props}></Fab>; TODO
+}
+
+export function DisabledButton(props) {
+  return (
+    <IconButton aria-label="icon button" disabled>
+      {props.children}
+    </IconButton>
+  );
 }
 
 export function BasicSpeedDial(props) {

@@ -14,6 +14,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Snackbar from '@mui/material/Snackbar';
 import Image from './../resapp.jpg';
 import { height } from '@mui/system';
+import {ErrorPopupTop, ErrorPopupBottom} from '../elements/popups.js';
 
 const styles = {
   paperContainer: {
@@ -44,18 +45,7 @@ export default function HomeView(props) {
         <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
         <Grid item md={3} xs={4} mt={{ xs: 'none', md: 'block' }}>
           <Box>
-          <Snackbar open={props.errormssg !== ''} autoHideDuration={5000} onClose={props.resetError} anchorOrigin={{ vertical:'top', horizontal:'right' }}>
-            <Alert variant="filled" severity="error" sx={{ width: '100%', height: 50,}}>
-              {props.errormssg}
-            </Alert>
-          </Snackbar>
-            
-            {/* OLD ERROR CARD= props.errormssg !== '' && (
-              <Alert variant="filled" severity="error">
-                <AlertTitle>Error</AlertTitle>
-                {props.errormssg} — <strong>check it out!</strong>
-              </Alert>)
-            */}
+            <ErrorPopupTop type={"error"} errormsg={props.errormsg} onClose={props.resetError}></ErrorPopupTop>
           </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>
@@ -64,9 +54,9 @@ export default function HomeView(props) {
                   <p>{props.user}</p>
                   <TabList
                     onChange={(event, newValue) => {
-                      props.changeAuthType(newValue); 
-                      props.resetError}
-                    }
+                      props.changeAuthType(newValue);
+                      props.resetError;
+                    }}
                     aria-label="lab API tabs example"
                     centered>
                     <Tab label="Login" value={props.LOGIN} />

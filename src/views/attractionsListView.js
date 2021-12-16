@@ -1,23 +1,28 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import Fab from '@mui/material/Fab';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 
-import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import AddIcon from '@mui/icons-material/Add';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -30,19 +35,20 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Checkbox } from '@mui/material';
 
-import CustomButton, { RoundButton } from '../elements/customButtons.js';
+import CustomButton, { RoundButton, DisabledButton } from '../elements/customButtons.js';
+import InformationMessage from '../elements/showMessages.js';
 import TopBar from '../elements/topBar.js';
 
 export default function AttractionsListView(props) {
   const activities = props.activities;
 
-  let [func, setFunc] = React.useState(0);
-  let [orderName, setOrderName] = React.useState(1);
-  let [orderType, setOrderType] = React.useState(1);
+  let [func, setFunc] = React.useState(2);
+  let [orderName, setOrderName] = React.useState(-1);
+  let [orderType, setOrderType] = React.useState(-1);
   let [orderDate, setOrderDate] = React.useState(1);
 
   function compare(a, b) {
@@ -84,8 +90,8 @@ export default function AttractionsListView(props) {
         My Trips
       </TopBar>
       <Box mt={-4} ml={2} mr={2}>
-        <Grid container mr={5} ml={5} mt={3} alignItems="flex-end">
-          <Grid item xs={8}>
+        <Grid container pr={5} pl={5} mt={3} alignItems="flex-end">
+          <Grid item xs={9}>
             <Typography color="primary" fontSize={25} fontWeight={500} textAlign="left">
               {props.nameOfTrip}
             </Typography>
@@ -95,28 +101,40 @@ export default function AttractionsListView(props) {
             </Typography>
           </Grid>
           <Grid item xs={1}>
-            <RoundButton
-              title="Filter"
-              color={props.filter ? 'secondary' : 'primary'}
-              onClick={() => props.onFilter()}>
-              <FilterAltIcon />
-            </RoundButton>
+            {(props.numberOfAttractions === 0 && (
+              <DisabledButton>
+                <FilterAltIcon />
+              </DisabledButton>
+            )) || (
+              <RoundButton
+                title="Filter"
+                disabled={props.numberOfAttractions === 0}
+                color={props.filter ? 'secondary' : 'primary'}
+                onClick={() => props.onFilter()}>
+                <FilterAltIcon />
+              </RoundButton>
+            )}
           </Grid>
           <Grid item xs={1}>
-            <RoundButton
-              title="Edit"
-              color={props.edit ? 'secondary' : 'primary'}
-              onClick={() => props.onEditing()}>
-              <EditIcon />
-            </RoundButton>
+            {(props.numberOfAttractions === 0 && (
+              <DisabledButton>
+                <EditIcon />
+              </DisabledButton>
+            )) || (
+              <RoundButton
+                title="Edit"
+                disabled={props.numberOfAttractions === 0}
+                color={props.edit ? 'secondary' : 'primary'}
+                onClick={() => props.onEditing()}>
+                <EditIcon />
+              </RoundButton>
+            )}
           </Grid>
           <Grid item xs={1}>
             <RoundButton title="Add Attraction" onClick={() => props.onSearching()}>
               <AddIcon />
             </RoundButton>
           </Grid>
-
-          <Grid item xs={1} />
           {props.filter && (
             <Grid container mt={3}>
               <Grid item xs={3}>
@@ -135,7 +153,38 @@ export default function AttractionsListView(props) {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={5} />
+              <Grid item xs={3} ml={5}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    label="Date"
+                    disabled={!props.filterDate}
+                    inputFormat="dd/MM/yyyy"
+                    minDate={props.minDate}
+                    maxDate={props.maxDate}
+                    value={props.date}
+                    onChange={(value) => props.onChangeDate(value)}
+                    renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={2} ml={-5} />
+              <Grid item xs={1}>
+                <Tooltip title="Filter By Date" placement="bottom">
+                  <IconButton
+                    display="center"
+                    variant="contained"
+                    id="filter date"
+                    onClick={() => {
+                      props.onFilterDate();
+                    }}>
+                    {props.filterDate ? (
+                      <LightModeIcon color="primary" />
+                    ) : (
+                      <LightModeOutlinedIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </Grid>
               <Grid item xs={1}>
                 <Tooltip title="Show Completed Attractions" placement="bottom">
                   <IconButton
@@ -183,106 +232,126 @@ export default function AttractionsListView(props) {
                   </IconButton>
                 </Tooltip>
               </Grid>
-              <Grid item xs={1} />
             </Grid>
           )}
         </Grid>
-        <Box mt={1}>
-          <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
-            <Table stickyHeader aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell width="15%" />
-                  <TableCell align="center" width="40%">
-                    Attraction Name
-                    <IconButton
-                      onClick={() => {
-                        setOrderName(orderName * -1);
-                        setFunc(0);
-                      }}>
-                      {changeArrowDisplay(orderName, 0, func)}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center" width="15%">
-                    Type
-                    <IconButton
-                      onClick={() => {
-                        setOrderType(orderType * -1);
-                        setFunc(1);
-                      }}>
-                      {changeArrowDisplay(orderType, 1, func)}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center" width="20%">
-                    Date
-                    <IconButton
-                      onClick={() => {
-                        setOrderDate(orderDate * -1);
-                        setFunc(2);
-                      }}>
-                      {changeArrowDisplay(orderDate, 2, func)}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell width="10%" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {props.rows.sort(compare).map((item) => (
-                  <TableRow hover key={item.id}>
-                    <TableCell>
+        {props.numberOfAttractions === 0 ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <InformationMessage>
+              PRESS
+              <IconButton
+                aria-label="add button"
+                color="primary"
+                onClick={() => props.onSearching()}>
+                <AddIcon />
+              </IconButton>
+              TO ADD YOUR FIRST ATTRACTION
+            </InformationMessage>
+          </Box>
+        ) : (
+          <Box mt={1}>
+            <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
+              <Table stickyHeader aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell width="15%" />
+                    <TableCell align="center" width="40%">
+                      Attraction Name
                       <IconButton
-                        display="center"
-                        variant="contained"
-                        id={item.id}
                         onClick={() => {
-                          props.changeCompleted(item.id);
+                          setOrderName(orderName * -1);
+                          setFunc(0);
                         }}>
-                        {item.isCompleted ? (
-                          <CheckBoxIcon color="primary" />
-                        ) : (
-                          <CheckBoxOutlineBlankIcon />
-                        )}
-                      </IconButton>
-                      <IconButton
-                        display="center"
-                        variant="contained"
-                        id={item.id}
-                        onClick={() => {
-                          props.changeLiked(item.id);
-                        }}>
-                        {item.isFavourite ? (
-                          <FavoriteIcon color="favourite" />
-                        ) : (
-                          <FavoriteBorderRoundedIcon />
-                        )}
+                        {changeArrowDisplay(orderName, 0, func)}
                       </IconButton>
                     </TableCell>
-                    <TableCell align="left">{item.name}</TableCell>
-                    <TableCell align="center">
-                      <Chip
-                        label={item.type.name}
-                        sx={{ bgcolor: item.type.color, color: 'white' }}
-                      />
+                    <TableCell align="center" width="15%">
+                      Type
+                      <IconButton
+                        onClick={() => {
+                          setOrderType(orderType * -1);
+                          setFunc(1);
+                        }}>
+                        {changeArrowDisplay(orderType, 1, func)}
+                      </IconButton>
                     </TableCell>
-                    <TableCell align="center">{new Date(item.date).toDateString()}</TableCell>
-                    <TableCell width="10%">
-                      {props.edit && (
+                    <TableCell align="center" width="20%">
+                      Date
+                      <IconButton
+                        onClick={() => {
+                          setOrderDate(orderDate * -1);
+                          setFunc(2);
+                        }}>
+                        {changeArrowDisplay(orderDate, 2, func)}
+                      </IconButton>
+                    </TableCell>
+                    <TableCell width="10%" />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {props.rows.sort(compare).map((item) => (
+                    <TableRow
+                      hover
+                      key={item.key}
+                      onClick={() => {
+                        props.openPopup(item.id);
+                        console.log('Clicked ', item.id);
+                      }}>
+                      <TableCell>
                         <IconButton
                           display="center"
                           variant="contained"
-                          color="primary"
-                          id={item.id}
-                          onClick={() => props.deleteAttraction(item.id)}>
-                          <DeleteIcon />
+                          id={item.key}
+                          onClick={() => {
+                            props.changeCompleted(item.key);
+                          }}>
+                          {item.isCompleted ? (
+                            <CheckBoxIcon color="primary" />
+                          ) : (
+                            <CheckBoxOutlineBlankIcon />
+                          )}
                         </IconButton>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+                        <IconButton
+                          display="center"
+                          variant="contained"
+                          id={item.key}
+                          onClick={() => {
+                            props.changeLiked(item.key);
+                          }}>
+                          {item.isFavourite ? (
+                            <FavoriteIcon color="favourite" />
+                          ) : (
+                            <FavoriteBorderRoundedIcon />
+                          )}
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align="left">{item.name}</TableCell>
+                      <TableCell align="center">
+                        <Chip
+                          label={item.type.name}
+                          sx={{ bgcolor: item.type.color, color: 'white' }}
+                        />
+                      </TableCell>
+                      <TableCell align="center">{new Date(item.date).toDateString()}</TableCell>
+                      <TableCell width="10%">
+                        {props.edit && (
+                          <IconButton
+                            display="center"
+                            variant="contained"
+                            color="primary"
+                            id={item.key}
+                            onClick={() => props.deleteAttraction(item.key)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        )}
       </Box>
     </Box>
   );

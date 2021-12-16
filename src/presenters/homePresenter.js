@@ -2,13 +2,10 @@ import React, { useRef, useState } from 'react';
 import HomeView from '../views/homeView';
 import firebase from 'firebase/compat/app';
 import { auth } from '../js/firebaseConfig';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from 'firebase/auth';
-import { isLogged } from '../js/models/FirebaseModel'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { isLogged } from '../js/models/FirebaseModel';
 
-export default function HomePresenter(props) { 
+export default function HomePresenter(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [verify_password, setVerifyPassword] = React.useState('');
@@ -19,53 +16,56 @@ export default function HomePresenter(props) {
   const LOGIN = '0';
   const [authType, setAuthType] = React.useState(LOGIN);
 
-  function putErrorString(error){
+  function putErrorString(error) {
     switch (error) {
-      case "Firebase: Error (auth/email-already-exists).":  
-        setError('Email is already in use!'); 
+      case 'Firebase: Error (auth/email-already-exists).':
+        setError('Email is already in use!');
         break;
-      case "Firebase: Error (auth/invalid-email).":  
-        setError('Email is invalid!'); 
+      case 'Firebase: Error (auth/invalid-email).':
+        setError('Email is invalid!');
         break;
-      case "Firebase: Error (auth/invalid-password).":  
+      case 'Firebase: Error (auth/invalid-password).':
         setError('Wrong password!');
         break;
-      case "Firebase: Password should be at least 6 characters (auth/weak-password).":  
-        setError('Your password must be at least 6 characters'); 
+      case 'Firebase: Password should be at least 6 characters (auth/weak-password).':
+        setError('Your password must be at least 6 characters');
         break;
-      default: setError("Your email or password is wrong")
+      default:
+        setError('Your email or password is wrong');
     }
   }
   function login(email, password) {
-    setError('')
-    signInWithEmailAndPassword(auth, email, password).catch((error) =>{
+    setError('');
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
       putErrorString(error.message);
-    })
+    });
   }
-  
+
   function register(email, password, verify_password) {
-    setError('')
+    setError('');
     if (password !== verify_password) {
       setError('The passwords are not equal');
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
-      putErrorString(error.message)
-    }).then(setSuccess("You are logged in! Wait.."));;
+    createUserWithEmailAndPassword(auth, email, password)
+      .catch((error) => {
+        putErrorString(error.message);
+      })
+      .then(setSuccess('You are logged in! Wait..'));
   }
-  
-  function resetError(){
-    setError('')
+
+  function resetError() {
+    setError('');
   }
 
   return (
     <HomeView
-      isLogged = {isLogged()}
-      userid ={props.model.currentUser}
+      isLogged={isLogged()}
+      userid={props.model.currentUser}
       authType={authType}
       REGISTER={REGISTER}
       LOGIN={LOGIN}
-      errormssg={error}
+      errormsg={error}
       resetError={() => resetError()}
       changeAuthType={(newType) => setAuthType(newType)}
       writeEmail={(email) => setEmail(email)}

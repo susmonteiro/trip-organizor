@@ -29,7 +29,7 @@ export default function ResultsView(props) {
                     }}>
                     <AddLocationIcon />
                   </IconButton>
-                  <ListItemButton onClick={() => props.onSetCurrentAttraction(site.properties.xid)}>
+                  <ListItemButton onClick={() => props.onSetCurrentAttraction(site.properties)}>
                     <ListItemText primary={site.properties.name} />
                   </ListItemButton>
                 </ListItem>
