@@ -17,6 +17,7 @@ import SearchIcon from '@mui/icons-material/Search';
 // CUSTOM COMPONENTS
 import TopBar from '../elements/topBar.js';
 import { PopupBottom } from '../elements/popups.js';
+import CustomButton from '../elements/customButtons.js';
 
 export default function SearchView(props) {
   return (
@@ -77,14 +78,14 @@ export default function SearchView(props) {
           </Grid>
           <Grid item lg={3} md={4} xs={3}>
             <Box textAlign="right">
-              <Button
+              <CustomButton
                 disabled={!props.query || !props.canSearch}
                 color="primary"
                 variant="contained"
                 startIcon={<SearchIcon />}
                 onClick={() => props.onSearch()}>
                 Search
-              </Button>
+              </CustomButton>
             </Box>
           </Grid>
         </Grid>

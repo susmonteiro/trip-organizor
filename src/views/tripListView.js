@@ -301,7 +301,7 @@ export default function TripListView(props) {
                                 No
                               </Button>
                               <Button
-                                onClick={(event) => {
+                                onClick={() => {
                                   handleClose('Delete');
                                   handleClose('Action');
                                   props.removeTrip(props.tripCurrent);
@@ -318,8 +318,7 @@ export default function TripListView(props) {
                       <Button
                         onClick={() => {
                           handleClose('Action');
-                        }}
-                        autoFocus>
+                        }}>
                         Cancel
                       </Button>
                     </DialogActions>
@@ -364,7 +363,7 @@ export default function TripListView(props) {
                     <DialogActions>
                       <Button
                         id="Duplicate"
-                        onClick={(event) => {
+                        onClick={() => {
                           handleClose('Duplicate');
                           handleClose('Action');
                         }}>
@@ -393,12 +392,9 @@ export default function TripListView(props) {
                   </TableCell>
                   <TableCell align="center">1</TableCell>
                   <TableCell>
-                    <Button
-                      variant="contained"
-                      href="/attractions"
-                      onClick={() => props.tripChoice(item.title)}>
+                    <CustomButton href="/attractions" onClick={() => props.tripChoice(item.title)}>
                       Go
-                    </Button>
+                    </CustomButton>
                   </TableCell>
                 </TableRow>
               ))}

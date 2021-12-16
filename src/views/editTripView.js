@@ -23,7 +23,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { CloseButton } from './../elements/customButtons.js';
+import CustomButton, { CloseButton } from './../elements/customButtons.js';
 
 export default function EditTripView(props) {
   const [value, setValue] = React.useState([null, null]);
@@ -67,11 +67,11 @@ export default function EditTripView(props) {
           )}
         />
       </LocalizationProvider>
-      <Button
+      <CustomButton
         variant="contained"
         onClick={() => props.editInfo('THIS IS A NEW TITLE FOR THIS TRIP')}>
         Save
-      </Button>
+      </CustomButton>
     </div>
   );
 }
