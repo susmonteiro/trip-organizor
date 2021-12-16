@@ -229,11 +229,6 @@ export default function TripListPresenter(props) {
           </Box>
         </Grid>
       </Grid>
-      <PopupBottom
-        type={'success'}
-        message={'Woohoo! Your destination is valid!'}
-        onClose={props.timeoutSnack}
-      />
     </Box>
   );
 }
