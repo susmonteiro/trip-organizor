@@ -311,7 +311,7 @@ export default function AttractionsPresenter(props) {
           {getCoord() && (
             <MapView
               currentLocation={getCoord}
-              zoom={12}
+              zoom={14}
               sites={searching ? tripAttractions : filteredAttractions}
               promise={promiseMap}
               data={dataMap}

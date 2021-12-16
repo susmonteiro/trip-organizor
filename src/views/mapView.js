@@ -28,8 +28,8 @@ function MapView(props) {
     <Box>
       <MapContainer center={props.currentLocation()} zoom={props.zoom}>
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://api.mapbox.com/styles/v1/susmonteiro/ckx95veff1qi615p8u02zqlgs/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic3VzbW9udGVpcm8iLCJhIjoiY2t4OTV5cXFiMDFxYjJ1cDB4OWMyaWgwbSJ9.8Tf383EhwE7rMByDJ1wFcA"
+          attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
         />
         {sites.map((site) => (
           <Marker
