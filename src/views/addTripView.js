@@ -16,8 +16,7 @@ import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { PopupBottom } from '../elements/popups.js';
-
-import CloseIcon from '@mui/icons-material/Close';
+import CustomButton, { CloseButton } from '../elements/customButtons.js';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -27,13 +26,11 @@ export default function AddTripView(props) {
   return (
     <div>
       <br />
-      <Button
-        id="CloseAddView"
-        display="right"
+      <CloseButton
         onClick={() => {
           props.showAddChange(!props.showAdd);
         }}
-        startIcon={<CloseIcon />}></Button>
+      />
       <Typography variant="h4" component="div" gutterBottom>
         WHAT´S YOUR NEXT DESTINATION?
       </Typography>
@@ -163,15 +160,14 @@ export default function AddTripView(props) {
       </LocalizationProvider>
       <br />
       <Stack spacing={2} direction="row">
-        <Button
-          variant="contained"
+        <CustomButton
+          variant="outlined"
           onClick={() => {
             props.showAddChange(!props.showAdd);
           }}>
           Cancel
-        </Button>
-        <Button
-          variant="contained"
+        </CustomButton>
+        <CustomButton
           disabled={
             props.validateTitleExist(props.title) ||
             props.status === 'NOT_FOUND' ||
@@ -183,8 +179,8 @@ export default function AddTripView(props) {
             props.addTrip();
             props.showAddChange(!props.showAdd);
           }}>
-          Let´s travel now!
-        </Button>
+          Create
+        </CustomButton>
       </Stack>
     </div>
   );

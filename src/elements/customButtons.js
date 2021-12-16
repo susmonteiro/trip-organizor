@@ -15,6 +15,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import PublicIcon from '@mui/icons-material/Public';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function CustomButton(props) {
   return (
@@ -24,7 +25,6 @@ export default function CustomButton(props) {
       color="primary"
       {...props}
       style={{
-        border: 0,
         borderRadius: 28,
         color: props.variant === 'text' || props.variant === 'outlined' ? 'primary.main' : 'white'
       }}></Button>
@@ -87,6 +87,10 @@ export function DisabledButton(props) {
       {props.children}
     </IconButton>
   );
+}
+
+export function CloseButton(props) {
+  return <Button id="close button" display="right" {...props} startIcon={<CloseIcon />}></Button>;
 }
 
 export function BasicSpeedDial(props) {
