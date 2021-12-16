@@ -28,7 +28,7 @@ function MapView(props) {
     <Box>
       <MapContainer center={props.currentLocation()} zoom={props.zoom}>
         <TileLayer
-          url="https://api.mapbox.com/styles/v1/susmonteiro/ckx95veff1qi615p8u02zqlgs/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic3VzbW9udGVpcm8iLCJhIjoiY2t4OTV5cXFiMDFxYjJ1cDB4OWMyaWgwbSJ9.8Tf383EhwE7rMByDJ1wFcA"
+          url="https://api.mapbox.com/styles/v1/susmonteiro/ckx98fvsx8rnl15p5l2lgz75d/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic3VzbW9udGVpcm8iLCJhIjoiY2t4OTV5cXFiMDFxYjJ1cDB4OWMyaWgwbSJ9.8Tf383EhwE7rMByDJ1wFcA"
           attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
         />
         {sites.map((site) => (
