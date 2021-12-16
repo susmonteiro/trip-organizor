@@ -14,11 +14,11 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import markers from '../js/markers.js';
 
 function MapView(props) {
-  function createMarker(marker, fav) {
+  function createMarker(marker, fav, siteID, currID) {
     return new Icon({
       iconUrl: markers(marker, fav),
-      iconSize: [25 * 1.2, 40 * 1.2],
-      iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
+      iconSize: siteID===currID?[25 * 1.5, 40 * 1.5]:[25 * 1.2, 40 * 1.2],
+      iconAnchor:  siteID===currID?[25 * 1.5 / 2, 40 * 1.5]:[(25 * 1.2) / 2, 40 * 1.2]
     });
   }
 
@@ -36,8 +36,8 @@ function MapView(props) {
             icon={
               site.type
                 ? site.isFav
-                  ? createMarker(site.type.code, true)
-                  : createMarker(site.type.code, false)
+                  ? createMarker(site.type.code, true, site.id, props.openPopup)
+                  : createMarker(site.type.code, false, site.id, props.openPopup)
                 : createMarker('temporary', false)
             }
             position={[site.coord[0], site.coord[1]]}
