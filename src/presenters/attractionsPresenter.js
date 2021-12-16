@@ -302,7 +302,6 @@ export default function AttractionsPresenter(props) {
                 }}
                 openPopup={(id) => {
                   setOpenPopup(id);
-                  setPromiseMap(null);
                 }}
                 successPopup={successPopup}
                 resetError={() => setSuccessPopup('')}
