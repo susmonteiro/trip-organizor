@@ -8,7 +8,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { FixedWidthButton } from '../elements/customButtons.js';
+import { FixedWidthButton } from '../templates/buttons.js';
 import Image from './../triporganizor.jpg';
 import { PopupTop } from '../elements/popups.js';
 
