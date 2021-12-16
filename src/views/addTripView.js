@@ -37,6 +37,7 @@ export default function AddTripView(props) {
       <br />
       <TextField
         id="titleInput"
+        autoComplete="off"
         fullWidth
         inputProps={{
           maxLength: 50
@@ -67,6 +68,7 @@ export default function AddTripView(props) {
           <TextField
             id="cityInput"
             label="City"
+            autoComplete="off"
             variant="standard"
             error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
             inputProps={{ maxLength: 20 }}
@@ -99,6 +101,7 @@ export default function AddTripView(props) {
             <TextField
               {...params}
               label="Country"
+              autoComplete="off"
               error={props.validateTitleExist(props.country)}
               helperText={
                 props.validateAttrEmpty(props.country) == 'empty'
