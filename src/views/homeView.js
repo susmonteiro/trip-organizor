@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { FixedWidthButton } from '../templates/buttons.js';
 import Image from './../triporganizor.jpg';
-import { PopupTop } from '../elements/popups.js';
+import { PopupTop } from '../templates/popups.js';
 
 const styles = {
   paperContainer: {
