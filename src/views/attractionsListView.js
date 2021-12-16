@@ -39,9 +39,10 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import CustomButton, { RoundButton, DisabledButton } from '../elements/customButtons.js';
-import InformationMessage from '../elements/showMessages.js';
-import TopBar from '../elements/topBar.js';
+import { FixedWidthButton, RoundButton, DisabledButton } from '../templates/buttons.js';
+import { PopupBottom } from '../templates/popups.js';
+import InformationMessage from '../templates/showMessages.js';
+import TopBar from '../templates/topBar.js';
 
 export default function AttractionsListView(props) {
   const activities = props.activities;
@@ -60,10 +61,14 @@ export default function AttractionsListView(props) {
       case 1:
         if (a.type.name < b.type.name) return -1 * orderType;
         else if (a.type.name > b.type.name) return 1 * orderType;
+        else if (a.name < b.name) return -1;
+        else if (a.name > b.name) return 1;
         else return 0;
       case 2:
         if (a.date < b.date) return -1 * orderDate;
         else if (a.date > b.date) return 1 * orderDate;
+        else if (a.name < b.name) return -1;
+        else if (a.name > b.name) return 1;
         else return 0;
     }
   }
@@ -295,7 +300,6 @@ export default function AttractionsListView(props) {
                       key={item.key}
                       onClick={() => {
                         props.openPopup(item.id);
-                        console.log('Clicked ', item.id);
                       }}>
                       <TableCell>
                         <IconButton
@@ -353,6 +357,7 @@ export default function AttractionsListView(props) {
           </Box>
         )}
       </Box>
+      <PopupBottom message={props.successPopup} type={'success'} onClose={props.resetError} />
     </Box>
   );
 }

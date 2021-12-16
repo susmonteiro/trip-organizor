@@ -1,4 +1,4 @@
-import countries from './countryList.js';
+import countries from './../js/countryList.js';
 
 import * as React from 'react';
 
@@ -16,13 +16,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-//CUSTOM COMPONENTS
-import CloseIcon from '@mui/icons-material/Close';
+
+// CUSTOM COMPONENTS
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CustomButton, { CloseButton } from '../templates/buttons.js';
 
 export default function EditTripView(props) {
   const [value, setValue] = React.useState([null, null]);
@@ -30,13 +31,11 @@ export default function EditTripView(props) {
   return (
     <div>
       <br />
-      <Button
-        id="CloseEditView"
-        display="right"
+      <CloseButton
         onClick={() => {
           props.showEditChange(!props.showEdit);
         }}
-        startIcon={<CloseIcon />}></Button>
+      />
       <Typography variant="h4" component="div" gutterBottom>
         TRIP INFO
       </Typography>
@@ -68,11 +67,11 @@ export default function EditTripView(props) {
           )}
         />
       </LocalizationProvider>
-      <Button
+      <CustomButton
         variant="contained"
         onClick={() => props.editInfo('THIS IS A NEW TITLE FOR THIS TRIP')}>
         Save
-      </Button>
+      </CustomButton>
     </div>
   );
 }

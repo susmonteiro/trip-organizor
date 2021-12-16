@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import { makeStyles } from '@material-ui/core';
 import './style.css';
 
-//import MapPresenter from './presenters/mapPresenter';
 import { Route, Routes } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -29,6 +27,12 @@ const theme = createTheme({
     error: {
       main: '#b84b3b'
     },
+    success: {
+      main: '#3B6064'
+    },
+    info: {
+      main: '#3B6064'
+    },
     background: {
       main: '#FFFFFF'
     },
@@ -46,12 +50,6 @@ const theme = createTheme({
     }
   }
 });
-
-/* const useStyles = makeStyles((theme) => {
-  return {
-    // TODO add general styling
-  };
-}); */
 
 function App(props) {
   return (

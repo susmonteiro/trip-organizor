@@ -1,13 +1,17 @@
 import '../style.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import promiseNoData from './../promiseNoData.js';
-import SitesSource from '../sitesSource.js';
+import promiseNoData from './../js/promiseNoData.js';
+import SitesSource from '../js/sitesSource.js';
 import { Icon } from 'leaflet';
+import CustomButton, { FixedWidthButton } from '../templates/buttons.js';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import markers from './../markers/markers.js';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
+
+import markers from '../js/markers.js';
 
 function MapView(props) {
   function createMarker(marker, fav) {
@@ -18,9 +22,8 @@ function MapView(props) {
     });
   }
 
-  const sites = props.tmpAttraction ? [props.tmpAttraction, ...props.sites] : props.sites;
+  const sites = props.tmpAttraction ? [...props.sites, props.tmpAttraction] : props.sites;
 
-  console.log(props);
   return (
     <Box>
       <MapContainer center={props.currentLocation()} zoom={props.zoom}>
@@ -59,6 +62,18 @@ function MapView(props) {
                     <img className="popup-image" src={props.data.preview.source} />
                   ) : null}
                   <br />
+                  {!site.type && (
+                    <Box textAlign="center">
+                      <CustomButton
+                        startIcon={<AddLocationIcon />}
+                        onClick={() => props.addAttraction()}
+                        size="large"
+                        variant="text">
+                        Add Me
+                      </CustomButton>
+                      <br />
+                    </Box>
+                  )}
                 </Box>
               )}
             </Popup>

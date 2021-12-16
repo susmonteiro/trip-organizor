@@ -5,17 +5,17 @@ import MapView from '../views/mapView.js';
 import ResultsView from '../views/resultsView';
 import SearchView from '../views/searchView';
 
-import SitesSource from '../sitesSource';
+import SitesSource from '../js/sitesSource';
 import AttractionModel from '../js/models/AttractionModel.js';
 
-import promiseNoData from '../promiseNoData.js';
-import usePromise from '../usePromise.js';
-import useModelProperty from '../useModelProperty.js';
+import promiseNoData from '../js/promiseNoData.js';
+import usePromise from '../js/usePromise.js';
+import useModelProperty from '../js/useModelProperty.js';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import InformationMessage from '../elements/showMessages.js';
+import InformationMessage from '../templates/showMessages.js';
 
 import 'firebase/compat/auth';
 import { signout } from '../js/models/FirebaseModel';
@@ -40,11 +40,10 @@ export default function AttractionsPresenter(props) {
   ];
 
   const ALL_TYPES = ACTIVITY_TYPES.map((type) => type.code).join(',');
-  console.log(ALL_TYPES);
   const DEFAULT_TYPE = { code: ALL_TYPES, name: 'All' };
 
   // model properties
-  const trips = useModelProperty(props.model, 'trips'); // TODO remove
+  const trips = useModelProperty(props.model, 'trips');
   const currentTrip = useModelProperty(props.model, 'tripCurrent');
   const attractions = useModelProperty(props.model, 'attractions');
 
@@ -61,12 +60,14 @@ export default function AttractionsPresenter(props) {
   const [checked, setChecked] = React.useState(true);
   const [favourites, setFavourites] = React.useState(false);
   const [filterDate, setFilterDate] = React.useState(false);
-  const [errorAddAttraction, setErrorAddAttraction] = React.useState('');
+  const [errorPopup, setErrorPopup] = React.useState('');
+  const [successPopup, setSuccessPopup] = React.useState('');
   const [openPopup, setOpenPopup] = React.useState(null);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
   const [promiseAttr, setPromiseAttr] = React.useState(null);
   const [promiseMap, setPromiseMap] = React.useState(null);
+
   React.useEffect(function () {
     setPromiseAttr(null);
     setPromiseMap(null);
@@ -76,7 +77,6 @@ export default function AttractionsPresenter(props) {
   const [dataMap, errorMap] = usePromise(promiseMap);
 
   function getCoord() {
-    // TODO remove me
     return trip ? trip.coord : null;
   }
 
@@ -92,9 +92,9 @@ export default function AttractionsPresenter(props) {
       (checked || !attraction.finished) &&
       (!favourites || attraction.isFav)
   );
-  // attractions list functions
+
   function createRows() {
-    //this function formats all the rows with the information needed
+    // all the information needed for the attraction list
     let rows = filteredAttractions
       .filter((attraction) => type === ALL_TYPES || attraction.type.code === type)
       .filter((attraction) => !filterDate || attraction.date === date.getTime())
@@ -112,7 +112,7 @@ export default function AttractionsPresenter(props) {
 
   function doLogout() {
     props.model.setUserID(null);
-    signout();
+    signout().catch(() => setErrorPopup('There was an error when trying to logout.'));
   }
 
   function resetVariables() {
@@ -127,31 +127,31 @@ export default function AttractionsPresenter(props) {
     setFavourites(false);
     setFilter(false);
     setFilterDate(false);
-    setErrorAddAttraction('');
+    setErrorPopup('');
     setCurrentAttraction(null);
   }
 
   function createTemporaryAttraction(site) {
     let attraction = new AttractionModel({
       id: site.xid,
-      name: site.name
+      name: site.name,
+      details: site
     });
 
     SitesSource.getDetails(site.xid)
       .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
       .then(() => setCurrentAttraction(attraction))
-      .catch((err) => console.error(err));
+      .catch(() => setErrorPopup('There was an error. Please try again.'));
   }
 
-  // search attraction functions
   function addAttraction(site) {
     const newKey = site.xid + currentTrip;
 
     if (attractions.find((attr) => attr.key === newKey)) {
-      setErrorAddAttraction(site.name + ' already exists in your attractions');
+      setErrorPopup(site.name + ' already exists in your attractions');
       return;
     } else if (date < trip.dateBegin || date > trip.dateEnd) {
-      console.log('invalid date');
+      setErrorPopup('The date chosen is invalid');
       return;
     } else {
       let attraction = new AttractionModel({
@@ -173,16 +173,28 @@ export default function AttractionsPresenter(props) {
       SitesSource.getDetails(site.xid)
         .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
         .then(() => props.model.addAttractionToTrip(attraction))
-        .catch((err) => console.error(err));
+        .catch(() => setErrorPopup('There was an error. Please try again.'));
+
       setSearching(false);
       resetVariables();
+      setSuccessPopup(site.name + ' added to your attractions');
     }
+  }
+
+  function canSearch(text) {
+    return (
+      text &&
+      text.length >= 3 &&
+      text
+        .split('')
+        .find((letter) => (letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z'))
+    );
   }
 
   function searchAttraction() {
     let coord = getCoord();
 
-    if (!query || query.length < 3) {
+    if (!query || !canSearch(query)) {
       setHelpText(true);
     } else
       setPromiseAttr(
@@ -227,8 +239,9 @@ export default function AttractionsPresenter(props) {
                     resetVariables();
                   }}
                   useLogout={() => doLogout()}
-                  errorDuplicated={errorAddAttraction}
-                  resetError={() => setErrorAddAttraction('')}
+                  errorDuplicated={errorPopup}
+                  resetError={() => setErrorPopup('')}
+                  canSearch={canSearch(query)}
                 />
               </Box>
               <Box mt={5} mb={5} overflow="auto" sx={{ maxHeight: '50vh' }}>
@@ -288,17 +301,16 @@ export default function AttractionsPresenter(props) {
                   resetVariables();
                 }}
                 openPopup={(id) => setOpenPopup(id)}
+                successPopup={successPopup}
+                resetError={() => setSuccessPopup('')}
               />
             </Box>
           )}
         </Box>
-        <Box flex={0.4} height="70vh" /* display={{ md: 'block', xs: 'none' }} */>
+        <Box flex={0.4} height="70vh">
           {getCoord() && (
             <MapView
-              currentLocation={() => {
-                const a = getCoord();
-                return a;
-              }} // TODO
+              currentLocation={getCoord}
               zoom={12}
               sites={searching ? tripAttractions : filteredAttractions}
               promise={promiseMap}
@@ -309,6 +321,7 @@ export default function AttractionsPresenter(props) {
               openPopup={openPopup}
               setPopup={() => setOpenPopup(null)}
               tmpAttraction={currentAttraction}
+              addAttraction={() => addAttraction(currentAttraction.details)}
             />
           )}
         </Box>

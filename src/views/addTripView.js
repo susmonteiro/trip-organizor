@@ -1,4 +1,4 @@
-import countries from './countryList.js';
+import countries from '../js/countryList.js';
 
 import * as React from 'react';
 
@@ -15,8 +15,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import CloseIcon from '@mui/icons-material/Close';
-import { ErrorPopupBottom, ErrorPopupTop } from '../elements/popups.js';
+import { PopupBottom } from '../templates/popups.js';
+import CustomButton, { CloseButton } from '../templates/buttons.js';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -26,19 +26,18 @@ export default function AddTripView(props) {
   return (
     <div>
       <br />
-      <Button
-        id="CloseAddView"
-        display="right"
+      <CloseButton
         onClick={() => {
           props.showAddChange(!props.showAdd);
         }}
-        startIcon={<CloseIcon />}></Button>
+      />
       <Typography variant="h4" component="div" gutterBottom>
         WHAT´S YOUR NEXT DESTINATION?
       </Typography>
       <br />
       <TextField
         id="titleInput"
+        autoComplete="off"
         fullWidth
         inputProps={{
           maxLength: 50
@@ -69,6 +68,7 @@ export default function AddTripView(props) {
           <TextField
             id="cityInput"
             label="City"
+            autoComplete="off"
             variant="standard"
             error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
             inputProps={{ maxLength: 20 }}
@@ -101,6 +101,7 @@ export default function AddTripView(props) {
             <TextField
               {...params}
               label="Country"
+              autoComplete="off"
               error={props.validateTitleExist(props.country)}
               helperText={
                 props.validateAttrEmpty(props.country) == 'empty'
@@ -129,16 +130,16 @@ export default function AddTripView(props) {
       </Stack>
       <br />
       {props.status === 'OK' && (
-        <ErrorPopupBottom
+        <PopupBottom
           type={'success'}
-          errormsg={'Woohoo! Your destination is valid!'}
+          message={'Woohoo! Your destination is valid!'}
           onClose={props.timeoutSnack}
         />
       )}
       {props.status === 'NOT_FOUND' && (
-        <ErrorPopupBottom
+        <PopupBottom
           type={'error'}
-          errormsg={"Sorry, your destination doesn't exist"}
+          message={"Sorry, your destination doesn't exist"}
           onClose={props.timeoutSnack}
         />
       )}
@@ -162,15 +163,14 @@ export default function AddTripView(props) {
       </LocalizationProvider>
       <br />
       <Stack spacing={2} direction="row">
-        <Button
-          variant="contained"
+        <CustomButton
+          variant="outlined"
           onClick={() => {
             props.showAddChange(!props.showAdd);
           }}>
           Cancel
-        </Button>
-        <Button
-          variant="contained"
+        </CustomButton>
+        <CustomButton
           disabled={
             props.validateTitleExist(props.title) ||
             props.status === 'NOT_FOUND' ||
@@ -182,8 +182,8 @@ export default function AddTripView(props) {
             props.addTrip();
             props.showAddChange(!props.showAdd);
           }}>
-          Let´s travel now!
-        </Button>
+          Create
+        </CustomButton>
       </Stack>
     </div>
   );

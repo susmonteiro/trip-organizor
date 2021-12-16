@@ -1,4 +1,4 @@
-//MATERIAL IMPORTS
+// MATERIAL IMPORTS
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -9,14 +9,29 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Tooltip from '@mui/material/Tooltip';
 
-//ICONs-MATERIAL IMPORTS
+// ICONs-MATERIAL IMPORTS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import PublicIcon from '@mui/icons-material/Public';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function CustomButton(props) {
+  return (
+    <Button
+      size="large"
+      variant="contained"
+      color="primary"
+      {...props}
+      style={{
+        borderRadius: 28,
+        color: props.variant === 'text' || props.variant === 'outlined' ? 'primary.main' : 'white'
+      }}></Button>
+  );
+}
+
+export function FixedWidthButton(props) {
   return (
     <Button
       size="large"
@@ -64,7 +79,6 @@ export function RoundButton(props) {
       </IconButton>
     </Tooltip>
   );
-  //return <Fab color="secondary" dark="true" aria-label="add" {...props}></Fab>; TODO
 }
 
 export function DisabledButton(props) {
@@ -73,6 +87,10 @@ export function DisabledButton(props) {
       {props.children}
     </IconButton>
   );
+}
+
+export function CloseButton(props) {
+  return <Button id="close button" display="right" {...props} startIcon={<CloseIcon />}></Button>;
 }
 
 export function BasicSpeedDial(props) {
