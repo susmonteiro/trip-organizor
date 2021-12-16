@@ -13,8 +13,8 @@ function MapView(props) {
   function createMarker(marker, fav) {
     return new Icon({
       iconUrl: markers(marker, fav),
-      iconSize: marker==='temporary'?[25 * 1.5, 40 * 1.5]:[25 * 1.2, 40 * 1.2],
-      iconAnchor: marker==='temporary'?[25 * 1.5 / 2, 40 * 1.5]:[(25 * 1.2) / 2, 40 * 1.2]
+      iconSize: [25 * 1.2, 40 * 1.2],
+      iconAnchor: [(25 * 1.2) / 2, 40 * 1.2]
     });
   }
 
