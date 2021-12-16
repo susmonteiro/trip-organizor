@@ -67,6 +67,7 @@ export default function AttractionsPresenter(props) {
 
   const [promiseAttr, setPromiseAttr] = React.useState(null);
   const [promiseMap, setPromiseMap] = React.useState(null);
+
   React.useEffect(function () {
     setPromiseAttr(null);
     setPromiseMap(null);
@@ -91,9 +92,9 @@ export default function AttractionsPresenter(props) {
       (checked || !attraction.finished) &&
       (!favourites || attraction.isFav)
   );
-  // attractions list functions
+
   function createRows() {
-    //this function formats all the rows with the information needed
+    // all the information needed for the attraction list
     let rows = filteredAttractions
       .filter((attraction) => type === ALL_TYPES || attraction.type.code === type)
       .filter((attraction) => !filterDate || attraction.date === date.getTime())
@@ -143,7 +144,6 @@ export default function AttractionsPresenter(props) {
       .catch(() => setErrorPopup('There was an error. Please try again.'));
   }
 
-  // search attraction functions
   function addAttraction(site) {
     const newKey = site.xid + currentTrip;
 
@@ -307,7 +307,7 @@ export default function AttractionsPresenter(props) {
             </Box>
           )}
         </Box>
-        <Box flex={0.4} height="70vh" /* display={{ md: 'block', xs: 'none' }} */>
+        <Box flex={0.4} height="70vh">
           {getCoord() && (
             <MapView
               currentLocation={getCoord}

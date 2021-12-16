@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import { makeStyles } from '@material-ui/core';
 import './style.css';
 
-//import MapPresenter from './presenters/mapPresenter';
 import { Route, Routes } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 

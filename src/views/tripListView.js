@@ -1,4 +1,4 @@
-//MATERIAL IMPORTS
+// MATERIAL IMPORTS
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -19,7 +19,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-//ICONs-MATERIAL IMPORTS
+
+// ICONs-MATERIAL IMPORTS
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -30,7 +31,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import FlightIcon from '@mui/icons-material/Flight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-//CUSTOM COMPONENTS
+
+// CUSTOM COMPONENTS
 import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
 import { PopupBottom } from '../elements/popups.js';
 import Dialog from '@mui/material/Dialog';
@@ -42,7 +44,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function TripListView(props) {
-  //FUTURE TRIPS
+  // FUTURE TRIPS
   let [func, setFunc] = React.useState(1);
   let [ordertitle, setOrdertitle] = React.useState(1);
   let [orderBDate, setOrderBDate] = React.useState(1);
@@ -51,7 +53,7 @@ export default function TripListView(props) {
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openDuplicate, setOpenDuplicate] = React.useState(false);
 
-  //PAST TRIPS
+  // PAST TRIPS
   let [funcDone, setFuncDone] = React.useState(1);
   let [ordertitleDone, setOrdertitleDone] = React.useState(1);
   let [orderBDateDone, setOrderBDateDone] = React.useState(1);
@@ -227,21 +229,13 @@ export default function TripListView(props) {
                       }}>
                       <CheckBoxOutlineBlankIcon />
                     </IconButton>
-                    {
-                      props.completed && (
-                        <PopupBottom
-                          type={'info'}
-                          message={'Woohoo! Trip completed. What´ll be your next adventure?'}
-                          onClose={props.timeoutSnack}
-                        />
-                      ) /* <Snackbar
-                      open={!open}
-                      autoHideDuration={500}
-                      onClose={handleClose}
-                      message="Woohoo! Trip completed. What´ll be your next adventure?"
-                      action={undoAction}
-                    /> */
-                    }
+                    {props.completed && (
+                      <PopupBottom
+                        type={'info'}
+                        message={'Woohoo! Trip completed. What´ll be your next adventure?'}
+                        onClose={props.timeoutSnack}
+                      />
+                    )}
                   </TableCell>
                   <TableCell align="left">
                     <img
@@ -257,8 +251,6 @@ export default function TripListView(props) {
                     onClick={() => {
                       props.tripChoice(item.title);
                       handleClickOpen('Action');
-                      //props.showEditChange(!props.showEdit);
-                      //if (props.showAdd) props.showAddChange(!props.showAdd);
                     }}>
                     {item.title}
                   </TableCell>
@@ -321,10 +313,6 @@ export default function TripListView(props) {
                           </Dialog>
                         </List>
                       </Box>
-                      {/* <DialogContentText id="alert-dialog-description">
-                        Are you 100% sure that you want to delete this trip and all the memories
-                        contained within it? This action cannot be reversed!
-                      </DialogContentText> */}
                     </DialogContent>
                     <DialogActions>
                       <Button
@@ -485,13 +473,6 @@ export default function TripListView(props) {
                           }}>
                           <CheckBoxIcon />
                         </IconButton>
-                        {/* <Snackbar
-                          open={open}
-                          autoHideDuration={500}
-                          onClose={handleClose}
-                          message="Things missing huh? "
-                          action={undoAction}
-                        /> */}
                       </TableCell>
                       <TableCell align="left">
                         <img

@@ -13,6 +13,6 @@ export default function useModelProperty(model, propertyName) {
       }; // 2.unsubscribe
     },
     [model[propertyName]]
-  ); //  stricter: [props.model] !
+  );
   return value;
 }

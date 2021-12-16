@@ -1,6 +1,6 @@
 import db from '../firebaseConfig';
 import * as React from 'react';
-import firebase from 'firebase/compat/app'; //v9
+import firebase from 'firebase/compat/app';
 import { auth } from '../firebaseConfig';
 import { ref, set, onValue } from 'firebase/database';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
@@ -13,10 +13,10 @@ export default function persistModel(model) {
       model.setUserID(user.uid);
       let loadingFromFirebase = false;
       model.addObserver(function () {
-        //whenever the data in the model changes, we want to update the data in the firebase DB
-        if (loadingFromFirebase) return; //avoid the case when the data is changed because we are reading from the DB
+        // whenever the data in the model changes, we want to update the data in the firebase DB
+        if (loadingFromFirebase) return;
+        // avoid the case when the data is changed because we are reading from the DB
         db.ref(user.uid).set({
-          // object literal
           tripCurrent: model.tripCurrent,
           trips: model.trips,
           attrCurrent: model.attrCurrent,
@@ -29,8 +29,8 @@ export default function persistModel(model) {
           if (data.val()) {
             model.setTrips(data.val().trips || []);
             model.setTripCurrent(data.val().tripCurrent || null);
-            model.setAttractions(data.val().attractions || []); //PAULO
-            model.setAttrCurrent(data.val().attrCurrent || null); //PAULO
+            model.setAttractions(data.val().attractions || []);
+            model.setAttrCurrent(data.val().attrCurrent || null);
           }
         } catch (e) {
           console.error(e);

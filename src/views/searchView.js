@@ -1,5 +1,6 @@
 import * as React from 'react';
-//MATERIAL IMPORTS
+
+// MATERIAL IMPORTS
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -12,7 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
-//CUSTOM COMPONENTS
+
+// CUSTOM COMPONENTS
 import TopBar from '../elements/topBar.js';
 import { PopupBottom } from '../elements/popups.js';
 

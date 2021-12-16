@@ -13,7 +13,7 @@ import { signout } from '../js/models/FirebaseModel';
 import useModelProperty from './../js/useModelProperty.js';
 
 export default function TripListPresenter(props) {
-  //////////////////////////////TRIP LIST PRESENTER//////////////////////////////
+  /* ===== TRIP LIST PRESENTER ===== */
   const [tripList, setTripList] = React.useState(props.model.trips);
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
@@ -38,14 +38,13 @@ export default function TripListPresenter(props) {
     };
   }, []);
 
-  //////////////////////////////TRIP LIST PRESENTER//////////////////////////////
-  //////////////////////////////ADD TRIP PRESENTER//////////////////////////////
+  /* ===== TRIP LIST PRESENTER ===== */
+  /* ===== ADD TRIP PRESENTER ===== */
 
   const [date, setDate] = React.useState([null, null]);
   const [city, setCity] = React.useState(null);
   const [country, setCountry] = React.useState(null);
   const [title, setTitle] = React.useState(null);
-  //const [tripList, setTripList] = React.useState(props.model.trips); //I think I can delete this
   const [validate, setValidate] = React.useState(false);
   const [completed, setCompleted] = React.useState(false);
   let status = null;
@@ -54,7 +53,7 @@ export default function TripListPresenter(props) {
   const [data, error] = usePromise(promise);
 
   React.useEffect(function () {
-    //    setPromise(null);
+    setPromise(null); // TODO check this
   }, []);
 
   if (validate) {
@@ -64,8 +63,8 @@ export default function TripListPresenter(props) {
     }
   }
 
-  //////////////////////////////ADD TRIP PRESENTER//////////////////////////////
-  //////////////////////////////EDIT TRIP PRESENTER/////////////////////////////
+  /* ===== ADD TRIP PRESENTER ===== */
+  /* ===== EDIT TRIP PRESENTER ===== */
   const trips = useModelProperty(props.model, 'trips');
   const currentTripOK = useModelProperty(props.model, 'tripCurrent');
 
@@ -74,7 +73,7 @@ export default function TripListPresenter(props) {
   function getTrip() {
     return trip ? trip : null;
   }
-  //////////////////////////////EDIT TRIP PRESENTER/////////////////////////////
+  /* ===== EDIT TRIP PRESENTER ===== */
   return (
     <Box>
       <Grid container spacing={1}>
@@ -141,24 +140,24 @@ export default function TripListPresenter(props) {
         <Grid item xs={4} display={showAddTrip ? 'block' : 'none'}>
           <Box ml={5} mr={1}>
             <AddTripView
-              //Data relevant to the view
+              // Data relevant to the view
               date={date}
               city={city}
               country={country}
               status={status}
               title={title}
-              //Setters of the data
+              // Setters of the data
               setDateNow={(inputDate) => setDate(inputDate)}
               setCityNow={(inputCity) => setCity(inputCity)}
               setCountryNow={(inputCountry) => setCountry(inputCountry)}
               setTitleNow={(inputTitle) => setTitle(inputTitle)}
-              //Custom functions for validation
+              // Custom functions for validation
               checkForContent={(attr) => props.model.checkNullEmpty(attr)}
               getDestination={(code) => setPromise(SitesSource.getCoords(city, code))}
               validateClicked={(state) => setValidate(state)}
               validateTitleExist={(title) => props.model.tripTitleExists(title)}
               validateAttrEmpty={(title) => false /* props.model.tripAttrEmpty(title) */} // TODO
-              //Main function to change data in the model
+              // Main function to change data in the model
               showAdd={showAddTrip}
               showAddChange={(show) => {
                 setShowAddTrip(show);
@@ -193,7 +192,7 @@ export default function TripListPresenter(props) {
           <Box ml={5} mr={1}>
             {getTrip() && (
               <EditTripView
-                //Data relevant to the view
+                // Data relevant to the view
                 trip={trip}
                 showAdd={showAddTrip}
                 showAddChange={(show) => {

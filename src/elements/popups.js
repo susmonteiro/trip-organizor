@@ -1,4 +1,4 @@
-//MATERIAL IMPORTS
+// MATERIAL IMPORTS
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -10,7 +10,7 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Tooltip from '@mui/material/Tooltip';
 
-//ICONs-MATERIAL IMPORTS
+// ICONs-MATERIAL IMPORTS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import PublicIcon from '@mui/icons-material/Public';
