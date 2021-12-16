@@ -6,9 +6,9 @@ export default class AttractionModel {
     coord = [13, 13],
     isFav = false,
     finished = false,
-    onMap = false,
     date = null,
-    type = null
+    type = null,
+    details = null
   }) {
     this.setID(id);
     this.setTrip(trip);
@@ -17,9 +17,9 @@ export default class AttractionModel {
     this.setCoord(coord);
     this.setIsFav(isFav);
     this.setFinished(finished);
-    this.setOnMap(onMap);
     this.setDate(date);
     this.setType(type);
+    this.setDetails(details);
   }
 
   setID(id) {
@@ -50,15 +50,15 @@ export default class AttractionModel {
     this.finished = finished;
   }
 
-  setOnMap(onMap) {
-    this.onMap = onMap;
-  }
-
   setDate(date) {
     this.date = date;
   }
 
   setType(type) {
     this.type = type;
+  }
+
+  setDetails(details) {
+    this.details = details;
   }
 }

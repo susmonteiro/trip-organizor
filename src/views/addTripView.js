@@ -1,4 +1,4 @@
-import countries from './countryList.js';
+import countries from '../js/countryList.js';
 
 import * as React from 'react';
 
@@ -15,6 +15,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { PopupBottom } from '../templates/popups.js';
+import CustomButton, { CloseButton } from '../templates/buttons.js';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -24,19 +26,29 @@ export default function AddTripView(props) {
   return (
     <div>
       <br />
+      <CloseButton
+        onClick={() => {
+          props.showAddChange(!props.showAdd);
+        }}
+      />
       <Typography variant="h4" component="div" gutterBottom>
         WHAT´S YOUR NEXT DESTINATION?
       </Typography>
       <br />
       <TextField
         id="titleInput"
+        autoComplete="off"
         fullWidth
         inputProps={{
           maxLength: 50
         }}
         label="What will be the name of your trip?"
         variant="standard"
-        error={props.validateTitleExist(props.title)}
+        error={
+          props.title === ''
+            ? false
+            : props.validateTitleExist(props.title) || props.validateAttrEmpty(props.title)
+        }
         helperText={
           props.validateAttrEmpty(props.title) == 'empty'
             ? 'Where are you going?! Your trip needs a name!'
@@ -45,7 +57,7 @@ export default function AddTripView(props) {
             : ''
         }
         onBlur={(eventTitle) => {
-          props.setTitle(eventTitle.target.value);
+          props.setTitleNow(eventTitle.target.value);
         }}
       />
       <br />
@@ -56,13 +68,14 @@ export default function AddTripView(props) {
           <TextField
             id="cityInput"
             label="City"
+            autoComplete="off"
             variant="standard"
             error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
             inputProps={{ maxLength: 20 }}
             helperText={
               props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
             }
-            onBlur={(eventCity) => props.setCity(eventCity.target.value)}
+            onBlur={(eventCity) => props.setCityNow(eventCity.target.value)}
           />
         </Box>
 
@@ -88,6 +101,7 @@ export default function AddTripView(props) {
             <TextField
               {...params}
               label="Country"
+              autoComplete="off"
               error={props.validateTitleExist(props.country)}
               helperText={
                 props.validateAttrEmpty(props.country) == 'empty'
@@ -99,7 +113,7 @@ export default function AddTripView(props) {
                 autoComplete: 'new-password' // disable autocomplete and autofill
               }}
               onSelect={(eventCountry) => {
-                props.setCountry(eventCountry.target.value);
+                props.setCountryNow(eventCountry.target.value);
               }}
             />
           )}
@@ -115,13 +129,20 @@ export default function AddTripView(props) {
         </Button>
       </Stack>
       <br />
-      <Typography variant="h4" component="div" gutterBottom>
-        {props.status === 'OK'
-          ? 'Wooho!!'
-          : props.status === 'NOT_FOUND'
-          ? 'Do you even know geography?'
-          : ''}
-      </Typography>
+      {props.status === 'OK' && (
+        <PopupBottom
+          type={'success'}
+          message={'Woohoo! Your destination is valid!'}
+          onClose={props.timeoutSnack}
+        />
+      )}
+      {props.status === 'NOT_FOUND' && (
+        <PopupBottom
+          type={'error'}
+          message={"Sorry, your destination doesn't exist"}
+          onClose={props.timeoutSnack}
+        />
+      )}
       <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateRangePicker
@@ -129,7 +150,7 @@ export default function AddTripView(props) {
           inputFormat="dd/MM/yyyy"
           maxDate={getWeeksAfter(props.date[0], 4)}
           onChange={(newValue) => {
-            props.setDate(newValue);
+            props.setDateNow(newValue);
           }}
           renderInput={(startProps, endProps) => (
             <React.Fragment>
@@ -142,16 +163,14 @@ export default function AddTripView(props) {
       </LocalizationProvider>
       <br />
       <Stack spacing={2} direction="row">
-        <Button
-          variant="contained"
+        <CustomButton
+          variant="outlined"
           onClick={() => {
-            props.clean();
             props.showAddChange(!props.showAdd);
           }}>
           Cancel
-        </Button>
-        <Button
-          variant="contained"
+        </CustomButton>
+        <CustomButton
           disabled={
             props.validateTitleExist(props.title) ||
             props.status === 'NOT_FOUND' ||
@@ -163,8 +182,8 @@ export default function AddTripView(props) {
             props.addTrip();
             props.showAddChange(!props.showAdd);
           }}>
-          Let´s travel now!
-        </Button>
+          Create
+        </CustomButton>
       </Stack>
     </div>
   );

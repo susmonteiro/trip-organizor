@@ -8,14 +8,9 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import CustomButton from '../elements/customButtons.js';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Snackbar from '@mui/material/Snackbar';
-import Image from './../resapp.jpg';
-import { height } from '@mui/system';
-
-import ErrorPopupTop from './../elements/popups.js';
+import { FixedWidthButton } from '../templates/buttons.js';
+import Image from './../triporganizor.jpg';
+import { PopupTop } from '../templates/popups.js';
 
 const styles = {
   paperContainer: {
@@ -46,7 +41,7 @@ export default function HomeView(props) {
         <Grid item md={4} display={{ xs: 'none', md: 'block' }}></Grid>
         <Grid item md={3} xs={4} mt={{ xs: 'none', md: 'block' }}>
           <Box>
-            <ErrorPopupTop errormsg={props.errormsg} onClose={props.resetError}></ErrorPopupTop>
+            <PopupTop type={'error'} message={props.message} onClose={props.resetError}></PopupTop>
           </Box>
           <Box>
             <Stack sx={{ maxWidth: 300 }}>
@@ -86,12 +81,12 @@ export default function HomeView(props) {
                     </Box>
 
                     <Box textAlign="center" mt={5}>
-                      <CustomButton
+                      <FixedWidthButton
                         onClick={(e) => {
                           e.preventDefault(), props.clickLogin();
                         }}>
                         Login
-                      </CustomButton>
+                      </FixedWidthButton>
                     </Box>
                   </Box>
                 </TabPanel>
@@ -127,12 +122,12 @@ export default function HomeView(props) {
                       />
                     </Box>
                     <Box textAlign="center" mt={5}>
-                      <CustomButton
+                      <FixedWidthButton
                         onClick={(e) => {
                           e.preventDefault(), props.clickRegister();
                         }}>
                         Register
-                      </CustomButton>
+                      </FixedWidthButton>
                     </Box>
                   </Box>
                 </TabPanel>

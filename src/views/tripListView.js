@@ -1,4 +1,4 @@
-//MATERIAL IMPORTS
+// MATERIAL IMPORTS
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -12,27 +12,48 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-//ICONs-MATERIAL IMPORTS
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
+// ICONs-MATERIAL IMPORTS
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/Edit';
 import FlightIcon from '@mui/icons-material/Flight';
-//CUSTOM COMPONENTS
-import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
+// CUSTOM COMPONENTS
+import CustomButton, { BasicSpeedDial } from '../templates/buttons.js';
+import { PopupBottom } from '../templates/popups.js';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function TripListView(props) {
-  //FUTURE TRIPS
+  // FUTURE TRIPS
   let [func, setFunc] = React.useState(1);
   let [ordertitle, setOrdertitle] = React.useState(1);
   let [orderBDate, setOrderBDate] = React.useState(1);
   let [orderEDate, setOrderEDate] = React.useState(1);
-  let [open, setOpen] = React.useState(false);
+  let [openAction, setOpenAction] = React.useState(false);
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [openDuplicate, setOpenDuplicate] = React.useState(false);
 
-  //PAST TRIPS
+  // PAST TRIPS
   let [funcDone, setFuncDone] = React.useState(1);
   let [ordertitleDone, setOrdertitleDone] = React.useState(1);
   let [orderBDateDone, setOrderBDateDone] = React.useState(1);
@@ -88,15 +109,26 @@ export default function TripListView(props) {
     }
   }
 
-  const handleClick = () => {
-    setOpen(true);
+  const handleClickOpen = (id) => {
+    if (id === 'Delete') setOpenDelete(true);
+    else if (id === 'Duplicate') setOpenDuplicate(true);
+    else if (id === 'Edit') {
+      if (props.showEdit === false) {
+        props.showEditChange(!props.showEdit);
+      }
+      setOpenAction(false);
+    } else if (id === 'Action') setOpenAction(true);
   };
 
-  const handleClose = (reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
+  const handleClose = (id) => {
+    if (id === 'Delete') {
+      if (props.showEdit) {
+        props.showEditChange(!props.showEdit);
+      }
+      setOpenDelete(false);
+    } else if (id === 'Duplicate') setOpenDuplicate(false);
+    else if (id === 'Edit') props.showEditChange(!props.showEdit);
+    else if (id === 'Action') setOpenAction(false);
   };
 
   const undoAction = (
@@ -130,7 +162,10 @@ export default function TripListView(props) {
                 id="addNewTrip"
                 display="right"
                 variant="contained"
-                onClick={() => props.showAddChange(!props.showAdd)}
+                onClick={() => {
+                  props.showAddChange(!props.showAdd);
+                  if (props.showEdit) props.showEditChange(!props.showEdit);
+                }}
                 startIcon={<FlightIcon />}>
                 Add Trip!
               </CustomButton>
@@ -142,7 +177,8 @@ export default function TripListView(props) {
         <Table stickyHeader aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell />
+              <TableCell wdith="3%" />
+              <TableCell width="3%"></TableCell>
               <TableCell align="center">
                 Trip title
                 <IconButton
@@ -173,6 +209,7 @@ export default function TripListView(props) {
                   {changeArrowDisplay(orderEDate, 2, func)}
                 </IconButton>
               </TableCell>
+              <TableCell align="center"># of Attractions</TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
@@ -182,26 +219,25 @@ export default function TripListView(props) {
               .sort(compare)
               .map((item) => (
                 <TableRow hover key={item.title}>
-                  <TableCell>
+                  <TableCell align="right">
                     <IconButton
                       display="center"
                       variant="contained"
                       id={item.title}
                       onClick={() => {
-                        handleClick();
                         props.completeTrip(item);
                       }}>
                       <CheckBoxOutlineBlankIcon />
                     </IconButton>
-                    {/* <Snackbar
-                      open={!open}
-                      autoHideDuration={500}
-                      onClose={handleClose}
-                      message="Woohoo! Trip completed. What´ll be your next adventure?"
-                      action={undoAction}
-                    /> */}
+                    {props.completed && (
+                      <PopupBottom
+                        type={'info'}
+                        message={'Woohoo! Trip completed. What´ll be your next adventure?'}
+                        onClose={props.timeoutSnack}
+                      />
+                    )}
                   </TableCell>
-                  <TableCell align="left" onClick={() => props.tripChoice(item.title)}>
+                  <TableCell align="left">
                     <img
                       loading="lazy"
                       width="20"
@@ -209,21 +245,156 @@ export default function TripListView(props) {
                       srcSet={`https://flagcdn.com/w40/${item.countryCode.toLowerCase()}.png 2x`}
                       alt=""
                     />
-                    {'  ' + item.title}
                   </TableCell>
+                  <TableCell
+                    align="left"
+                    onClick={() => {
+                      props.tripChoice(item.title);
+                      handleClickOpen('Action');
+                    }}>
+                    {item.title}
+                  </TableCell>
+                  <Dialog
+                    open={openAction}
+                    onClose={() => handleClose('Action')}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description">
+                    <DialogTitle id="alert-dialog-title">{'What do you want to do?'}</DialogTitle>
+                    <DialogContent>
+                      <Box width={300}>
+                        <List>
+                          {[
+                            { action: 'Edit', icon: <EditIcon /> },
+                            { action: 'Duplicate', icon: <ContentCopyIcon /> },
+                            { action: 'Delete', icon: <DeleteIcon /> }
+                          ].map((item) => (
+                            <ListItem disablePadding key={item.action}>
+                              <ListItemButton
+                                onClick={() => {
+                                  handleClickOpen(item.action);
+                                }}>
+                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                <ListItemText primary={item.action} />
+                              </ListItemButton>
+                            </ListItem>
+                          ))}
+                          <Dialog
+                            open={openDelete}
+                            onClose={() => handleClose('Delete')}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description">
+                            <DialogTitle id="alert-dialog-title">
+                              {'WAIT!! Delete this trip?'}
+                            </DialogTitle>
+                            <DialogContent>
+                              <DialogContentText id="alert-dialog-description">
+                                Are you 100% sure that you want to delete this trip and all the
+                                memories contained within it? This action cannot be reversed!
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button
+                                onClick={() => {
+                                  handleClose('Delete');
+                                  handleClose('Action');
+                                }}>
+                                No
+                              </Button>
+                              <Button
+                                onClick={() => {
+                                  handleClose('Delete');
+                                  handleClose('Action');
+                                  props.removeTrip(props.tripCurrent);
+                                }}
+                                autoFocus>
+                                Yes
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
+                        </List>
+                      </Box>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button
+                        onClick={() => {
+                          handleClose('Action');
+                        }}>
+                        Cancel
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                  <Dialog
+                    open={openDuplicate}
+                    id="Duplicate"
+                    onClose={() => handleClose('Duplicate')}>
+                    <DialogTitle>Trip Duplication</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        You´re about to duplicate a trip, please assign a new name to it
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        id="Tripname"
+                        margin="dense"
+                        inputProps={{
+                          maxLength: 50
+                        }}
+                        error={
+                          props.title === ''
+                            ? false
+                            : props.validateTitleExist(props.title) ||
+                              props.validateAttrEmpty(props.title)
+                        }
+                        label="New Trip Name"
+                        variant="standard"
+                        helperText={
+                          props.validateAttrEmpty(props.title) == 'empty'
+                            ? 'Where are you going?! Your trip needs a name!'
+                            : props.validateTitleExist(props.title)
+                            ? 'Oops! Trip name already exists'
+                            : ''
+                        }
+                        onBlur={(eventTitle) => {
+                          props.setTitleNow(eventTitle.target.value);
+                        }}
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button
+                        id="Duplicate"
+                        onClick={() => {
+                          handleClose('Duplicate');
+                          handleClose('Action');
+                        }}>
+                        Cancel
+                      </Button>
+                      <Button
+                        id="Duplicate"
+                        disabled={
+                          props.validateTitleExist(props.title) ||
+                          props.validateAttrEmpty(props.title) == 'empty'
+                        }
+                        onClick={(event) => {
+                          handleClose('Duplicate');
+                          handleClose('Action');
+                          props.duplicate();
+                        }}>
+                        Yes, duplicate!
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                   <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateBegin).toDateString()}
                   </TableCell>
                   <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateEnd).toDateString()}
                   </TableCell>
+                  <TableCell align="center">1</TableCell>
                   <TableCell>
-                    <Button
-                      variant="contained"
-                      href="/attractions"
-                      onClick={() => props.tripChoice(item.title)}>
+                    <CustomButton href="/attractions" onClick={() => props.tripChoice(item.title)}>
                       Go
-                    </Button>
+                    </CustomButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -231,7 +402,13 @@ export default function TripListView(props) {
         </Table>
       </TableContainer>
       {/* HERE BEGINS THE SHOW COMPLETED TRIPS SECTION */}
-      <Button onClick={() => props.showDoneChange(!props.showDone)}>SHOW COMPLETED</Button>
+      <Button
+        id="ShowCompleted"
+        display="right"
+        onClick={() => props.showDoneChange(!props.showDone)}
+        endIcon={props.showDone ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}>
+        Show Completed
+      </Button>
       {props.showDone === false ? (
         <Box></Box>
       ) : (
@@ -240,37 +417,39 @@ export default function TripListView(props) {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell />
+                  <TableCell wdith="3%" />
+                  <TableCell width="3%"></TableCell>
                   <TableCell align="center">
                     Trip title
                     <IconButton
                       onClick={() => {
-                        setOrdertitleDone(ordertitleDone * -1);
-                        setFuncDone(0);
+                        setOrdertitle(ordertitle * -1);
+                        setFunc(0);
                       }}>
-                      {changeArrowDisplay(ordertitleDone, 0, funcDone)}
+                      {changeArrowDisplay(ordertitle, 0, func)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
                     From:
                     <IconButton
                       onClick={() => {
-                        setOrderBDateDone(orderBDateDone * -1);
-                        setFuncDone(1);
+                        setOrderBDate(orderBDate * -1);
+                        setFunc(1);
                       }}>
-                      {changeArrowDisplay(orderBDateDone, 1, funcDone)}
+                      {changeArrowDisplay(orderBDate, 1, func)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
                     To:
                     <IconButton
                       onClick={() => {
-                        setOrderEDateDone(orderEDateDone * -1);
-                        setFuncDone(2);
+                        setOrderEDate(orderEDate * -1);
+                        setFunc(2);
                       }}>
-                      {changeArrowDisplay(orderEDateDone, 2, funcDone)}
+                      {changeArrowDisplay(orderEDate, 2, func)}
                     </IconButton>
                   </TableCell>
+                  <TableCell align="center"># of Attractions</TableCell>
                   <TableCell />
                 </TableRow>
               </TableHead>
@@ -286,20 +465,12 @@ export default function TripListView(props) {
                           variant="contained"
                           id={item.title}
                           onClick={() => {
-                            handleClick();
                             props.completeTrip(item);
                           }}>
                           <CheckBoxIcon />
                         </IconButton>
-                        {/* <Snackbar
-                          open={open}
-                          autoHideDuration={500}
-                          onClose={handleClose}
-                          message="Things missing huh? "
-                          action={undoAction}
-                        /> */}
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="left">
                         <img
                           loading="lazy"
                           width="20"
@@ -307,12 +478,21 @@ export default function TripListView(props) {
                           srcSet={`https://flagcdn.com/w40/${item.countryCode.toLowerCase()}.png 2x`}
                           alt=""
                         />
-                        {'  ' + item.title}
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        onClick={() => {
+                          props.tripChoice(item.title);
+                          props.showEditChange(!props.showEdit);
+                          if (props.showAdd) props.showAddChange(!props.showAdd);
+                        }}>
+                        {item.title}
                       </TableCell>
                       <TableCell align="center">
                         {new Date(item.dateBegin).toDateString()}
                       </TableCell>
                       <TableCell align="center">{new Date(item.dateEnd).toDateString()}</TableCell>
+                      <TableCell align="center">1</TableCell>
                       <TableCell>
                         <Button variant="contained" onClick={() => props.removeTrip(item)}>
                           <DeleteOutlineIcon />

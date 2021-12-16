@@ -1,26 +1,16 @@
-/* COLOR PALETTE */
-
-/*MapContainer sizing React-Leaflet*/
+/* MapContainer sizing React-Leaflet */
 .leaflet-container {
   width: 100vw;
-  height: 100vh;
-}
-.leaflet-container {
   width: 100%;
-}
-
-.popup-title {
-  text-align: center;
+  height: 100vh;
 }
 .popup-image {
   height: 150px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.popup-description {
-  text-align: justify;
+  width: 100%;
+  max-width: 100%;
 }
 
 .row {

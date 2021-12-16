@@ -4,7 +4,11 @@ export const SitesSource = {
   apiCall(params) {
     return fetch(api.BASE_URL + params, {
       method: 'GET' // HTTP method
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        throw new Error(error);
+      });
   },
 
   getDetails(id) {

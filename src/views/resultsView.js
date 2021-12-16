@@ -3,18 +3,16 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import IconButton from '@mui/material/IconButton';
 
-import InformationMessage from '../elements/showMessages.js';
+import InformationMessage from '../templates/showMessages.js';
 
 export default function ResultsView(props) {
   return (
     <Box ml={{ lg: 12, md: 6, xs: 6 }} mr={{ lg: 12, md: 6, xs: 6 }} height="100%">
       {(props.error !== null && <h1>{props.error}</h1>) ||
         ((!props.attractions || props.attractions.length === 0) && (
-          /* TODO change me */
           <InformationMessage>NO RESULTS FOUND... TRY SOMETHING ELSE!</InformationMessage>
         )) || (
           <Box>
@@ -29,7 +27,7 @@ export default function ResultsView(props) {
                     }}>
                     <AddLocationIcon />
                   </IconButton>
-                  <ListItemButton onClick={() => props.onSetCurrentAttraction(site.properties.xid)}>
+                  <ListItemButton onClick={() => props.onSetCurrentAttraction(site.properties)}>
                     <ListItemText primary={site.properties.name} />
                   </ListItemButton>
                 </ListItem>

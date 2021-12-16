@@ -3,18 +3,16 @@ export default class UserModel {
     this.observers = [];
     this.setTripCurrent(tripCurrent);
     this.setTrips(trips);
-    this.setAttrCurrent(attrCurrent); //PAULO
-    this.setAttractions(attractions); //PAULO
+    this.setAttrCurrent(attrCurrent);
+    this.setAttractions(attractions);
   }
 
   setAttrCurrent(id) {
-    //PAULO
     this.attrCurrent = id;
     this.notifyObservers();
   }
 
   setAttractions(attractions) {
-    //PAULO
     this.attractions = attractions;
     this.notifyObservers();
   }
@@ -25,17 +23,16 @@ export default class UserModel {
   }
 
   setTrips(trips) {
-    //this.trips = [...trips];
     this.trips = trips;
     this.notifyObservers();
   }
 
-  //FOR AUTH
-  setUserID(id){
+  // FOR AUTH
+  setUserID(id) {
     this.currentUser = id;
-    this.notifyObservers() //we must change all the data to the current user 
+    this.notifyObservers();
   }
-  /**/
+
   addAttractionToTrip(attr) {
     this.attractions = [...this.attractions, attr];
     this.notifyObservers();
@@ -62,7 +59,6 @@ export default class UserModel {
         try {
           cb();
         } catch (error) {
-          ///missing
           console.error(error);
         }
       }, 0)
@@ -76,7 +72,7 @@ export default class UserModel {
     }
   }
 
-  //AUXILIARY TRIP FUNCTIONS
+  // AUXILIARY TRIP FUNCTIONS
   tripTitleExists(tripTitle) {
     return this.trips.find((t) => t.title === tripTitle) ? true : tripTitle === '' ? true : false;
   }
@@ -84,18 +80,20 @@ export default class UserModel {
   checkNullEmpty(tripAttr) {
     return tripAttr === '' ? true : tripAttr === null ? true : false;
   }
+
   tripAttrEmpty(tripAttr) {
-    return tripAttr === '' ? 'empty' : tripAttr === null ? 'null' : false;
+    return tripAttr === null
+      ? 'null'
+      : tripAttr === '' || tripAttr.trim().length === 0
+      ? 'empty'
+      : false;
   }
 
-  //BETA
   changeFinished(trip) {
     trip.finished = !trip.finished;
     this.notifyObservers();
   }
-  //BETA
-  //Changes if the attraction id has been completed
-  // TODO ? --> I'm changing the property of the attraction here because when reading from the db, the attractions have no methods anymore
+
   changeIsAttractionCompleted(key) {
     this.attractions.map((attr) => {
       if (attr.key === key) {

@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import HomeView from '../views/homeView';
-import firebase from 'firebase/compat/app';
 import { auth } from '../js/firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { isLogged } from '../js/models/FirebaseModel';
@@ -10,7 +9,6 @@ export default function HomePresenter(props) {
   const [password, setPassword] = React.useState('');
   const [verify_password, setVerifyPassword] = React.useState('');
   const [error, setError] = React.useState('');
-  const [success, setSuccess] = React.useState(''); //TODO or delete
   //We want to be without a session when we are at this page
   const REGISTER = '1';
   const LOGIN = '0';
@@ -47,11 +45,9 @@ export default function HomePresenter(props) {
       setError('The passwords are not equal');
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .catch((error) => {
-        putErrorString(error.message);
-      })
-      .then(setSuccess('You are logged in! Wait..'));
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      putErrorString(error.message);
+    });
   }
 
   function resetError() {
@@ -65,7 +61,7 @@ export default function HomePresenter(props) {
       authType={authType}
       REGISTER={REGISTER}
       LOGIN={LOGIN}
-      errormsg={error}
+      message={error}
       resetError={() => resetError()}
       changeAuthType={(newType) => setAuthType(newType)}
       writeEmail={(email) => setEmail(email)}

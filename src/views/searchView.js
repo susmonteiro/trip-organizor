@@ -1,5 +1,6 @@
 import * as React from 'react';
-//MATERIAL IMPORTS
+
+// MATERIAL IMPORTS
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -12,9 +13,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
-//CUSTOM COMPONENTS
-import TopBar from '../elements/topBar.js';
-import { ErrorPopupBottom } from './../elements/popups.js';
+
+// CUSTOM COMPONENTS
+import TopBar from '../templates/topBar.js';
+import { PopupBottom } from '../templates/popups.js';
+import CustomButton from '../templates/buttons.js';
 
 export default function SearchView(props) {
   return (
@@ -75,19 +78,19 @@ export default function SearchView(props) {
           </Grid>
           <Grid item lg={3} md={4} xs={3}>
             <Box textAlign="right">
-              <Button
-                disabled={!props.query || props.query.length < 3}
+              <CustomButton
+                disabled={!props.query || !props.canSearch}
                 color="primary"
                 variant="contained"
                 startIcon={<SearchIcon />}
                 onClick={() => props.onSearch()}>
                 Search
-              </Button>
+              </CustomButton>
             </Box>
           </Grid>
         </Grid>
       </Box>
-      <ErrorPopupBottom errormsg={props.errorDuplicated} onClose={props.resetError} />
+      <PopupBottom message={props.errorDuplicated} type={'error'} onClose={props.resetError} />
     </Box>
   );
 }

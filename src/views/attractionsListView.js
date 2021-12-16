@@ -39,16 +39,17 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import CustomButton, { RoundButton, DisabledButton } from '../elements/customButtons.js';
-import InformationMessage from '../elements/showMessages.js';
-import TopBar from '../elements/topBar.js';
+import { FixedWidthButton, RoundButton, DisabledButton } from '../templates/buttons.js';
+import { PopupBottom } from '../templates/popups.js';
+import InformationMessage from '../templates/showMessages.js';
+import TopBar from '../templates/topBar.js';
 
 export default function AttractionsListView(props) {
   const activities = props.activities;
 
   let [func, setFunc] = React.useState(2);
-  let [orderName, setOrderName] = React.useState(1);
-  let [orderType, setOrderType] = React.useState(1);
+  let [orderName, setOrderName] = React.useState(-1);
+  let [orderType, setOrderType] = React.useState(-1);
   let [orderDate, setOrderDate] = React.useState(1);
 
   function compare(a, b) {
@@ -60,10 +61,14 @@ export default function AttractionsListView(props) {
       case 1:
         if (a.type.name < b.type.name) return -1 * orderType;
         else if (a.type.name > b.type.name) return 1 * orderType;
+        else if (a.name < b.name) return -1;
+        else if (a.name > b.name) return 1;
         else return 0;
       case 2:
         if (a.date < b.date) return -1 * orderDate;
         else if (a.date > b.date) return 1 * orderDate;
+        else if (a.name < b.name) return -1;
+        else if (a.name > b.name) return 1;
         else return 0;
     }
   }
@@ -290,14 +295,19 @@ export default function AttractionsListView(props) {
                 </TableHead>
                 <TableBody>
                   {props.rows.sort(compare).map((item) => (
-                    <TableRow hover key={item.id}>
+                    <TableRow
+                      hover
+                      key={item.key}
+                      onClick={() => {
+                        props.openPopup(item.id);
+                      }}>
                       <TableCell>
                         <IconButton
                           display="center"
                           variant="contained"
-                          id={item.id}
+                          id={item.key}
                           onClick={() => {
-                            props.changeCompleted(item.id);
+                            props.changeCompleted(item.key);
                           }}>
                           {item.isCompleted ? (
                             <CheckBoxIcon color="primary" />
@@ -308,9 +318,9 @@ export default function AttractionsListView(props) {
                         <IconButton
                           display="center"
                           variant="contained"
-                          id={item.id}
+                          id={item.key}
                           onClick={() => {
-                            props.changeLiked(item.id);
+                            props.changeLiked(item.key);
                           }}>
                           {item.isFavourite ? (
                             <FavoriteIcon color="favourite" />
@@ -333,8 +343,8 @@ export default function AttractionsListView(props) {
                             display="center"
                             variant="contained"
                             color="primary"
-                            id={item.id}
-                            onClick={() => props.deleteAttraction(item.id)}>
+                            id={item.key}
+                            onClick={() => props.deleteAttraction(item.key)}>
                             <DeleteIcon />
                           </IconButton>
                         )}
@@ -347,6 +357,7 @@ export default function AttractionsListView(props) {
           </Box>
         )}
       </Box>
+      <PopupBottom message={props.successPopup} type={'success'} onClose={props.resetError} />
     </Box>
   );
 }
