@@ -23,6 +23,21 @@ export default function CustomButton(props) {
       variant="contained"
       color="primary"
       {...props}
+      style={{
+        border: 0,
+        borderRadius: 28,
+        color: props.variant === 'text' || props.variant === 'outlined' ? 'primary.main' : 'white'
+      }}></Button>
+  );
+}
+
+export function FixedWidthButton(props) {
+  return (
+    <Button
+      size="large"
+      variant="contained"
+      color="primary"
+      {...props}
       style={{ border: 0, borderRadius: 28, color: 'white', width: 100 }}></Button>
   );
 }

@@ -8,7 +8,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import CustomButton from '../elements/customButtons.js';
+import { FixedWidthButton } from '../elements/customButtons.js';
 import Image from './../triporganizor.jpg';
 import { PopupTop } from '../elements/popups.js';
 
@@ -81,12 +81,12 @@ export default function HomeView(props) {
                     </Box>
 
                     <Box textAlign="center" mt={5}>
-                      <CustomButton
+                      <FixedWidthButton
                         onClick={(e) => {
                           e.preventDefault(), props.clickLogin();
                         }}>
                         Login
-                      </CustomButton>
+                      </FixedWidthButton>
                     </Box>
                   </Box>
                 </TabPanel>
@@ -122,12 +122,12 @@ export default function HomeView(props) {
                       />
                     </Box>
                     <Box textAlign="center" mt={5}>
-                      <CustomButton
+                      <FixedWidthButton
                         onClick={(e) => {
                           e.preventDefault(), props.clickRegister();
                         }}>
                         Register
-                      </CustomButton>
+                      </FixedWidthButton>
                     </Box>
                   </Box>
                 </TabPanel>

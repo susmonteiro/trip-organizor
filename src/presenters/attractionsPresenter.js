@@ -135,13 +135,14 @@ export default function AttractionsPresenter(props) {
   function createTemporaryAttraction(site) {
     let attraction = new AttractionModel({
       id: site.xid,
-      name: site.name
+      name: site.name,
+      details: site
     });
 
     SitesSource.getDetails(site.xid)
       .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
       .then(() => setCurrentAttraction(attraction))
-      .catch((err) => setErrorAddAttraction('There was an error. Please try again.'));
+      .catch(() => setErrorAddAttraction('There was an error. Please try again.'));
   }
 
   // search attraction functions
@@ -174,7 +175,7 @@ export default function AttractionsPresenter(props) {
       SitesSource.getDetails(site.xid)
         .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
         .then(() => props.model.addAttractionToTrip(attraction))
-        .catch((err) => setErrorAddAttraction('There was an error. Please try again.'));
+        .catch(() => setErrorAddAttraction('There was an error. Please try again.'));
 
       setSearching(false);
       resetVariables();
@@ -328,6 +329,7 @@ export default function AttractionsPresenter(props) {
               openPopup={openPopup}
               setPopup={() => setOpenPopup(null)}
               tmpAttraction={currentAttraction}
+              addAttraction={() => addAttraction(currentAttraction.details)}
             />
           )}
         </Box>

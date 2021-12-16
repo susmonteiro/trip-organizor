@@ -22,7 +22,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FlightIcon from '@mui/icons-material/Flight';
 //CUSTOM COMPONENTS
-import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
+import { FixedWidthButton, BasicSpeedDial } from '../elements/customButtons.js';
 import { PopupBottom, PopupTop } from '../elements/popups.js';
 
 export default function TripListView(props) {
@@ -127,14 +127,14 @@ export default function TripListView(props) {
           <Box mb={3} mr={2}>
             <Stack spacing={2}>
               <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
-              <CustomButton
+              <FixedWidthButton
                 id="addNewTrip"
                 display="right"
                 variant="contained"
                 onClick={() => props.showAddChange(!props.showAdd)}
                 startIcon={<FlightIcon />}>
                 Add Trip!
-              </CustomButton>
+              </FixedWidthButton>
             </Stack>
           </Box>
         </Grid>

@@ -3,9 +3,13 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import promiseNoData from './../js/promiseNoData.js';
 import SitesSource from '../js/sitesSource.js';
 import { Icon } from 'leaflet';
+import CustomButton, { FixedWidthButton } from '../elements/customButtons.js';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
+import AddLocationIcon from '@mui/icons-material/AddLocation';
 
 import markers from './../markers/markers.js';
 
@@ -58,6 +62,18 @@ function MapView(props) {
                     <img className="popup-image" src={props.data.preview.source} />
                   ) : null}
                   <br />
+                  {!site.type && (
+                    <Box textAlign="center">
+                      <CustomButton
+                        startIcon={<AddLocationIcon />}
+                        onClick={() => props.addAttraction()}
+                        size="large"
+                        variant="text">
+                        Add Me
+                      </CustomButton>
+                      <br />
+                    </Box>
+                  )}
                 </Box>
               )}
             </Popup>

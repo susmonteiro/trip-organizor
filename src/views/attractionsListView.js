@@ -39,7 +39,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import CustomButton, { RoundButton, DisabledButton } from '../elements/customButtons.js';
+import { FixedWidthButton, RoundButton, DisabledButton } from '../elements/customButtons.js';
 import InformationMessage from '../elements/showMessages.js';
 import TopBar from '../elements/topBar.js';
 
