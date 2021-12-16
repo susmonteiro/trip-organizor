@@ -11,18 +11,18 @@ import Typography from '@mui/material/Typography';
 
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 
-import markers from './../markers/markers.js';
+import markers from '../js/markers.js';
 
 function MapView(props) {
   function createMarker(marker, fav) {
     return new Icon({
       iconUrl: markers(marker, fav),
-      iconSize: marker==='temporary'?[25 * 1.5, 40 * 1.5]:[25 * 1.2, 40 * 1.2],
-      iconAnchor: marker==='temporary'?[25 * 1.5 / 2, 40 * 1.5]:[(25 * 1.2) / 2, 40 * 1.2]
+      iconSize: marker === 'temporary' ? [25 * 1.5, 40 * 1.5] : [25 * 1.2, 40 * 1.2],
+      iconAnchor: marker === 'temporary' ? [(25 * 1.5) / 2, 40 * 1.5] : [(25 * 1.2) / 2, 40 * 1.2]
     });
   }
 
-  const sites = props.tmpAttraction ? [props.tmpAttraction, ...props.sites] : props.sites;
+  const sites = props.tmpAttraction ? [...props.sites, props.tmpAttraction] : props.sites;
 
   return (
     <Box>

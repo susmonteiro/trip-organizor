@@ -19,7 +19,6 @@ import InformationMessage from '../elements/showMessages.js';
 
 import 'firebase/compat/auth';
 import { signout } from '../js/models/FirebaseModel';
-import { PopupBottom } from '../elements/popups.js';
 
 const RADIUS = 50000;
 const NUM_RESULTS = 30;
@@ -61,8 +60,8 @@ export default function AttractionsPresenter(props) {
   const [checked, setChecked] = React.useState(true);
   const [favourites, setFavourites] = React.useState(false);
   const [filterDate, setFilterDate] = React.useState(false);
-  const [errorAddAttraction, setErrorAddAttraction] = React.useState('');
-  const [successAddAttraction, setSuccessAddAttraction] = React.useState('');
+  const [errorPopup, setErrorPopup] = React.useState('');
+  const [successPopup, setSuccessPopup] = React.useState('');
   const [openPopup, setOpenPopup] = React.useState(null);
   const [currentAttraction, setCurrentAttraction] = React.useState(null);
 
@@ -113,7 +112,7 @@ export default function AttractionsPresenter(props) {
 
   function doLogout() {
     props.model.setUserID(null);
-    signout();
+    signout().catch(() => setErrorPopup('There was an error when trying to logout.'));
   }
 
   function resetVariables() {
@@ -128,7 +127,7 @@ export default function AttractionsPresenter(props) {
     setFavourites(false);
     setFilter(false);
     setFilterDate(false);
-    setErrorAddAttraction('');
+    setErrorPopup('');
     setCurrentAttraction(null);
   }
 
@@ -142,7 +141,7 @@ export default function AttractionsPresenter(props) {
     SitesSource.getDetails(site.xid)
       .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
       .then(() => setCurrentAttraction(attraction))
-      .catch(() => setErrorAddAttraction('There was an error. Please try again.'));
+      .catch(() => setErrorPopup('There was an error. Please try again.'));
   }
 
   // search attraction functions
@@ -150,10 +149,10 @@ export default function AttractionsPresenter(props) {
     const newKey = site.xid + currentTrip;
 
     if (attractions.find((attr) => attr.key === newKey)) {
-      setErrorAddAttraction(site.name + ' already exists in your attractions');
+      setErrorPopup(site.name + ' already exists in your attractions');
       return;
     } else if (date < trip.dateBegin || date > trip.dateEnd) {
-      setErrorAddAttraction('The date chosen is invalid');
+      setErrorPopup('The date chosen is invalid');
       return;
     } else {
       let attraction = new AttractionModel({
@@ -175,11 +174,11 @@ export default function AttractionsPresenter(props) {
       SitesSource.getDetails(site.xid)
         .then((data) => attraction.setCoord([data.point.lat, data.point.lon]))
         .then(() => props.model.addAttractionToTrip(attraction))
-        .catch(() => setErrorAddAttraction('There was an error. Please try again.'));
+        .catch(() => setErrorPopup('There was an error. Please try again.'));
 
       setSearching(false);
       resetVariables();
-      setSuccessAddAttraction(site.name + ' added to your attractions');
+      setSuccessPopup(site.name + ' added to your attractions');
     }
   }
 
@@ -189,7 +188,7 @@ export default function AttractionsPresenter(props) {
       text.length >= 3 &&
       text
         .split('')
-        .find((letter) => (letter > 'a' && letter < 'z') || (letter > 'A' && letter < 'Z'))
+        .find((letter) => (letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z'))
     );
   }
 
@@ -241,8 +240,8 @@ export default function AttractionsPresenter(props) {
                     resetVariables();
                   }}
                   useLogout={() => doLogout()}
-                  errorDuplicated={errorAddAttraction}
-                  resetError={() => setErrorAddAttraction('')}
+                  errorDuplicated={errorPopup}
+                  resetError={() => setErrorPopup('')}
                   canSearch={canSearch(query)}
                 />
               </Box>
@@ -303,14 +302,11 @@ export default function AttractionsPresenter(props) {
                   resetVariables();
                 }}
                 openPopup={(id) => setOpenPopup(id)}
+                successPopup={successPopup}
+                resetError={() => setSuccessPopup('')}
               />
             </Box>
           )}
-          <PopupBottom
-            message={successAddAttraction}
-            type={'success'}
-            onClose={() => setSuccessAddAttraction('')}
-          />
         </Box>
         <Box flex={0.4} height="70vh" /* display={{ md: 'block', xs: 'none' }} */>
           {getCoord() && (

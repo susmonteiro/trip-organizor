@@ -40,6 +40,7 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { FixedWidthButton, RoundButton, DisabledButton } from '../elements/customButtons.js';
+import { PopupBottom } from '../elements/popups.js';
 import InformationMessage from '../elements/showMessages.js';
 import TopBar from '../elements/topBar.js';
 
@@ -356,6 +357,7 @@ export default function AttractionsListView(props) {
           </Box>
         )}
       </Box>
+      <PopupBottom message={props.successPopup} type={'success'} onClose={props.resetError} />
     </Box>
   );
 }
