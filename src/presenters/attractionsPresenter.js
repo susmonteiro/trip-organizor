@@ -210,8 +210,8 @@ export default function AttractionsPresenter(props) {
         flexWrap="wrap"
         flexDirection="row"
         height="100%"
-        width={{ md: '100vw', xs: '165vw' }}>
-        <Box flex={0.6} max-height="100%">
+        width={{ md: '100vw', xs: '200vw' }}>
+        <Box flex={{ md: 0.6, xs: 0.5 }} max-height="100%">
           {(searching && (
             <Box height="100%">
               <Box>
@@ -309,7 +309,7 @@ export default function AttractionsPresenter(props) {
             </Box>
           )}
         </Box>
-        <Box flex={0.4} height="70vh">
+        <Box flex={{ md: 0.4, xs: 0.5 }} height="70vh">
           {getCoord() && (
             <MapView
               currentLocation={getCoord}
