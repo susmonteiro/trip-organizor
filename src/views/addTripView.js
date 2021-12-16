@@ -15,6 +15,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import CloseIcon from '@mui/icons-material/Close';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -24,6 +25,13 @@ export default function AddTripView(props) {
   return (
     <div>
       <br />
+      <Button
+        id="CloseAddView"
+        display="right"
+        onClick={() => {
+          props.showAddChange(!props.showAdd);
+        }}
+        startIcon={<CloseIcon />}></Button>
       <Typography variant="h4" component="div" gutterBottom>
         WHAT´S YOUR NEXT DESTINATION?
       </Typography>
@@ -36,7 +44,11 @@ export default function AddTripView(props) {
         }}
         label="What will be the name of your trip?"
         variant="standard"
-        error={props.validateTitleExist(props.title)}
+        error={
+          props.title === ''
+            ? false
+            : props.validateTitleExist(props.title) || props.validateAttrEmpty(props.title)
+        }
         helperText={
           props.validateAttrEmpty(props.title) == 'empty'
             ? 'Where are you going?! Your trip needs a name!'
@@ -45,7 +57,7 @@ export default function AddTripView(props) {
             : ''
         }
         onBlur={(eventTitle) => {
-          props.setTitle(eventTitle.target.value);
+          props.setTitleNow(eventTitle.target.value);
         }}
       />
       <br />
@@ -62,7 +74,7 @@ export default function AddTripView(props) {
             helperText={
               props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
             }
-            onBlur={(eventCity) => props.setCity(eventCity.target.value)}
+            onBlur={(eventCity) => props.setCityNow(eventCity.target.value)}
           />
         </Box>
 
@@ -99,7 +111,7 @@ export default function AddTripView(props) {
                 autoComplete: 'new-password' // disable autocomplete and autofill
               }}
               onSelect={(eventCountry) => {
-                props.setCountry(eventCountry.target.value);
+                props.setCountryNow(eventCountry.target.value);
               }}
             />
           )}
@@ -130,7 +142,7 @@ export default function AddTripView(props) {
           inputFormat="dd/MM/yyyy"
           maxDate={getWeeksAfter(props.date[0], 4)}
           onChange={(newValue) => {
-            props.setDate(newValue);
+            props.setDateNow(newValue);
           }}
           renderInput={(startProps, endProps) => (
             <React.Fragment>
@@ -146,7 +158,6 @@ export default function AddTripView(props) {
         <Button
           variant="contained"
           onClick={() => {
-            props.clean();
             props.showAddChange(!props.showAdd);
           }}>
           Cancel

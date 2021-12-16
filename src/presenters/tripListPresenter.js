@@ -1,23 +1,24 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import TripListView from '../views/tripListView';
 import AddTripView from '../views/addTripView';
+import EditTripView from '../views/editTripView';
 import TripModel from '../js/models/TripModel.js';
 import SitesSource from '../sitesSource.js';
 import promiseNoData from '../promiseNoData.js';
 import usePromise from '../usePromise.js';
 import Grid from '@mui/material/Grid';
 import { signout } from '../js/models/FirebaseModel';
+import useModelProperty from './../useModelProperty.js';
 
 export default function TripListPresenter(props) {
   //////////////////////////////TRIP LIST PRESENTER//////////////////////////////
   const [tripList, setTripList] = React.useState(props.model.trips);
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
+  const [showEditTrip, setShowEditTrip] = React.useState(false);
+  const [currentTrip, setCurrentTrip] = React.useState(props.model.currentTrip);
 
   function doLogout() {
     props.model.setUserID(null);
@@ -27,6 +28,9 @@ export default function TripListPresenter(props) {
   React.useEffect(function () {
     function obs() {
       setTripList(props.model.trips);
+      setTitle(null);
+      setPromise(null);
+      setCurrentTrip(props.mode.currentTrip);
     }
     props.model.addObserver(obs);
     return function () {
@@ -50,8 +54,7 @@ export default function TripListPresenter(props) {
   const [data, error] = usePromise(promise);
 
   React.useEffect(function () {
-    //setTripList(props.model.trips); //I think I can delete this
-    setPromise(null);
+    //    setPromise(null);
   }, []);
 
   if (validate) {
@@ -61,10 +64,21 @@ export default function TripListPresenter(props) {
     }
   }
   //////////////////////////////ADD TRIP PRESENTER//////////////////////////////
+  //////////////////////////////EDIT TRIP PRESENTER/////////////////////////////
+  const trips = useModelProperty(props.model, 'trips'); // TODO remove
+  const currentTripOK = useModelProperty(props.model, 'tripCurrent');
+
+  let trip = trips.find((trip) => trip.title === currentTripOK);
+
+  function getTrip() {
+    // TODO remove me
+    return trip ? trip : null;
+  }
+  //////////////////////////////EDIT TRIP PRESENTER/////////////////////////////
   return (
     <Box>
       <Grid container spacing={1}>
-        <Grid item xs={showAddTrip ? 7 : 12}>
+        <Grid item xs={showAddTrip || showEditTrip ? 7 : 12}>
           <Box>
             <TripListView
               trips={tripList}
@@ -79,7 +93,9 @@ export default function TripListPresenter(props) {
               }}
               tripChoice={(id) => {
                 props.model.setTripCurrent(id);
+                setCurrentTrip(id);
               }}
+              tripCurrent={trip}
               showDoneChange={(status) => {
                 setShowDone(status);
               }}
@@ -88,14 +104,36 @@ export default function TripListPresenter(props) {
               showAddChange={(show) => {
                 setShowAddTrip(show);
               }}
+              showEdit={showEditTrip}
+              showEditChange={(show) => {
+                setShowEditTrip(show);
+              }}
               useLogout={() => doLogout()}
+              validateTitleExist={(title) => props.model.tripTitleExists(title)}
+              validateAttrEmpty={(title) => props.model.tripAttrEmpty(title)}
+              title={title}
+              setTitleNow={(inputTitle) => setTitle(inputTitle)}
+              duplicate={() => {
+                props.model.addTrip(
+                  new TripModel(
+                    title,
+                    trip.country,
+                    trip.countryCode,
+                    trip.city,
+                    trip.dateBegin,
+                    trip.dateEnd,
+                    trip.coord,
+                    false
+                  )
+                );
+              }}
             />
           </Box>
         </Grid>
-        <Grid item xs={0.5} height="100vh" display={!showAddTrip ? 'none' : 'block'}>
+        <Grid item xs={0.5} height="100vh" display={showAddTrip || showEditTrip ? 'block' : 'none'}>
           <Divider orientation="vertical" />
         </Grid>
-        <Grid item xs={4} display={!showAddTrip ? 'none' : 'block'}>
+        <Grid item xs={4} display={showAddTrip ? 'block' : 'none'}>
           <Box ml={5} mr={1}>
             <AddTripView
               //Data relevant to the view
@@ -105,10 +143,10 @@ export default function TripListPresenter(props) {
               status={status}
               title={title}
               //Setters of the data
-              setDate={(inputDate) => setDate(inputDate)}
-              setCity={(inputCity) => setCity(inputCity)}
-              setCountry={(inputCountry) => setCountry(inputCountry)}
-              setTitle={(inputTitle) => setTitle(inputTitle)}
+              setDateNow={(inputDate) => setDate(inputDate)}
+              setCityNow={(inputCity) => setCity(inputCity)}
+              setCountryNow={(inputCountry) => setCountry(inputCountry)}
+              setTitleNow={(inputTitle) => setTitle(inputTitle)}
               //Custom functions for validation
               checkForContent={(attr) => props.model.checkNullEmpty(attr)}
               getDestination={(code) => setPromise(SitesSource.getCoords(city, code))}
@@ -120,13 +158,12 @@ export default function TripListPresenter(props) {
               showAddChange={(show) => {
                 setShowAddTrip(show);
               }}
+              showEdit={showEditTrip}
+              showEditChange={(show) => {
+                setShowEditTrip(show);
+              }}
               clean={() => {
-                console.log('I´m cleaning');
-                setDate([null, null]);
-                setCity('AAAAAAAAAAAAAAAAAAAAAAAAAA');
-                setCountry(null);
                 setTitle(null);
-                setValidate(false);
               }}
               addTrip={() => {
                 console.log(data);
@@ -146,6 +183,44 @@ export default function TripListPresenter(props) {
                 );
               }}
             />
+          </Box>
+        </Grid>
+        <Grid item xs={4} display={showEditTrip ? 'block' : 'none'}>
+          <Box ml={5} mr={1}>
+            {getTrip() && (
+              <EditTripView
+                //Data relevant to the view
+                trip={trip}
+                showAdd={showAddTrip}
+                showAddChange={(show) => {
+                  setShowAddTrip(show);
+                }}
+                showEdit={showEditTrip}
+                showEditChange={(show) => {
+                  setShowEditTrip(show);
+                }}
+                removeTrip={(deleteTrip) => {
+                  props.model.removeTrip(deleteTrip);
+                }}
+                editInfo={(titleNew) => {
+                  props.model.removeTrip(trip.title);
+                  props.model.addTrip(
+                    new TripModel(
+                      titleNew,
+                      'Sweden',
+                      'SE',
+                      'Stockholm',
+                      new Date().getTime(),
+                      new Date().getTime(),
+                      [0, 0],
+                      false,
+                      [],
+                      false
+                    )
+                  );
+                }}
+              />
+            )}
           </Box>
         </Grid>
       </Grid>

@@ -31,9 +31,9 @@ export default class UserModel {
   }
 
   //FOR AUTH
-  setUserID(id){
+  setUserID(id) {
     this.currentUser = id;
-    this.notifyObservers() //we must change all the data to the current user 
+    this.notifyObservers(); //we must change all the data to the current user
   }
   /**/
   addAttractionToTrip(attr) {
@@ -85,7 +85,11 @@ export default class UserModel {
     return tripAttr === '' ? true : tripAttr === null ? true : false;
   }
   tripAttrEmpty(tripAttr) {
-    return tripAttr === '' ? 'empty' : tripAttr === null ? 'null' : false;
+    return tripAttr === null
+      ? 'null'
+      : tripAttr === '' || tripAttr.trim().length === 0
+      ? 'empty'
+      : false;
   }
 
   //BETA
