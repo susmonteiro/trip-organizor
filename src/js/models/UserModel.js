@@ -62,7 +62,6 @@ export default class UserModel {
         try {
           cb();
         } catch (error) {
-          // TODO missing
           console.error(error);
         }
       }, 0)

@@ -47,9 +47,11 @@ export default function persistModel(model) {
 }
 
 function signout() {
-  signOut(auth)
+  return signOut(auth)
     .then((window.location.href = '/'))
-    .catch(console.error);
+    .catch((error) => {
+      throw new Error(error);
+    });
 }
 
 function isLogged() {
