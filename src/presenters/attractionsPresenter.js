@@ -124,13 +124,11 @@ export default function AttractionsPresenter(props) {
     setQuery(null);
     setHelpText(false);
     setPromiseAttr(null);
-    setPromiseMap(null);
     setChecked(true);
     setFavourites(false);
     setFilter(false);
     setFilterDate(false);
     setErrorPopup('');
-    setCurrentAttraction(null);
   }
 
   function createTemporaryAttraction(site) {
