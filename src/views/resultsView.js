@@ -13,7 +13,6 @@ export default function ResultsView(props) {
     <Box ml={{ lg: 12, md: 6, xs: 6 }} mr={{ lg: 12, md: 6, xs: 6 }} height="100%">
       {(props.error !== null && <h1>{props.error}</h1>) ||
         ((!props.attractions || props.attractions.length === 0) && (
-          /* TODO change me */
           <InformationMessage>NO RESULTS FOUND... TRY SOMETHING ELSE!</InformationMessage>
         )) || (
           <Box>

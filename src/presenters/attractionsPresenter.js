@@ -43,7 +43,7 @@ export default function AttractionsPresenter(props) {
   const DEFAULT_TYPE = { code: ALL_TYPES, name: 'All' };
 
   // model properties
-  const trips = useModelProperty(props.model, 'trips'); // TODO remove
+  const trips = useModelProperty(props.model, 'trips');
   const currentTrip = useModelProperty(props.model, 'tripCurrent');
   const attractions = useModelProperty(props.model, 'attractions');
 
@@ -76,7 +76,6 @@ export default function AttractionsPresenter(props) {
   const [dataMap, errorMap] = usePromise(promiseMap);
 
   function getCoord() {
-    // TODO remove me
     return trip ? trip.coord : null;
   }
 
@@ -311,10 +310,7 @@ export default function AttractionsPresenter(props) {
         <Box flex={0.4} height="70vh" /* display={{ md: 'block', xs: 'none' }} */>
           {getCoord() && (
             <MapView
-              currentLocation={() => {
-                const a = getCoord();
-                return a;
-              }} // TODO
+              currentLocation={getCoord}
               zoom={12}
               sites={searching ? tripAttractions : filteredAttractions}
               promise={promiseMap}

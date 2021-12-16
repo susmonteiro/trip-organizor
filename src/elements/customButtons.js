@@ -79,7 +79,6 @@ export function RoundButton(props) {
       </IconButton>
     </Tooltip>
   );
-  //return <Fab color="secondary" dark="true" aria-label="add" {...props}></Fab>; TODO
 }
 
 export function DisabledButton(props) {

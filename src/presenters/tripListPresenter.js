@@ -66,13 +66,12 @@ export default function TripListPresenter(props) {
 
   //////////////////////////////ADD TRIP PRESENTER//////////////////////////////
   //////////////////////////////EDIT TRIP PRESENTER/////////////////////////////
-  const trips = useModelProperty(props.model, 'trips'); // TODO remove
+  const trips = useModelProperty(props.model, 'trips');
   const currentTripOK = useModelProperty(props.model, 'tripCurrent');
 
   let trip = trips.find((trip) => trip.title === currentTripOK);
 
   function getTrip() {
-    // TODO remove me
     return trip ? trip : null;
   }
   //////////////////////////////EDIT TRIP PRESENTER/////////////////////////////

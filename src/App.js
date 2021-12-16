@@ -53,12 +53,6 @@ const theme = createTheme({
   }
 });
 
-/* const useStyles = makeStyles((theme) => {
-  return {
-    // TODO add general styling
-  };
-}); */
-
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
