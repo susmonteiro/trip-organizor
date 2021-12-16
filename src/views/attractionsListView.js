@@ -4,7 +4,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import Fab from '@mui/material/Fab';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,7 +11,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -30,6 +28,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -37,7 +36,8 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import IconButton from '@mui/material/IconButton';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
 
 import { FixedWidthButton, RoundButton, DisabledButton } from '../templates/buttons.js';
 import { PopupBottom } from '../templates/popups.js';
@@ -182,11 +182,7 @@ export default function AttractionsListView(props) {
                     onClick={() => {
                       props.onFilterDate();
                     }}>
-                    {props.filterDate ? (
-                      <LightModeIcon color="primary" />
-                    ) : (
-                      <LightModeOutlinedIcon />
-                    )}
+                    {props.filterDate ? <ScheduleIcon color="primary" /> : <ScheduleOutlinedIcon />}
                   </IconButton>
                 </Tooltip>
               </Grid>
