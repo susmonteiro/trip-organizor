@@ -15,11 +15,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-<<<<<<< HEAD
 import CloseIcon from '@mui/icons-material/Close';
-=======
-import {ErrorPopupBottom, ErrorPopupTop} from '../elements/popups.js';
->>>>>>> 4bbf56011758c711d1d0b27ac064ee43a8d20a52
+import { ErrorPopupBottom, ErrorPopupTop } from '../elements/popups.js';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -131,8 +128,20 @@ export default function AddTripView(props) {
         </Button>
       </Stack>
       <br />
-      {props.status === 'OK' && <ErrorPopupBottom type={"success"} errormsg={"Woohoo! Your destination is valid!"} onClose={props.timeoutSnack} />}
-      {props.status === 'NOT_FOUND' && <ErrorPopupBottom type={"error"} errormsg={"Sorry, your destination doesn't exist"} onClose={props.timeoutSnack}/>}
+      {props.status === 'OK' && (
+        <ErrorPopupBottom
+          type={'success'}
+          errormsg={'Woohoo! Your destination is valid!'}
+          onClose={props.timeoutSnack}
+        />
+      )}
+      {props.status === 'NOT_FOUND' && (
+        <ErrorPopupBottom
+          type={'error'}
+          errormsg={"Sorry, your destination doesn't exist"}
+          onClose={props.timeoutSnack}
+        />
+      )}
       <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateRangePicker

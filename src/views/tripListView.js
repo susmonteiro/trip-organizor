@@ -32,7 +32,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 //CUSTOM COMPONENTS
 import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
-<<<<<<< HEAD
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -40,9 +39,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-=======
-import {ErrorPopupBottom, ErrorPopupTop} from '../elements/popups.js';
->>>>>>> 4bbf56011758c711d1d0b27ac064ee43a8d20a52
+import { ErrorPopupBottom, ErrorPopupTop } from '../elements/popups.js';
 
 export default function TripListView(props) {
   //FUTURE TRIPS
@@ -230,16 +227,21 @@ export default function TripListView(props) {
                       }}>
                       <CheckBoxOutlineBlankIcon />
                     </IconButton>
-<<<<<<< HEAD
-=======
-                    {props.completed && <ErrorPopupBottom type={"info"} errormsg={"Woohoo! Trip completed. What´ll be your next adventure?"} onClose={props.timeoutSnack}/>/* <Snackbar
+                    {
+                      props.completed && (
+                        <ErrorPopupBottom
+                          type={'info'}
+                          errormsg={'Woohoo! Trip completed. What´ll be your next adventure?'}
+                          onClose={props.timeoutSnack}
+                        />
+                      ) /* <Snackbar
                       open={!open}
                       autoHideDuration={500}
                       onClose={handleClose}
                       message="Woohoo! Trip completed. What´ll be your next adventure?"
                       action={undoAction}
-                    /> */}
->>>>>>> 4bbf56011758c711d1d0b27ac064ee43a8d20a52
+                    /> */
+                    }
                   </TableCell>
                   <TableCell align="left">
                     <img

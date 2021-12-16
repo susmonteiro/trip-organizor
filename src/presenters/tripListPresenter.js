@@ -47,7 +47,7 @@ export default function TripListPresenter(props) {
   const [title, setTitle] = React.useState(null);
   //const [tripList, setTripList] = React.useState(props.model.trips); //I think I can delete this
   const [validate, setValidate] = React.useState(false);
-  const [completed, setCompleted] = React.useState(false)
+  const [completed, setCompleted] = React.useState(false);
   let status = null;
 
   const [promise, setPromise] = React.useState(null);
@@ -86,7 +86,7 @@ export default function TripListPresenter(props) {
               completed={completed}
               completeTrip={(trip) => {
                 props.model.changeFinished(trip);
-                setCompleted(true)
+                setCompleted(true);
               }}
               removeTrip={(deleteTrip) => {
                 props.model.removeTrip(deleteTrip);
@@ -108,14 +108,11 @@ export default function TripListPresenter(props) {
                 setShowAddTrip(show);
                 status = null;
               }}
-<<<<<<< HEAD
               showEdit={showEditTrip}
               showEditChange={(show) => {
                 setShowEditTrip(show);
               }}
-=======
-              timeoutSnack ={() => setCompleted(false)}
->>>>>>> 4bbf56011758c711d1d0b27ac064ee43a8d20a52
+              timeoutSnack={() => setCompleted(false)}
               useLogout={() => doLogout()}
               validateTitleExist={(title) => props.model.tripTitleExists(title)}
               validateAttrEmpty={(title) => props.model.tripAttrEmpty(title)}
@@ -164,7 +161,7 @@ export default function TripListPresenter(props) {
               //Main function to change data in the model
               showAdd={showAddTrip}
               showAddChange={(show) => {
-                setShowAddTrip(show);                
+                setShowAddTrip(show);
               }}
               showEdit={showEditTrip}
               showEditChange={(show) => {
