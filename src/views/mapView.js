@@ -14,7 +14,6 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import markers from '../js/markers.js';
 
 function MapView(props) {
-  console.log(props)
   function createMarker(marker, fav) {
     return new Icon({
       iconUrl: markers(marker, fav),

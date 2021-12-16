@@ -8,9 +8,7 @@ export const SitesSource = {
       .then((response) => response.json())
       .then((response) => {
         if (setPromiseImage){
-          setPromiseImage(fetch(response.preview.source)
-                          .then((response) => response.json())
-                          .catch((error) => { throw new Error(error) }))
+          setPromiseImage(fetch(response.preview.source))
         }
         return response;
       })
@@ -20,7 +18,6 @@ export const SitesSource = {
   },
 
   getDetails(id, setPromiseImage) {
-    console.log(setPromiseImage)
     return SitesSource.apiCall(
       'xid/' +
         id +
