@@ -6,7 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import IconButton from '@mui/material/IconButton';
 
-import InformationMessage from '../elements/showMessages.js';
+import InformationMessage from '../templates/showMessages.js';
 
 export default function ResultsView(props) {
   return (

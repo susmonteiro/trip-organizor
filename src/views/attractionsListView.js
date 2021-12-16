@@ -39,10 +39,10 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { FixedWidthButton, RoundButton, DisabledButton } from '../elements/customButtons.js';
-import { PopupBottom } from '../elements/popups.js';
-import InformationMessage from '../elements/showMessages.js';
-import TopBar from '../elements/topBar.js';
+import { FixedWidthButton, RoundButton, DisabledButton } from '../templates/buttons.js';
+import { PopupBottom } from '../templates/popups.js';
+import InformationMessage from '../templates/showMessages.js';
+import TopBar from '../templates/topBar.js';
 
 export default function AttractionsListView(props) {
   const activities = props.activities;

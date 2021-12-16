@@ -15,8 +15,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { PopupBottom } from '../elements/popups.js';
-import CustomButton, { CloseButton } from '../elements/customButtons.js';
+import { PopupBottom } from '../templates/popups.js';
+import CustomButton, { CloseButton } from '../templates/buttons.js';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;

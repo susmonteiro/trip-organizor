@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import promiseNoData from './../js/promiseNoData.js';
 import SitesSource from '../js/sitesSource.js';
 import { Icon } from 'leaflet';
-import CustomButton, { FixedWidthButton } from '../elements/customButtons.js';
+import CustomButton, { FixedWidthButton } from '../templates/buttons.js';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';

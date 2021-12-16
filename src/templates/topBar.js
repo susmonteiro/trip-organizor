@@ -1,7 +1,7 @@
 // MATERIAL IMPORTS
 import Grid from '@mui/material/Grid';
 // COMPONENTS
-import { BackButton, BasicSpeedDial } from './customButtons.js';
+import { BackButton, BasicSpeedDial } from './buttons.js';
 
 export default function TopBar(props) {
   return (

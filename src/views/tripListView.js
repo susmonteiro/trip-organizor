@@ -33,8 +33,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 // CUSTOM COMPONENTS
-import CustomButton, { BasicSpeedDial } from '../elements/customButtons.js';
-import { PopupBottom } from '../elements/popups.js';
+import CustomButton, { BasicSpeedDial } from '../templates/buttons.js';
+import { PopupBottom } from '../templates/popups.js';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';

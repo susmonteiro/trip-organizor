@@ -15,7 +15,7 @@ import useModelProperty from '../js/useModelProperty.js';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import InformationMessage from '../elements/showMessages.js';
+import InformationMessage from '../templates/showMessages.js';
 
 import 'firebase/compat/auth';
 import { signout } from '../js/models/FirebaseModel';

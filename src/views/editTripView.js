@@ -23,7 +23,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import CustomButton, { CloseButton } from './../elements/customButtons.js';
+import CustomButton, { CloseButton } from '../templates/buttons.js';
 
 export default function EditTripView(props) {
   const [value, setValue] = React.useState([null, null]);
