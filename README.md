@@ -19,7 +19,7 @@ To get started, firstly install all the necessary dependencies
 
 Then, in the project directory, you can run
 
-``> npm start`
+`> npm start`
 
 Open http://localhost:3000 to view the app in development mode in the browser
 
