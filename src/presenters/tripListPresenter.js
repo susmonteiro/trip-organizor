@@ -18,10 +18,12 @@ export default function TripListPresenter(props) {
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
   const [showEditTrip, setShowEditTrip] = React.useState(false);
+  const [errorPopup, setErrorPopup] = React.useState('');
+  const [successPopup, setSuccessPopup] = React.useState('');
 
   function doLogout() {
     props.model.setUserID(null);
-    signout();
+    signout().catch(() => setErrorPopup('There was an error when trying to logout.'));
   }
 
   React.useEffect(function () {
@@ -129,6 +131,8 @@ export default function TripListPresenter(props) {
                   )
                 );
               }}
+              successPopup={successPopup}
+              errorPopup={errorPopup}
             />
           </Box>
         </Grid>
@@ -168,7 +172,6 @@ export default function TripListPresenter(props) {
                 setTitle(null);
               }}
               addTrip={() => {
-                console.log(data);
                 props.model.addTrip(
                   new TripModel(
                     title,
@@ -226,6 +229,11 @@ export default function TripListPresenter(props) {
           </Box>
         </Grid>
       </Grid>
+      <PopupBottom
+        type={'success'}
+        message={'Woohoo! Your destination is valid!'}
+        onClose={props.timeoutSnack}
+      />
     </Box>
   );
 }
