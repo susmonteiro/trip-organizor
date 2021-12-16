@@ -67,6 +67,7 @@ export default function AttractionsPresenter(props) {
 
   const [promiseAttr, setPromiseAttr] = React.useState(null);
   const [promiseMap, setPromiseMap] = React.useState(null);
+  const [promiseImage, setPromiseImage] = React.useState(null);
 
   React.useEffect(function () {
     setPromiseAttr(null);
@@ -75,6 +76,7 @@ export default function AttractionsPresenter(props) {
 
   const [dataAttr, errorAttr] = usePromise(promiseAttr);
   const [dataMap, errorMap] = usePromise(promiseMap);
+  const [dataImage, errorImage] = usePromise(promiseImage);
 
   function getCoord() {
     return trip ? trip.coord : null;
@@ -201,7 +203,6 @@ export default function AttractionsPresenter(props) {
         SitesSource.getSuggestion(query, coord[0], coord[1], RADIUS, type, NUM_RESULTS)
       );
   }
-
   return (
     (trip && (
       <Box
@@ -317,6 +318,10 @@ export default function AttractionsPresenter(props) {
               data={dataMap}
               error={errorMap}
               setPromise={setPromiseMap}
+              promiseImage={promiseImage}
+              dataImage={dataImage}
+              errorImage={errorImage}
+              setPromiseImage={setPromiseImage}
               changeCurrAttr={(id) => props.model.setTripCurrAttr(id)}
               openPopup={openPopup}
               setPopup={() => setOpenPopup(null)}

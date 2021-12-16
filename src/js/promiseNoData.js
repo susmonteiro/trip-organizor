@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { ErrorMessageTitle, ErrorMessageInformation } from '../templates/showMessages.js';
 
-export default function promiseNoData(promise, data, error) {
+export default function promiseNoData(promise, data, error, image=null) {
   if (!(promise || data || error)) {
     return (
       <div>
@@ -18,14 +18,18 @@ export default function promiseNoData(promise, data, error) {
       </Box>
     );
   } else if (error) {
-    return (
-      <Box mt={10}>
+    if (image){
+      return <span></span>
+    }else{
+      return (
+        <Box mt={10}>
         <ErrorMessageTitle>THERE WAS AN ERROR FETCHING THE DATA</ErrorMessageTitle>
         <ErrorMessageInformation>
-          Please try again or contact the developers team
+        Please try again or contact the developers team
         </ErrorMessageInformation>
-      </Box>
-    );
+        </Box>
+      );
+    }
   } else {
     return false;
   }

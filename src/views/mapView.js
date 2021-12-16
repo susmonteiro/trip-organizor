@@ -14,6 +14,7 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import markers from '../js/markers.js';
 
 function MapView(props) {
+  console.log(props)
   function createMarker(marker, fav) {
     return new Icon({
       iconUrl: markers(marker, fav),
@@ -44,7 +45,7 @@ function MapView(props) {
             key={site.key}
             eventHandlers={{
               click: () => {
-                props.setPromise(SitesSource.getDetails(site.id));
+                props.setPromise(SitesSource.getDetails(site.id, props.setPromiseImage));
               }
             }}>
             <Popup>
@@ -58,9 +59,9 @@ function MapView(props) {
                       ? props.data.wikipedia_extracts.text
                       : "Sorry, we don't have information on this site."}
                   </Typography>
-                  {props.data.preview ? (
-                    <img className="popup-image" src={props.data.preview.source} />
-                  ) : null}
+                  {promiseNoData(props.promiseImage, props.dataImage, props.errorImage, true) || (
+                     <img className="popup-image" src={props.data.preview.source} />
+                   )}
                   <br />
                   {!site.type && (
                     <Box textAlign="center">
