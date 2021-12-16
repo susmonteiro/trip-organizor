@@ -1,24 +1,31 @@
 import * as api from './apiConfig.js';
 
 export const SitesSource = {
-  apiCall(params) {
+  apiCall(params, setPromiseImage=null) {
     return fetch(api.BASE_URL + params, {
       method: 'GET' // HTTP method
     })
       .then((response) => response.json())
+      .then((response) => {
+        if (setPromiseImage){
+          setPromiseImage(fetch(response.preview.source))
+        }
+        return response;
+      })
       .catch((error) => {
         throw new Error(error);
       });
   },
 
-  getDetails(id) {
+  getDetails(id, setPromiseImage) {
     return SitesSource.apiCall(
       'xid/' +
         id +
         '?' +
         new URLSearchParams({
           apikey: api.API_KEY
-        })
+        }),
+        setPromiseImage
     );
   },
 
