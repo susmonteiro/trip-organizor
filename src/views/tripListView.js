@@ -354,14 +354,19 @@ export default function TripListView(props) {
                   maxLength: 50
                 }}
                 error={
-                  props.title === ''
+                  props.title === null
                     ? false
-                    : props.validateTitleExist(props.title) || props.validateAttrEmpty(props.title)
+                    : /^\s*$/.test(props.title) || props.title === ''
+                    ? true
+                    : props.validateTitleExist(props.title) ||
+                      props.validateAttrEmpty(props.title) === 'empty'
                 }
                 label="New Trip Name"
                 variant="standard"
                 helperText={
-                  props.validateAttrEmpty(props.title) == 'empty'
+                  props.validateAttrEmpty(props.title) == 'empty' ||
+                  /^\s*$/.test(props.title) ||
+                  props.title === ''
                     ? 'Where are you going?! Your trip needs a name!'
                     : props.validateTitleExist(props.title)
                     ? 'Oops! Trip name already exists'
@@ -385,7 +390,8 @@ export default function TripListView(props) {
                 id="Duplicate"
                 disabled={
                   props.validateTitleExist(props.title) ||
-                  props.validateAttrEmpty(props.title) == 'empty'
+                  /^\s*$/.test(props.title) ||
+                  props.validateAttrEmpty(props.title) === 'empty'
                 }
                 onClick={(event) => {
                   handleClose('Duplicate');
