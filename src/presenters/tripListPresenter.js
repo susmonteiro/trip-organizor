@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import TripListView from '../views/tripListView';
 import AddTripView from '../views/addTripView';
-import EditTripView from '../views/editTripView';
 import TripModel from '../js/models/TripModel.js';
 import SitesSource from '../js/sitesSource.js';
 import promiseNoData from '../js/promiseNoData.js';
@@ -18,25 +17,8 @@ export default function TripListPresenter(props) {
   /* ===== TRIP LIST PRESENTER ===== */
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
-  const [showEditTrip, setShowEditTrip] = React.useState(false);
   const [errorPopup, setErrorPopup] = React.useState('');
   const [successPopup, setSuccessPopup] = React.useState('');
-
-  function doLogout() {
-    props.model.setUserID(null);
-    signout().catch(() => setErrorPopup('There was an error when trying to logout.'));
-  }
-
-  React.useEffect(function () {
-    function obs() {
-      setTitle(null);
-      setPromise(null);
-    }
-    props.model.addObserver(obs);
-    return function () {
-      props.model.removeObserver(obs);
-    };
-  }, []);
 
   /* ===== TRIP LIST PRESENTER ===== */
   /* ===== ADD TRIP PRESENTER ===== */
@@ -47,6 +29,23 @@ export default function TripListPresenter(props) {
   const [title, setTitle] = React.useState(null);
   const [validate, setValidate] = React.useState(false);
   const [completed, setCompleted] = React.useState(false);
+
+  function doLogout() {
+    props.model.setUserID(null);
+    signout().catch(() => setErrorPopup('There was an error when trying to logout.'));
+  }
+
+  function resetVariables() {
+    setDate([null, null]);
+    setCity(null);
+    setCountry(null);
+    setTitle(null);
+  }
+
+  function displayAddTrip(show) {
+    resetVariables();
+    setShowAddTrip(show);
+  }
 
   let status = null;
 
@@ -72,6 +71,7 @@ export default function TripListPresenter(props) {
   function getTrip() {
     return trip ? trip : null;
   }
+
   return (
     <Box
       height="auto"
@@ -81,8 +81,8 @@ export default function TripListPresenter(props) {
       height="100vh"
       width="100vw">
       <Box
-        display={showAddTrip || showEditTrip ? { md: 'block', xs: 'none' } : 'block'}
-        flex={showAddTrip || showEditTrip ? 0.6 : 1}
+        display={showAddTrip ? { md: 'block', xs: 'none' } : 'block'}
+        flex={showAddTrip ? 0.6 : 1}
         ml={2}
         mr={2}
         height="100vh">
@@ -113,12 +113,8 @@ export default function TripListPresenter(props) {
           showDone={showDone}
           showAdd={showAddTrip}
           showAddChange={(show) => {
-            setShowAddTrip(show);
+            displayAddTrip(show);
             status = null;
-          }}
-          showEdit={showEditTrip}
-          showEditChange={(show) => {
-            setShowEditTrip(show);
           }}
           timeoutSnack={() => setCompleted(false)}
           useLogout={() => doLogout()}
@@ -165,7 +161,7 @@ export default function TripListPresenter(props) {
         orientation="vertical"
         variant="middle"
         flexItem
-        display={showAddTrip || showEditTrip ? { md: 'block', xs: 'none' } : 'none'}
+        display={showAddTrip ? { md: 'block', xs: 'none' } : 'none'}
       />
       <Box display={showAddTrip ? 'block' : 'none'} flex={{ md: 0.4, xs: 1 }} height="100vh">
         <AddTripView
@@ -188,15 +184,11 @@ export default function TripListPresenter(props) {
           validateAttrEmpty={(title) => props.model.tripAttrEmpty(title)}
           // Main function to change data in the model
           showAdd={showAddTrip}
-          showAddChange={(show) => {
-            setShowAddTrip(show);
+          showAddChange={() => {
+            displayAddTrip(false);
           }}
           tripChoice={(id) => {
             props.model.setTripCurrent(id);
-          }}
-          showEdit={showEditTrip}
-          showEditChange={(show) => {
-            setShowEditTrip(show);
           }}
           addTrip={() => {
             props.model.addTrip(
@@ -215,29 +207,6 @@ export default function TripListPresenter(props) {
             );
           }}
         />
-      </Box>
-      <Box display={showEditTrip ? 'block' : 'none'} flex={{ md: 0.4, xs: 1 }} height="100vh">
-        {getTrip() && (
-          <EditTripView
-            // Data relevant to the view
-            trip={trip}
-            showAdd={showAddTrip}
-            showAddChange={(show) => {
-              setShowAddTrip(show);
-            }}
-            showEdit={showEditTrip}
-            showEditChange={(show) => {
-              setShowEditTrip(show);
-            }}
-            removeTrip={(deleteTrip) => {
-              props.model.removeTrip(deleteTrip);
-              trip = setTimeout(
-                trips.find((trip) => trip.title === currentTripOK),
-                100
-              );
-            }}
-          />
-        )}
       </Box>
     </Box>
   );

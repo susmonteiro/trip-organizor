@@ -31,7 +31,7 @@ export default function AddTripView(props) {
       <Box mt={3} mr={3} textAlign="right">
         <CloseButton
           onClick={() => {
-            props.showAddChange(!props.showAdd);
+            props.showAddChange();
           }}
         />
       </Box>
@@ -167,7 +167,7 @@ export default function AddTripView(props) {
             <CustomButton
               variant="outlined"
               onClick={() => {
-                props.showAddChange(!props.showAdd);
+                props.showAddChange();
               }}>
               Cancel
             </CustomButton>
@@ -182,7 +182,7 @@ export default function AddTripView(props) {
               }
               onClick={() => {
                 props.addTrip();
-                props.showAddChange(!props.showAdd);
+                props.showAddChange();
               }}>
               Create
             </CustomButton>

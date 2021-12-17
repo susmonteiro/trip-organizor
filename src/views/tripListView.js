@@ -114,22 +114,13 @@ export default function TripListView(props) {
   const handleClickOpen = (id) => {
     if (id === 'Delete') setOpenDelete(true);
     else if (id === 'Duplicate') setOpenDuplicate(true);
-    else if (id === 'Info') {
-      if (props.showEdit === false) {
-        props.showEditChange(!props.showEdit);
-      }
-      setOpenAction(false);
-    } else if (id === 'Action') setOpenAction(true);
+    else if (id === 'Action') setOpenAction(true);
   };
 
   const handleClose = (id) => {
     if (id === 'Delete') {
-      if (props.showEdit) {
-        props.showEditChange(!props.showEdit);
-      }
-      setOpenDelete(false);
+      OpenDelete(false);
     } else if (id === 'Duplicate') setOpenDuplicate(false);
-    else if (id === 'Info') props.showEditChange(!props.showEdit);
     else if (id === 'Action') setOpenAction(false);
   };
 
@@ -145,8 +136,7 @@ export default function TripListView(props) {
           display="right"
           variant="contained"
           onClick={() => {
-            props.showAddChange(!props.showAdd);
-            if (props.showEdit) props.showEditChange(!props.showEdit);
+            props.showAddChange(true);
           }}
           startIcon={<FlightIcon />}>
           Add Trip!
@@ -160,8 +150,7 @@ export default function TripListView(props) {
               aria-label="add button"
               color="primary"
               onClick={() => {
-                props.showAddChange(!props.showAdd);
-                if (props.showEdit) props.showEditChange(!props.showEdit);
+                props.showAddChange(true);
               }}>
               <FlightIcon />
             </IconButton>
@@ -286,7 +275,6 @@ export default function TripListView(props) {
               <Box width={300}>
                 <List>
                   {[
-                    { action: 'Info', icon: <InfoIcon /> },
                     { action: 'Duplicate', icon: <ContentCopyIcon /> },
                     { action: 'Delete', icon: <DeleteIcon /> }
                   ].map((item) => (
