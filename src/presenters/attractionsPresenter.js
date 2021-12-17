@@ -152,7 +152,7 @@ export default function AttractionsPresenter(props) {
       setErrorPopup(site.name + ' already exists in your attractions');
       return;
     } else if (date < trip.dateBegin || date > trip.dateEnd) {
-      setErrorPopup('The date chosen is invalid');
+      setErrorPopup('Please choose a date inside the duration of the trip');
       return;
     } else {
       let attraction = new AttractionModel({
@@ -210,8 +210,8 @@ export default function AttractionsPresenter(props) {
         flexWrap="wrap"
         flexDirection="row"
         height="100%"
-        width={{ md: '100vw', xs: '165vw' }}>
-        <Box flex={0.6} max-height="100%">
+        width={{ md: '100vw', xs: '200vw' }}>
+        <Box flex={{ md: 0.6, xs: 0.5 }} max-height="100%">
           {(searching && (
             <Box height="100%">
               <Box>
@@ -309,11 +309,11 @@ export default function AttractionsPresenter(props) {
             </Box>
           )}
         </Box>
-        <Box flex={0.4} height="70vh">
+        <Box flex={{ md: 0.4, xs: 0.5 }} height="70vh">
           {getCoord() && (
             <MapView
               currentLocation={getCoord}
-              zoom={14}
+              zoom={12}
               sites={searching ? tripAttractions : filteredAttractions}
               promise={promiseMap}
               data={dataMap}

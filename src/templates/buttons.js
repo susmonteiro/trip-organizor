@@ -89,10 +89,6 @@ export function DisabledButton(props) {
   );
 }
 
-export function CloseButton(props) {
-  return <Button id="close button" display="right" {...props} startIcon={<CloseIcon />}></Button>;
-}
-
 export function BasicSpeedDial(props) {
   const goTrips = () => {
     window.location.href = '/trips';
