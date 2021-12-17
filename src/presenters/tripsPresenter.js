@@ -9,13 +9,13 @@ import promiseNoData from '../js/promiseNoData.js';
 import usePromise from '../js/usePromise.js';
 import Grid from '@mui/material/Grid';
 import { signout } from '../js/models/FirebaseModel';
-import useModelProperty from './../js/useModelProperty.js';
+import useModelProperty from '../js/useModelProperty.js';
 import AttractionModel from '../js/models/AttractionModel.js';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import countries from '../js/countryList.js';
 
-export default function TripListPresenter(props) {
+export default function tripsPresenter(props) {
   /* ===== TRIP LIST PRESENTER ===== */
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);

@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import HomePresenter from './presenters/homePresenter.js';
 import AttractionsPresenter from './presenters/attractionsPresenter';
-import TripListPresenter from './presenters/tripListPresenter';
+import tripsPresenter from './presenters/tripsPresenter';
 
 import Stack from '@mui/material/Stack';
 
@@ -58,7 +58,7 @@ function App(props) {
       <Stack spacing={2}>
         <Routes>
           <Route path="/" element={<HomePresenter model={props.model} />} />
-          <Route path="/trips" element={<TripListPresenter model={props.model} />} />
+          <Route path="/trips" element={<TripsPresenter model={props.model} />} />
           <Route path="/attractions" element={<AttractionsPresenter model={props.model} />} />
         </Routes>
       </Stack>
