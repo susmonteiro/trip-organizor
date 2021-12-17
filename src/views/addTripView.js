@@ -69,7 +69,6 @@ export default function AddTripView(props) {
           }
           onBlur={(eventTitle) => {
             props.setTitleNow(eventTitle.target.value);
-            props.tripChoice(eventTitle.target.value);
           }}
         />
       </Grid>
@@ -186,7 +185,6 @@ export default function AddTripView(props) {
             onClick={() => {
               props.addTrip();
               props.showAddChange(!props.showAdd);
-              window.location.href = '/attractions';
             }}>
             Create
           </CustomButton>
