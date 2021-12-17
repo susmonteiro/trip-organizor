@@ -49,19 +49,20 @@ function MapView(props) {
               }
             }}>
             <Popup>
-              {promiseNoData(props.promise, props.data, props.error) || (
+              {promiseNoData(props.promise, props.data, props.error, null, false) || (
                 <Box>
                   <Typography color="primary" fontSize={18} fontWeight={500}>
                     {site.name ? site.name : "This site's name is not available"}
                   </Typography>
                   <Typography fontSize={14}>
-                    {props.data.wikipedia_extracts
+                    {props.data && props.data.wikipedia_extracts
                       ? props.data.wikipedia_extracts.text
                       : "Sorry, we don't have information on this site."}
                   </Typography>
-                  {promiseNoData(props.promiseImage, props.dataImage, props.errorImage, true) || (
-                    <img className="popup-image" src={props.data.preview.source} />
-                  )}
+                  {props.data &&
+                    (promiseNoData(props.promiseImage, props.dataImage, props.errorImage, true) || (
+                      <img className="popup-image" src={props.data.preview.source} />
+                    ))}
                   <br />
                   {!site.type && (
                     <Box textAlign="center">
