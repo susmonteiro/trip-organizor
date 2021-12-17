@@ -36,13 +36,7 @@ export default function AddTripView(props) {
         />
       </Box>
       <Box ml={{ lg: 7, md: 1, xs: 10 }} mr={{ lg: 7, md: 1, xs: 10 }}>
-        <Grid
-          container
-          spacing={5}
-          justifyContent="space-between"
-          mt={1}
-          alignItems="flex-end"
-          onKeyUp={(event) => event.key === 'Enter' && props.onSearch()}>
+        <Grid container spacing={5} justifyContent="space-between" mt={1} alignItems="flex-end">
           <Grid item xs={12}>
             <Typography color="primary" fontSize={32} fontWeight={500} textAlign="center">
               What's your next destination?
@@ -105,7 +99,7 @@ export default function AddTripView(props) {
                   label="Country"
                   error={props.validateTitleExist(props.country)}
                   helperText={
-                    props.validateAttrEmpty(props.country) == 'empty'
+                    props.validateAttrEmpty(props.country) === 'empty'
                       ? 'Hold your horses! We need a country!'
                       : ''
                   }
@@ -116,11 +110,11 @@ export default function AddTripView(props) {
                   onSelect={(eventCountry) => {
                     props.setCountryNow(eventCountry.target.value);
                     if (!props.checkForContent(props.city)) {
-                      props.validateClicked(true);
+                      /* props.validateClicked(true);
                       props.getDestination(
                         eventCity.target.value,
                         countries.find((country) => country.label === props.country).code
-                      );
+                      ); */
                     }
                   }}
                 />
@@ -149,6 +143,49 @@ export default function AddTripView(props) {
                 );
               }}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateRangePicker
+                value={props.date}
+                inputFormat="dd/MM/yyyy"
+                maxDate={getWeeksAfter(props.date[0], 4)}
+                onChange={(newValue) => {
+                  props.setDateNow(newValue);
+                }}
+                renderInput={(startProps, endProps) => (
+                  <React.Fragment>
+                    <TextField {...startProps} />
+                    <Box sx={{ mx: 2 }}> to </Box>
+                    <TextField {...endProps} />
+                  </React.Fragment>
+                )}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6} textAlign="center">
+            <CustomButton
+              variant="outlined"
+              onClick={() => {
+                props.showAddChange(!props.showAdd);
+              }}>
+              Cancel
+            </CustomButton>
+          </Grid>
+          <Grid item xs={6} textAlign="center">
+            <CustomButton
+              disabled={
+                props.validateTitleExist(props.title) ||
+                props.status !== 'OK' ||
+                props.checkForContent(props.date[0]) ||
+                props.checkForContent(props.date[1])
+              }
+              onClick={() => {
+                props.addTrip();
+                props.showAddChange(!props.showAdd);
+              }}>
+              Create
+            </CustomButton>
           </Grid>
         </Grid>
       </Box>

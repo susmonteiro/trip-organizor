@@ -169,7 +169,7 @@ export default function TripListView(props) {
           </InformationMessage>
         </Box>
       ) : (
-        <Box>
+        <Box mt={3}>
           <TableContainer component={Paper}>
             <Table stickyHeader aria-label="simple table">
               <TableHead>

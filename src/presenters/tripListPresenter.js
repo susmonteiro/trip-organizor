@@ -47,8 +47,6 @@ export default function TripListPresenter(props) {
   const [title, setTitle] = React.useState(null);
   const [validate, setValidate] = React.useState(false);
   const [completed, setCompleted] = React.useState(false);
-  const [successPopup, setSuccessPopup] = React.useState('');
-  const [errorPopup, setErrorPopup] = React.useState('');
 
   let status = null;
 
