@@ -79,7 +79,7 @@ export default function AddTripView(props) {
         <Grid item xs={6}>
           <Autocomplete
             id="country-select"
-            fullwidth
+            fullWidth
             options={countries}
             autoHighlight
             getOptionLabel={(option) => option.label}
