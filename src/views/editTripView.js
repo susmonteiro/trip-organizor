@@ -59,11 +59,6 @@ export default function EditTripView(props) {
           />
         </LocalizationProvider>
       </Grid>
-      {/* <CustomButton
-        variant="contained"
-        onClick={() => props.editInfo('THIS IS A NEW TITLE FOR THIS TRIP')}>
-        Save
-      </CustomButton> */}
     </Box>
   );
 }

@@ -8,7 +8,7 @@ export default class AttractionModel {
     finished = false,
     date = null,
     type = null,
-    details = null
+    key = null
   }) {
     this.setID(id);
     this.setTrip(trip);
@@ -19,11 +19,15 @@ export default class AttractionModel {
     this.setFinished(finished);
     this.setDate(date);
     this.setType(type);
-    this.setDetails(details);
+    this.setKey(key);
   }
 
   setID(id) {
     this.id = id;
+  }
+
+  setKey(key) {
+    this.key = key;
   }
 
   setTrip(trip) {
@@ -56,9 +60,5 @@ export default class AttractionModel {
 
   setType(type) {
     this.type = type;
-  }
-
-  setDetails(details) {
-    this.details = details;
   }
 }

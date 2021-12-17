@@ -8,7 +8,6 @@ import addWeeks from 'date-fns/addWeeks';
 
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import DateRangePicker from '@mui/lab/DateRangePicker';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -18,8 +17,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { PopupBottom } from '../templates/popups.js';
 import CustomButton, { CloseButton } from '../templates/buttons.js';
-
-import CloseIcon from '@mui/icons-material/Close';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -55,13 +52,17 @@ export default function AddTripView(props) {
           label="What will be the name of your trip?"
           variant="outlined"
           error={
-            props.title === ''
+            props.title === null
               ? false
+              : /^\s*$/.test(props.title) || props.title === ''
+              ? true
               : props.validateTitleExist(props.title) ||
                 props.validateAttrEmpty(props.title) === 'empty'
           }
           helperText={
-            props.validateAttrEmpty(props.title) == 'empty'
+            props.validateAttrEmpty(props.title) == 'empty' ||
+            /^\s*$/.test(props.title) ||
+            props.title === ''
               ? 'Where are you going?! Your trip needs a name!'
               : props.validateTitleExist(props.title)
               ? 'Oops! Trip name already exists'
@@ -180,7 +181,9 @@ export default function AddTripView(props) {
               props.validateTitleExist(props.title) ||
               props.status !== 'OK' ||
               props.checkForContent(props.date[0]) ||
-              props.checkForContent(props.date[1])
+              props.checkForContent(props.date[1]) ||
+              /^\s*$/.test(props.title) ||
+              props.validateAttrEmpty(props.title) === 'empty'
             }
             onClick={() => {
               props.addTrip();
