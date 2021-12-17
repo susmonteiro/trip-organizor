@@ -84,7 +84,7 @@ export default function AddTripView(props) {
                 <Box component="li" sx={{ '& > img': { pr: 2, flexShrink: 0 } }} {...props}>
                   <img
                     loading="lazy"
-                    width="20"
+                    width="30"
                     src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                     srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
                     alt=""
