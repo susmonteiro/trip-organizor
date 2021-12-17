@@ -163,9 +163,9 @@ export default function TripListView(props) {
             <Table stickyHeader aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell wdith="3%" />
-                  <TableCell width="3%"></TableCell>
-                  <TableCell align="center">
+                  <TableCell width="5%" />
+                  <TableCell width="5%" />
+                  <TableCell width="40%" align="center">
                     Trip title
                     <IconButton
                       onClick={() => {
@@ -175,7 +175,7 @@ export default function TripListView(props) {
                       {changeArrowDisplay(ordertitle, 0, func)}
                     </IconButton>
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell width="20%" align="center">
                     From:
                     <IconButton
                       onClick={() => {
@@ -185,7 +185,7 @@ export default function TripListView(props) {
                       {changeArrowDisplay(orderBDate, 1, func)}
                     </IconButton>
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell width="%20" align="center">
                     To:
                     <IconButton
                       onClick={() => {
@@ -195,7 +195,7 @@ export default function TripListView(props) {
                       {changeArrowDisplay(orderEDate, 2, func)}
                     </IconButton>
                   </TableCell>
-                  <TableCell />
+                  <TableCell width="10%" />
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -230,7 +230,7 @@ export default function TripListView(props) {
                         />
                       </TableCell>
                       <TableCell
-                        align="left"
+                        align="center"
                         onMouseOver={() => props.tripChoice(item.title)}
                         onClick={() => {
                           handleClickOpen('Action');
@@ -417,9 +417,9 @@ export default function TripListView(props) {
                 <Table stickyHeader aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell wdith="3%" />
-                      <TableCell width="3%"></TableCell>
-                      <TableCell align="center">
+                      <TableCell wdith="5%" />
+                      <TableCell width="5%" />
+                      <TableCell width="40%" align="center">
                         Trip title
                         <IconButton
                           onClick={() => {
@@ -429,7 +429,7 @@ export default function TripListView(props) {
                           {changeArrowDisplay(ordertitleDone, 0, funcDone)}
                         </IconButton>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell width="20%" align="center">
                         From:
                         <IconButton
                           onClick={() => {
@@ -439,7 +439,7 @@ export default function TripListView(props) {
                           {changeArrowDisplay(orderBDateDone, 1, funcDone)}
                         </IconButton>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell width="20%" align="center">
                         To:
                         <IconButton
                           onClick={() => {
@@ -449,7 +449,7 @@ export default function TripListView(props) {
                           {changeArrowDisplay(orderEDateDone, 2, funcDone)}
                         </IconButton>
                       </TableCell>
-                      <TableCell />
+                      <TableCell width="10%" />
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -507,7 +507,7 @@ export default function TripListView(props) {
                             onMouseOver={() => props.tripChoice(item.title)}>
                             {new Date(item.dateEnd).toDateString()}
                           </TableCell>
-                          <TableCell></TableCell>
+                          <TableCell width="10%" />
                         </TableRow>
                       ))}
                   </TableBody>
