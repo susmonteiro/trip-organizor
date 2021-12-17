@@ -52,7 +52,7 @@ export default function TripsPresenter(props) {
   const [data, error] = usePromise(promise);
 
   React.useEffect(function () {
-    setPromise(null); // TODO check this
+    setPromise(null);
   }, []);
 
   const trips = useModelProperty(props.model, 'trips');
@@ -124,7 +124,6 @@ export default function TripsPresenter(props) {
           }}
           removeTrip={(deleteTrip) => {
             props.model.removeTrip(deleteTrip);
-
           }}
           addTrip={(newTrip) => {
             props.model.addTrip(newTrip);
