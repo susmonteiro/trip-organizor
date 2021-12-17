@@ -135,35 +135,25 @@ export default function TripListView(props) {
 
   return (
     <Box>
-      <Grid container spacing={2}>
-        <Grid item xs={10}>
-          <Box mt={7} ml={3}>
-            <Typography color="primary" fontSize={40} fontWeight={500} textAlign="left">
-              My Trips
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={2}>
-          <Box mb={3} mr={2}>
-            <Stack spacing={2}>
-              <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
-              <CustomButton
-                id="addNewTrip"
-                display="right"
-                variant="contained"
-                onClick={() => {
-                  props.showAddChange(!props.showAdd);
-                  if (props.showEdit) props.showEditChange(!props.showEdit);
-                }}
-                startIcon={<FlightIcon />}>
-                Add Trip!
-              </CustomButton>
-            </Stack>
-          </Box>
-        </Grid>
-      </Grid>
+      <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
+      <Typography mt={-5} color="primary" fontSize={40} fontWeight={500} textAlign="left">
+        My Trips
+      </Typography>
+      <Box mt={-2} textAlign="right">
+        <CustomButton
+          id="addNewTrip"
+          display="right"
+          variant="contained"
+          onClick={() => {
+            props.showAddChange(!props.showAdd);
+            if (props.showEdit) props.showEditChange(!props.showEdit);
+          }}
+          startIcon={<FlightIcon />}>
+          Add Trip!
+        </CustomButton>
+      </Box>
       {props.trips.length === 0 ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box mt={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <InformationMessage>
             PRESS
             <IconButton
@@ -225,7 +215,7 @@ export default function TripListView(props) {
                   .sort(compare)
                   .map((item) => (
                     <TableRow hover key={item.title}>
-                      <TableCell align="right" >
+                      <TableCell align="right">
                         <IconButton
                           display="center"
                           variant="contained"
@@ -237,9 +227,11 @@ export default function TripListView(props) {
                           <CheckBoxOutlineBlankIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell onClick={() => {
+                      <TableCell
+                        onClick={() => {
                           handleClickOpen('Action');
-                        }} align="left">
+                        }}
+                        align="left">
                         <img
                           loading="lazy"
                           width="20"
@@ -256,14 +248,20 @@ export default function TripListView(props) {
                         }}>
                         {item.title}
                       </TableCell>
-                      <TableCell align="center" onClick={() => {
+                      <TableCell
+                        align="center"
+                        onClick={() => {
                           handleClickOpen('Action');
-                        }} onMouseOver={() => props.tripChoice(item.title)}>
+                        }}
+                        onMouseOver={() => props.tripChoice(item.title)}>
                         {new Date(item.dateBegin).toDateString()}
                       </TableCell>
-                      <TableCell align="center" onClick={() => {
+                      <TableCell
+                        align="center"
+                        onClick={() => {
                           handleClickOpen('Action');
-                        }} onMouseOver={() => props.tripChoice(item.title)}>
+                        }}
+                        onMouseOver={() => props.tripChoice(item.title)}>
                         {new Date(item.dateEnd).toDateString()}
                       </TableCell>
                       <TableCell>
@@ -484,9 +482,11 @@ export default function TripListView(props) {
                               <CheckBoxIcon />
                             </IconButton>
                           </TableCell>
-                          <TableCell onClick={() => {
-                          handleClickOpen('Action');
-                        }} align="left">
+                          <TableCell
+                            onClick={() => {
+                              handleClickOpen('Action');
+                            }}
+                            align="left">
                             <img
                               loading="lazy"
                               width="20"
@@ -504,22 +504,28 @@ export default function TripListView(props) {
                             {item.title}
                           </TableCell>
                           <TableCell
-                            align="center" onClick={() => {
+                            align="center"
+                            onClick={() => {
                               handleClickOpen('Action');
                             }}
                             onMouseOver={() => props.tripChoice(item.title)}>
                             {new Date(item.dateBegin).toDateString()}
                           </TableCell>
                           <TableCell
-                            align="center" onClick={() => {
+                            align="center"
+                            onClick={() => {
                               handleClickOpen('Action');
                             }}
                             onMouseOver={() => props.tripChoice(item.title)}>
                             {new Date(item.dateEnd).toDateString()}
                           </TableCell>
                           <TableCell>
-                            <CustomButton align="center" onMouseOver={() => props.tripChoice(item.title)} onClick={()=>props.removeTrip(props.tripCurrent)} display="none" startIcon={<DeleteOutlineIcon />}>
-                              </CustomButton>
+                            <CustomButton
+                              align="center"
+                              onMouseOver={() => props.tripChoice(item.title)}
+                              onClick={() => props.removeTrip(props.tripCurrent)}
+                              display="none"
+                              startIcon={<DeleteOutlineIcon />}></CustomButton>
                           </TableCell>
                         </TableRow>
                       ))}
