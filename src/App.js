@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import HomePresenter from './presenters/homePresenter.js';
 import AttractionsPresenter from './presenters/attractionsPresenter';
-import tripsPresenter from './presenters/tripsPresenter';
+import TripsPresenter from './presenters/tripsPresenter';
 
 import Stack from '@mui/material/Stack';
 

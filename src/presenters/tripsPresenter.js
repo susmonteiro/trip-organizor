@@ -15,7 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import countries from '../js/countryList.js';
 
-export default function tripsPresenter(props) {
+export default function TripsPresenter(props) {
   /* ===== TRIP LIST PRESENTER ===== */
   const [showDone, setShowDone] = React.useState(false);
   const [showAddTrip, setShowAddTrip] = React.useState(false);
