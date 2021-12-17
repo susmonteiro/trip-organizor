@@ -17,9 +17,7 @@ import Grid from '@mui/material/Grid';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { PopupBottom } from '../templates/popups.js';
-import CustomButton, { CloseButton } from '../templates/buttons.js';
-
-import CloseIcon from '@mui/icons-material/Close';
+import CustomButton from '../templates/buttons.js';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
@@ -27,14 +25,7 @@ function getWeeksAfter(date, amount) {
 
 export default function AddTripView(props) {
   return (
-    <Box textAlign="center">
-      <Box mt={3} mr={3} textAlign="right">
-        <CloseButton
-          onClick={() => {
-            props.showAddChange();
-          }}
-        />
-      </Box>
+    <Box textAlign="center" mt={7}>
       <Box ml={{ lg: 7, md: 1, xs: 10 }} mr={{ lg: 7, md: 1, xs: 10 }}>
         <Grid container spacing={5} justifyContent="space-between" mt={1} alignItems="flex-end">
           <Grid item xs={12}>

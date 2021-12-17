@@ -48,8 +48,6 @@ export default function TripListPresenter(props) {
     setShowAddTrip(show);
   }
 
-  let status = null;
-
   const [promise, setPromise] = React.useState(null);
   const [data, error] = usePromise(promise);
 
@@ -138,14 +136,10 @@ export default function TripListPresenter(props) {
             props.model.setTripCurrent(id);
           }}
           tripCurrent={trip}
-          showDoneChange={(status) => {
-            setShowDone(status);
-          }}
           showDone={showDone}
           showAdd={showAddTrip}
           showAddChange={(show) => {
             displayAddTrip(show);
-            status = null;
           }}
           timeoutSnack={() => setCompleted(false)}
           useLogout={() => doLogout()}
@@ -200,7 +194,6 @@ export default function TripListPresenter(props) {
           date={date}
           city={city}
           country={country}
-          status={status}
           title={title}
           // Setters of the data
           setDateNow={(inputDate) => setDate(inputDate)}

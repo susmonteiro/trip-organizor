@@ -89,16 +89,6 @@ export function DisabledButton(props) {
   );
 }
 
-export function CloseButton(props) {
-  return (
-    <Tooltip title="close" placement="bottom">
-      <IconButton color={props.color || 'primary'} aria-label="close button" {...props}>
-        <CloseIcon />
-      </IconButton>
-    </Tooltip>
-  );
-}
-
 export function BasicSpeedDial(props) {
   const goTrips = () => {
     window.location.href = '/trips';
