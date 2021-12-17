@@ -2,8 +2,6 @@ import countries from '../js/countryList.js';
 
 import * as React from 'react';
 
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-
 import addWeeks from 'date-fns/addWeeks';
 
 import Autocomplete from '@mui/material/Autocomplete';
@@ -107,6 +105,7 @@ export default function AddTripView(props) {
           <Grid item xs={6}>
             <TextField
               id="cityInput"
+              value={props.city || ''}
               label="City"
               fullWidth
               variant="outlined"
@@ -117,7 +116,7 @@ export default function AddTripView(props) {
               helperText={
                 props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
               }
-              onBlur={(eventCity) => {
+              onChange={(eventCity) => {
                 props.setCityNow(eventCity.target.value);
               }}
             />
@@ -156,7 +155,7 @@ export default function AddTripView(props) {
                 props.validateTitleExist(props.title) ||
                 props.checkForContent(props.date[0]) ||
                 props.checkForContent(props.date[1]) ||
-                props.validateAttrEmpty(props.city) === 'empty'
+                props.validateAttrEmpty(props.city) !== false
               }
               onClick={() => {
                 props.addTrip();
