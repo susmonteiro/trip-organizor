@@ -76,7 +76,7 @@ export default function TripListPresenter(props) {
 
   /* ===== ADD TRIP PRESENTER ===== */
   return getTrip() === null ? (
-    <Box height="100%" width="100%" mt={30} ml={70}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} mt={10}>
       <CircularProgress />
     </Box>
   ) : (
