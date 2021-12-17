@@ -124,7 +124,7 @@ export default function TripsPresenter(props) {
           }}
           removeTrip={(deleteTrip) => {
             props.model.removeTrip(deleteTrip);
-              trips.find((trip) => trip.title === currentTripOK),
+
           }}
           addTrip={(newTrip) => {
             props.model.addTrip(newTrip);
