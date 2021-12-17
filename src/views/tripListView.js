@@ -507,14 +507,7 @@ export default function TripListView(props) {
                             onMouseOver={() => props.tripChoice(item.title)}>
                             {new Date(item.dateEnd).toDateString()}
                           </TableCell>
-                          <TableCell>
-                            <CustomButton
-                              align="center"
-                              onMouseOver={() => props.tripChoice(item.title)}
-                              onClick={() => props.removeTrip(props.tripCurrent)}
-                              display="none"
-                              startIcon={<DeleteOutlineIcon />}></CustomButton>
-                          </TableCell>
+                          <TableCell></TableCell>
                         </TableRow>
                       ))}
                   </TableBody>
