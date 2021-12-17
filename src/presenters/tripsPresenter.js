@@ -61,10 +61,6 @@ export default function TripsPresenter(props) {
 
   let trip = trips.find((trip) => trip.title === currentTripOK);
 
-  function getTrip() {
-    return trip ? trip : null;
-  }
-
   function addTrip() {
     let foundCountry = countries.find((c) => c.label === country);
 
@@ -132,6 +128,9 @@ export default function TripsPresenter(props) {
             props.model.setTripCurrent(id);
           }}
           tripCurrent={trip}
+          showDoneChange={(status) => {
+            setShowDone(status);
+          }}
           showDone={showDone}
           showAdd={showAddTrip}
           showAddChange={(show) => {
