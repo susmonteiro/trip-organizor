@@ -136,10 +136,10 @@ export default function TripListView(props) {
   return (
     <Box>
       <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
-      <Typography ml={3} mt={-5} color="primary" fontSize={40} fontWeight={500} textAlign="left">
+      <Typography mt={-5} color="primary" fontSize={40} fontWeight={500} textAlign="left">
         My Trips
       </Typography>
-      <Box mt={-2} ml={3} mr={2} textAlign="right">
+      <Box mt={-2} textAlign="right">
         <CustomButton
           id="addNewTrip"
           display="right"
@@ -153,7 +153,7 @@ export default function TripListView(props) {
         </CustomButton>
       </Box>
       {props.trips.length === 0 ? (
-        <Box mt={5} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box mt={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <InformationMessage>
             PRESS
             <IconButton
