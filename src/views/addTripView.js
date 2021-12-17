@@ -85,16 +85,14 @@ export default function AddTripView(props) {
                 <TextField
                   {...params}
                   label="Country"
+                  value={props.country || ''}
+                  autoComplete="off"
                   error={props.validateTitleExist(props.country)}
                   helperText={
                     props.validateAttrEmpty(props.country) === 'empty'
                       ? 'Hold your horses! We need a country!'
                       : ''
                   }
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: 'new-password' // disable autocomplete and autofill
-                  }}
                   onSelect={(eventCountry) => {
                     props.setCountryNow(eventCountry.target.value);
                   }}
