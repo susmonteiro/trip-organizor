@@ -2,8 +2,8 @@
 
 **Authors:**
 
-- [Adrià Torruella](https://gits-15.sys.kth.se/adriapt)
-- [Fernando Codony](https://github.com/fergascod)
+- [Adrià Pagès](https://github.com/Adriapt)
+- [Fernando Gastón](https://github.com/fergascod)
 - [Paulo Hernandez](https://github.com/paulohj)
 - [Susana Monteiro](https://github.com/susmonteiro)
 
