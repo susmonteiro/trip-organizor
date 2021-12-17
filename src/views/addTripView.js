@@ -27,7 +27,7 @@ function getWeeksAfter(date, amount) {
 
 export default function AddTripView(props) {
   return (
-    <Box sx={{ flexGrow: 1 }} ml={-5}>
+    <Box sx={{ flexGrow: 1 }} ml={-3} pr={5} textAlign="center">
       <Box mt={3} textAlign="right">
         <CloseButton
           onClick={() => {
@@ -35,44 +35,170 @@ export default function AddTripView(props) {
           }}
         />
       </Box>
-      <Typography mt={-2} color="primary" fontSize={32} fontWeight={500} textAlign="left">
-        What's your next destination?
-      </Typography>
+      <Grid
+        container
+        mt={2}
+        rowSpacing={5}
+        columnSpacing={5}
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between">
+        <Grid align="right" item xs={12}>
+          <Typography color="primary" fontSize={32} fontWeight={500} textAlign="center">
+            What's your next destination?
+          </Typography>
+        </Grid>
+        <Grid align="right" item xs={12}>
+          <TextField
+            id="titleInput"
+            autoComplete="off"
+            fullWidth
+            inputProps={{
+              maxLength: 50
+            }}
+            label="What will be the name of your trip?"
+            variant="outlined"
+            error={
+              props.title === ''
+                ? false
+                : props.validateTitleExist(props.title) ||
+                  props.validateAttrEmpty(props.title) === 'empty'
+            }
+            helperText={
+              props.validateAttrEmpty(props.title) == 'empty'
+                ? 'Where are you going?! Your trip needs a name!'
+                : props.validateTitleExist(props.title)
+                ? 'Oops! Trip name already exists'
+                : ''
+            }
+            onBlur={(eventTitle) => {
+              props.setTitleNow(eventTitle.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Autocomplete
+            id="country-select"
+            fullwidth
+            options={countries}
+            autoHighlight
+            getOptionLabel={(option) => option.label}
+            renderOption={(props, option) => (
+              <Box component="li" sx={{ '& > img': { pr: 2, flexShrink: 0 } }} {...props}>
+                <img
+                  loading="lazy"
+                  width="20"
+                  src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                  srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                  alt=""
+                />
+                {option.label} ({option.code})
+              </Box>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Country"
+                error={props.validateTitleExist(props.country)}
+                helperText={
+                  props.validateAttrEmpty(props.country) == 'empty'
+                    ? 'Hold your horses! We need a country!'
+                    : ''
+                }
+                inputProps={{
+                  ...params.inputProps,
+                  autoComplete: 'new-password' // disable autocomplete and autofill
+                }}
+                onSelect={(eventCountry) => {
+                  props.setCountryNow(eventCountry.target.value);
+                  if (!props.checkForContent(props.city)) {
+                    props.validateClicked(true);
+                    props.getDestination(
+                      eventCity.target.value,
+                      countries.find((country) => country.label === props.country).code
+                    );
+                  }
+                }}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="cityInput"
+            label="City"
+            fullWidth
+            autoComplete="off"
+            disabled={props.checkForContent(props.country)}
+            variant="standard"
+            error={props.checkForContent(props.city !== null ? props.city : 'not empty')}
+            inputProps={{ maxLength: 20 }}
+            helperText={
+              props.validateAttrEmpty(props.city) == 'empty' ? 'Psst! Put a city here!' : ''
+            }
+            onBlur={(eventCity) => {
+              props.setCityNow(eventCity.target.value);
+              props.validateClicked(true);
+              props.getDestination(
+                eventCity.target.value,
+                countries.find((country) => country.label === props.country).code
+              );
+            }}
+          />
+        </Grid>
+        <Grid item xs={1} />
+        <Grid item xs={10}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateRangePicker
+              value={props.date}
+              inputFormat="dd/MM/yyyy"
+              maxDate={getWeeksAfter(props.date[0], 4)}
+              onChange={(newValue) => {
+                props.setDateNow(newValue);
+              }}
+              renderInput={(startProps, endProps) => (
+                <React.Fragment>
+                  <TextField {...startProps} />
+                  <Box sx={{ mx: 2 }}> to </Box>
+                  <TextField {...endProps} />
+                </React.Fragment>
+              )}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Grid item xs={1} />
+        <Grid item mt={10} xs={6}>
+          <CustomButton
+            variant="outlined"
+            onClick={() => {
+              props.showAddChange(!props.showAdd);
+            }}>
+            Cancel
+          </CustomButton>
+        </Grid>
+        <Grid item xs={6} mt={10}>
+          <CustomButton
+            disabled={
+              props.validateTitleExist(props.title) ||
+              props.status !== 'OK' ||
+              props.checkForContent(props.date[0]) ||
+              props.checkForContent(props.date[1])
+            }
+            onClick={() => {
+              props.addTrip();
+              props.showAddChange(!props.showAdd);
+            }}>
+            Create
+          </CustomButton>
+        </Grid>
+      </Grid>
 
-      <Grid container mt={2} spacing={2}>
-        <Grid align="right" item xs={12}></Grid>
+      {/* <Grid align="right" item xs={12}></Grid>
         <Grid container mt={2} spacing={2}>
           <Grid item xs={12}></Grid>
         </Grid>
       </Grid>
-      <Grid container mt={4} spacing={2}>
-        <TextField
-          id="titleInput"
-          autoComplete="off"
-          fullWidth
-          inputProps={{
-            maxLength: 50
-          }}
-          label="What will be the name of your trip?"
-          variant="outlined"
-          error={
-            props.title === ''
-              ? false
-              : props.validateTitleExist(props.title) ||
-                props.validateAttrEmpty(props.title) === 'empty'
-          }
-          helperText={
-            props.validateAttrEmpty(props.title) == 'empty'
-              ? 'Where are you going?! Your trip needs a name!'
-              : props.validateTitleExist(props.title)
-              ? 'Oops! Trip name already exists'
-              : ''
-          }
-          onBlur={(eventTitle) => {
-            props.setTitleNow(eventTitle.target.value);
-          }}
-        />
-      </Grid>
+      <Grid container mt={4} spacing={2}></Grid>
       <Grid container mt={2} spacing={2}>
         <Stack direction="row" spacing={2}>
           <Autocomplete
@@ -190,7 +316,7 @@ export default function AddTripView(props) {
             Create
           </CustomButton>
         </Grid>
-      </Grid>
+      </Grid> */}
       {props.status === 'OK' && (
         <PopupBottom
           type={'success'}
