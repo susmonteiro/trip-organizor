@@ -199,42 +199,42 @@ export default function TripListPresenter(props) {
             );
           }}
         />
-        <Box display={showEditTrip ? 'block' : 'none'} flex={{ md: 0.4, xs: 1 }} height="100vh">
-          {getTrip() && (
-            <EditTripView
-              // Data relevant to the view
-              trip={trip}
-              showAdd={showAddTrip}
-              showAddChange={(show) => {
-                setShowAddTrip(show);
-              }}
-              showEdit={showEditTrip}
-              showEditChange={(show) => {
-                setShowEditTrip(show);
-              }}
-              removeTrip={(deleteTrip) => {
-                props.model.removeTrip(deleteTrip);
-              }}
-              editInfo={(titleNew) => {
-                props.model.removeTrip(trip.title);
-                props.model.addTrip(
-                  new TripModel(
-                    titleNew,
-                    'Sweden',
-                    'SE',
-                    'Stockholm',
-                    new Date().getTime(),
-                    new Date().getTime(),
-                    [0, 0],
-                    false,
-                    [],
-                    false
-                  )
-                );
-              }}
-            />
-          )}
-        </Box>
+      </Box>
+      <Box display={showEditTrip ? 'block' : 'none'} flex={{ md: 0.4, xs: 1 }} height="100vh">
+        {getTrip() && (
+          <EditTripView
+            // Data relevant to the view
+            trip={trip}
+            showAdd={showAddTrip}
+            showAddChange={(show) => {
+              setShowAddTrip(show);
+            }}
+            showEdit={showEditTrip}
+            showEditChange={(show) => {
+              setShowEditTrip(show);
+            }}
+            removeTrip={(deleteTrip) => {
+              props.model.removeTrip(deleteTrip);
+            }}
+            editInfo={(titleNew) => {
+              props.model.removeTrip(trip.title);
+              props.model.addTrip(
+                new TripModel(
+                  titleNew,
+                  'Sweden',
+                  'SE',
+                  'Stockholm',
+                  new Date().getTime(),
+                  new Date().getTime(),
+                  [0, 0],
+                  false,
+                  [],
+                  false
+                )
+              );
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
