@@ -119,7 +119,7 @@ export default function TripListView(props) {
 
   const handleClose = (id) => {
     if (id === 'Delete') {
-      OpenDelete(false);
+      setOpenDelete(false);
     } else if (id === 'Duplicate') setOpenDuplicate(false);
     else if (id === 'Action') setOpenAction(false);
   };
