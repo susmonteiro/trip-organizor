@@ -137,6 +137,7 @@ export default function TripListView(props) {
           variant="contained"
           onClick={() => {
             props.showAddChange(!props.showAdd);
+            props.setCountrySel('');
           }}
           startIcon={<FlightIcon />}>
           Add Trip!

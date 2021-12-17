@@ -16,12 +16,20 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { PopupBottom } from '../templates/popups.js';
 import CustomButton from '../templates/buttons.js';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
 }
 
 export default function AddTripView(props) {
+  const handleChange = (event) => {
+    props.setCountrySel(event.target.value);
+  };
+
   return (
     <Box textAlign="center" mt={7}>
       <Box ml={{ lg: 7, md: 1, xs: 10 }} mr={{ lg: 7, md: 1, xs: 10 }}>
@@ -48,7 +56,7 @@ export default function AddTripView(props) {
                   : /^\s*$/.test(props.title) || props.title === ''
                   ? true
                   : props.validateTitleExist(props.title) ||
-                    props.validateAttrEmpty(props.title) === 'empty'
+                    props.validateAttrEmpty(props.title) === ('empty' || 'null')
               }
               helperText={
                 props.validateAttrEmpty(props.title) == 'empty' ||
@@ -63,9 +71,9 @@ export default function AddTripView(props) {
             />
           </Grid>
           <Grid item xs={6}>
-            <Autocomplete
+            {/* <Autocomplete
               id="country-select"
-              fullWidth
+              fullWidth              
               options={countries}
               autoHighlight
               getOptionLabel={(option) => option.label}
@@ -88,17 +96,42 @@ export default function AddTripView(props) {
                   value={props.country || ''}
                   autoComplete="off"
                   error={props.validateTitleExist(props.country)}
-                  helperText={
-                    props.validateAttrEmpty(props.country) === 'empty'
-                      ? 'Hold your horses! We need a country!'
-                      : ''
-                  }
+                  helperText=
                   onSelect={(eventCountry) => {
                     props.setCountryNow(eventCountry.target.value);
                   }}
                 />
               )}
-            />
+            /> */}
+            <Box sx={{ minWidth: 150 }}>
+              <FormControl fullWidth>
+                <InputLabel id="country">Country</InputLabel>
+                <Select
+                  labelId="countrySell"
+                  id="country"
+                  value={props.countrySel || ''}
+                  label="Country"
+                  onChange={(event) => {
+                    handleChange(event);
+                    props.setCountryNow(event.target.value);
+                  }}>
+                  {countries.map((land) => (
+                    <MenuItem key={land.code} value={land.label}>
+                      <Box>
+                        <img
+                          loading="lazy"
+                          width="20"
+                          src={`https://flagcdn.com/w20/${land.code.toLowerCase()}.png`}
+                          srcSet={`https://flagcdn.com/w40/${land.code.toLowerCase()}.png 2x`}
+                          alt=""
+                        />
+                        {' ' + land.label + ' (' + land.code + ')'}
+                      </Box>
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -143,6 +176,7 @@ export default function AddTripView(props) {
               variant="outlined"
               onClick={() => {
                 props.showAddChange();
+                props.setCountrySel('');
               }}>
               Cancel
             </CustomButton>
@@ -153,10 +187,13 @@ export default function AddTripView(props) {
                 props.validateTitleExist(props.title) ||
                 props.checkForContent(props.date[0]) ||
                 props.checkForContent(props.date[1]) ||
-                props.validateAttrEmpty(props.city) !== false
+                props.validateAttrEmpty(props.city) !== false ||
+                /^\s*$/.test(props.title) ||
+                props.validateAttrEmpty(props.title) === ('empty' || 'null')
               }
               onClick={() => {
                 props.addTrip();
+                props.setCountrySel('');
               }}>
               Create
             </CustomButton>
