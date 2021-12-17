@@ -76,7 +76,7 @@ export default function TripListPresenter(props) {
   /* ===== EDIT TRIP PRESENTER ===== */
   return (
     <Box>
-      <Grid container spacing={1}>
+      <Grid container spacing={0} justifyContent="space-around" width="100vw">
         <Grid item xs={showAddTrip || showEditTrip ? 7 : 12}>
           <Box>
             <TripListView
@@ -134,11 +134,16 @@ export default function TripListPresenter(props) {
             />
           </Box>
         </Grid>
-        <Grid item xs={0.5} height="100vh" display={showAddTrip || showEditTrip ? 'block' : 'none'}>
+        <Grid
+          item
+          xs={0.5}
+          pr={5}
+          height="100vh"
+          display={showAddTrip || showEditTrip ? 'block' : 'none'}>
           <Divider orientation="vertical" />
         </Grid>
-        <Grid item xs={4} display={showAddTrip ? 'block' : 'none'}>
-          <Box ml={5} mr={1}>
+        <Grid item xs={4.5} display={showAddTrip ? 'block' : 'none'}>
+          <Box pl={5} pr={1}>
             <AddTripView
               // Data relevant to the view
               date={date}
@@ -192,7 +197,7 @@ export default function TripListPresenter(props) {
           </Box>
         </Grid>
         <Grid item xs={4} display={showEditTrip ? 'block' : 'none'}>
-          <Box ml={5} mr={1}>
+          <Box pl={5} pr={1}>
             {getTrip() && (
               <EditTripView
                 // Data relevant to the view
