@@ -135,25 +135,35 @@ export default function TripListView(props) {
 
   return (
     <Box>
-      <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
-      <Typography ml={3} mt={-5} color="primary" fontSize={40} fontWeight={500} textAlign="left">
-        My Trips
-      </Typography>
-      <Box mt={-2} ml={3} mr={2} textAlign="right">
-        <CustomButton
-          id="addNewTrip"
-          display="right"
-          variant="contained"
-          onClick={() => {
-            props.showAddChange(!props.showAdd);
-            if (props.showEdit) props.showEditChange(!props.showEdit);
-          }}
-          startIcon={<FlightIcon />}>
-          Add Trip!
-        </CustomButton>
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={10}>
+          <Box mt={7} ml={3}>
+            <Typography color="primary" fontSize={40} fontWeight={500} textAlign="left">
+              My Trips
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={2}>
+          <Box mb={3} mr={2}>
+            <Stack spacing={2}>
+              <BasicSpeedDial useLogout={props.useLogout} user={props.user} />
+              <CustomButton
+                id="addNewTrip"
+                display="right"
+                variant="contained"
+                onClick={() => {
+                  props.showAddChange(!props.showAdd);
+                  if (props.showEdit) props.showEditChange(!props.showEdit);
+                }}
+                startIcon={<FlightIcon />}>
+                Add Trip!
+              </CustomButton>
+            </Stack>
+          </Box>
+        </Grid>
+      </Grid>
       {props.trips.length === 0 ? (
-        <Box mt={5} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <InformationMessage>
             PRESS
             <IconButton
@@ -169,7 +179,7 @@ export default function TripListView(props) {
           </InformationMessage>
         </Box>
       ) : (
-        <Box mt={3}>
+        <Box>
           <TableContainer component={Paper}>
             <Table stickyHeader aria-label="simple table">
               <TableHead>
@@ -215,7 +225,7 @@ export default function TripListView(props) {
                   .sort(compare)
                   .map((item) => (
                     <TableRow hover key={item.title}>
-                      <TableCell align="right">
+                      <TableCell align="right" >
                         <IconButton
                           display="center"
                           variant="contained"
@@ -227,7 +237,9 @@ export default function TripListView(props) {
                           <CheckBoxOutlineBlankIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell onClick={() => {
+                          handleClickOpen('Action');
+                        }} align="left">
                         <img
                           loading="lazy"
                           width="20"
@@ -244,10 +256,14 @@ export default function TripListView(props) {
                         }}>
                         {item.title}
                       </TableCell>
-                      <TableCell align="center" onMouseOver={() => props.tripChoice(item.title)}>
+                      <TableCell align="center" onClick={() => {
+                          handleClickOpen('Action');
+                        }} onMouseOver={() => props.tripChoice(item.title)}>
                         {new Date(item.dateBegin).toDateString()}
                       </TableCell>
-                      <TableCell align="center" onMouseOver={() => props.tripChoice(item.title)}>
+                      <TableCell align="center" onClick={() => {
+                          handleClickOpen('Action');
+                        }} onMouseOver={() => props.tripChoice(item.title)}>
                         {new Date(item.dateEnd).toDateString()}
                       </TableCell>
                       <TableCell>
@@ -468,7 +484,9 @@ export default function TripListView(props) {
                               <CheckBoxIcon />
                             </IconButton>
                           </TableCell>
-                          <TableCell align="left">
+                          <TableCell onClick={() => {
+                          handleClickOpen('Action');
+                        }} align="left">
                             <img
                               loading="lazy"
                               width="20"
@@ -486,19 +504,22 @@ export default function TripListView(props) {
                             {item.title}
                           </TableCell>
                           <TableCell
-                            align="center"
+                            align="center" onClick={() => {
+                              handleClickOpen('Action');
+                            }}
                             onMouseOver={() => props.tripChoice(item.title)}>
                             {new Date(item.dateBegin).toDateString()}
                           </TableCell>
                           <TableCell
-                            align="center"
+                            align="center" onClick={() => {
+                              handleClickOpen('Action');
+                            }}
                             onMouseOver={() => props.tripChoice(item.title)}>
                             {new Date(item.dateEnd).toDateString()}
                           </TableCell>
                           <TableCell>
-                            <CustomButton onClick={() => props.removeTrip(item.title)}>
-                              <DeleteOutlineIcon />
-                            </CustomButton>
+                            <CustomButton align="center" onMouseOver={() => props.tripChoice(item.title)} onClick={()=>props.removeTrip(props.tripCurrent)} display="none" startIcon={<DeleteOutlineIcon />}>
+                              </CustomButton>
                           </TableCell>
                         </TableRow>
                       ))}

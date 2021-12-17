@@ -8,6 +8,7 @@ import addWeeks from 'date-fns/addWeeks';
 
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import DateRangePicker from '@mui/lab/DateRangePicker';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -18,27 +19,30 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { PopupBottom } from '../templates/popups.js';
 import CustomButton, { CloseButton } from '../templates/buttons.js';
 
+import CloseIcon from '@mui/icons-material/Close';
+
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
 }
 
 export default function AddTripView(props) {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} ml={-5}>
+      <Box mt={3} textAlign="right">
+        <CloseButton
+          onClick={() => {
+            props.showAddChange(!props.showAdd);
+          }}
+        />
+      </Box>
+      <Typography mt={-2} color="primary" fontSize={32} fontWeight={500} textAlign="left">
+        What's your next destination?
+      </Typography>
+
       <Grid container mt={2} spacing={2}>
-        <Grid align="right" item xs={12}>
-          <CloseButton
-            onClick={() => {
-              props.showAddChange(!props.showAdd);
-            }}
-          />
-        </Grid>
+        <Grid align="right" item xs={12}></Grid>
         <Grid container mt={2} spacing={2}>
-          <Grid item xs={12}>
-            <Typography color="primary" fontSize={32} fontWeight={500} textAlign="center">
-              What's your next destination?
-            </Typography>
-          </Grid>
+          <Grid item xs={12}></Grid>
         </Grid>
       </Grid>
       <Grid container mt={4} spacing={2}>
@@ -82,7 +86,7 @@ export default function AddTripView(props) {
             autoHighlight
             getOptionLabel={(option) => option.label}
             renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+              <Box component="li" sx={{ '& > img': { pr: 2, flexShrink: 0 } }} {...props}>
                 <img
                   loading="lazy"
                   width="20"
@@ -121,7 +125,7 @@ export default function AddTripView(props) {
             )}
           />
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <LocationCityIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            <LocationCityIcon sx={{ color: 'action.active', pr: 1, my: 0.5 }} />
             <TextField
               id="cityInput"
               label="City"
@@ -164,7 +168,7 @@ export default function AddTripView(props) {
           />
         </LocalizationProvider>
       </Grid>
-      <Grid container ml={3} mt={11} spacing={2}>
+      <Grid container pl={3} mt={11} spacing={2}>
         <Grid item xs={3}>
           <CustomButton
             variant="outlined"
