@@ -45,6 +45,7 @@ export default function AddTripView(props) {
           <Grid item xs={12}>
             <TextField
               id="titleInput"
+              value={props.title || ''}
               autoComplete="off"
               fullWidth
               inputProps={{
@@ -69,9 +70,7 @@ export default function AddTripView(props) {
                   ? 'Oops! Trip name already exists'
                   : ''
               }
-              onBlur={(eventTitle) => {
-                props.setTitleNow(eventTitle.target.value);
-              }}
+              onChange={(event) => props.setTitleNow(event.target.value)}
             />
           </Grid>
           <Grid item xs={6}>
@@ -109,13 +108,6 @@ export default function AddTripView(props) {
                   }}
                   onSelect={(eventCountry) => {
                     props.setCountryNow(eventCountry.target.value);
-                    if (!props.checkForContent(props.city)) {
-                      /* props.validateClicked(true);
-                      props.getDestination(
-                        eventCity.target.value,
-                        countries.find((country) => country.label === props.country).code
-                      ); */
-                    }
                   }}
                 />
               )}
@@ -136,11 +128,6 @@ export default function AddTripView(props) {
               }
               onBlur={(eventCity) => {
                 props.setCityNow(eventCity.target.value);
-                props.validateClicked(true);
-                props.getDestination(
-                  eventCity.target.value,
-                  countries.find((country) => country.label === props.country).code
-                );
               }}
             />
           </Grid>
@@ -176,33 +163,20 @@ export default function AddTripView(props) {
             <CustomButton
               disabled={
                 props.validateTitleExist(props.title) ||
-                props.status !== 'OK' ||
                 props.checkForContent(props.date[0]) ||
-                props.checkForContent(props.date[1])
+                props.checkForContent(props.date[1]) ||
+                props.validateAttrEmpty(props.city) === 'empty'
               }
               onClick={() => {
                 props.addTrip();
-                props.showAddChange();
               }}>
               Create
             </CustomButton>
           </Grid>
         </Grid>
       </Box>
-      {props.status === 'OK' && (
-        <PopupBottom
-          type={'success'}
-          message={'Woohoo! Your destination is valid!'}
-          onClose={props.timeoutSnack}
-        />
-      )}
-      {props.status === 'NOT_FOUND' && (
-        <PopupBottom
-          type={'error'}
-          message={"Sorry, your destination doesn't exist"}
-          onClose={props.timeoutSnack}
-        />
-      )}
+      <PopupBottom type={'success'} message={props.successMessage} onClose={props.resetMessage} />
+      <PopupBottom type={'error'} message={props.errorMessage} onClose={props.resetError} />
     </Box>
   );
 }

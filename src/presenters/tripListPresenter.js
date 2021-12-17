@@ -13,6 +13,8 @@ import useModelProperty from './../js/useModelProperty.js';
 import AttractionModel from '../js/models/AttractionModel.js';
 import CircularProgress from '@mui/material/CircularProgress';
 
+import countries from '../js/countryList.js';
+
 export default function TripListPresenter(props) {
   /* ===== TRIP LIST PRESENTER ===== */
   const [showDone, setShowDone] = React.useState(false);
@@ -27,7 +29,6 @@ export default function TripListPresenter(props) {
   const [city, setCity] = React.useState(null);
   const [country, setCountry] = React.useState(null);
   const [title, setTitle] = React.useState(null);
-  const [validate, setValidate] = React.useState(false);
   const [completed, setCompleted] = React.useState(false);
 
   function doLogout() {
@@ -56,12 +57,6 @@ export default function TripListPresenter(props) {
     setPromise(null); // TODO check this
   }, []);
 
-  if (validate) {
-    const apiRes = promiseNoData(promise, data, error);
-    if (typeof apiRes === 'boolean' && apiRes === false) {
-      status = data.status;
-    }
-  }
   const trips = useModelProperty(props.model, 'trips');
   const currentTripOK = useModelProperty(props.model, 'tripCurrent');
   const attractions = useModelProperty(props.model, 'attractions');
@@ -70,6 +65,42 @@ export default function TripListPresenter(props) {
 
   function getTrip() {
     return trip ? trip : null;
+  }
+
+  function addTrip() {
+    let foundCountry = countries.find((c) => c.label === country);
+
+    if (!foundCountry || !foundCountry.code) {
+      setErrorPopup('The country is not valid');
+      return;
+    } else if (!city) {
+      setErrorPopup('The city cannot be empty');
+      return;
+    }
+    SitesSource.getCoords(city, foundCountry.code)
+      .then((data) => {
+        if (data.status === 'OK') {
+          props.model.addTrip(
+            new TripModel(
+              title,
+              country,
+              data.country,
+              data.name,
+              date[0].getTime(),
+              date[1].getTime(),
+              [data.lat, data.lon],
+              false,
+              [],
+              false
+            )
+          );
+          setSuccessPopup('Woohoo! Your destination is valid!');
+          setShowAddTrip(false);
+        } else {
+          setErrorPopup(data.error);
+        }
+      })
+      .catch(() => setErrorPopup(data.error));
   }
 
   return (
@@ -174,12 +205,13 @@ export default function TripListPresenter(props) {
           // Setters of the data
           setDateNow={(inputDate) => setDate(inputDate)}
           setCityNow={(inputCity) => setCity(inputCity)}
-          setCountryNow={(inputCountry) => setCountry(inputCountry)}
+          setCountryNow={(inputCountry) => {
+            setCountry(inputCountry);
+          }}
           setTitleNow={(inputTitle) => setTitle(inputTitle)}
           // Custom functions for validation
           checkForContent={(attr) => props.model.checkNullEmpty(attr)}
           getDestination={(city, code) => setPromise(SitesSource.getCoords(city, code))}
-          validateClicked={(state) => setValidate(state)}
           validateTitleExist={(title) => props.model.tripTitleExists(title)}
           validateAttrEmpty={(title) => props.model.tripAttrEmpty(title)}
           // Main function to change data in the model
@@ -190,22 +222,11 @@ export default function TripListPresenter(props) {
           tripChoice={(id) => {
             props.model.setTripCurrent(id);
           }}
-          addTrip={() => {
-            props.model.addTrip(
-              new TripModel(
-                title,
-                country,
-                data.country,
-                data.name,
-                date[0].getTime(),
-                date[1].getTime(),
-                [data.lat, data.lon],
-                false,
-                [],
-                false
-              )
-            );
-          }}
+          addTrip={() => addTrip()}
+          errorMessage={errorPopup}
+          resetError={() => setErrorPopup('')}
+          successMessage={successPopup}
+          resetMessage={() => setSuccessPopup('')}
         />
       </Box>
     </Box>
