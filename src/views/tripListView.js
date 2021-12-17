@@ -209,7 +209,6 @@ export default function TripListView(props) {
                   {changeArrowDisplay(orderEDate, 2, func)}
                 </IconButton>
               </TableCell>
-              <TableCell align="center"># of Attractions</TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
@@ -254,143 +253,12 @@ export default function TripListView(props) {
                     }}>
                     {item.title}
                   </TableCell>
-                  <Dialog
-                    open={openAction}
-                    onClose={() => handleClose('Action')}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description">
-                    <DialogTitle id="alert-dialog-title">{'What do you want to do?'}</DialogTitle>
-                    <DialogContent>
-                      <Box width={300}>
-                        <List>
-                          {[
-                            { action: 'Edit', icon: <EditIcon /> },
-                            { action: 'Duplicate', icon: <ContentCopyIcon /> },
-                            { action: 'Delete', icon: <DeleteIcon /> }
-                          ].map((item) => (
-                            <ListItem disablePadding key={item.action}>
-                              <ListItemButton
-                                onClick={() => {
-                                  handleClickOpen(item.action);
-                                }}>
-                                <ListItemIcon>{item.icon}</ListItemIcon>
-                                <ListItemText primary={item.action} />
-                              </ListItemButton>
-                            </ListItem>
-                          ))}
-                          <Dialog
-                            open={openDelete}
-                            onClose={() => handleClose('Delete')}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description">
-                            <DialogTitle id="alert-dialog-title">
-                              {'WAIT!! Delete this trip?'}
-                            </DialogTitle>
-                            <DialogContent>
-                              <DialogContentText id="alert-dialog-description">
-                                Are you 100% sure that you want to delete this trip and all the
-                                memories contained within it? This action cannot be reversed!
-                              </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                              <Button
-                                onClick={() => {
-                                  handleClose('Delete');
-                                  handleClose('Action');
-                                }}>
-                                No
-                              </Button>
-                              <Button
-                                onClick={() => {
-                                  handleClose('Delete');
-                                  handleClose('Action');
-                                  props.removeTrip(props.tripCurrent);
-                                }}
-                                autoFocus>
-                                Yes
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
-                        </List>
-                      </Box>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        onClick={() => {
-                          handleClose('Action');
-                        }}>
-                        Cancel
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                  <Dialog
-                    open={openDuplicate}
-                    id="Duplicate"
-                    onClose={() => handleClose('Duplicate')}>
-                    <DialogTitle>Trip Duplication</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        You´re about to duplicate a trip, please assign a new name to it
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        id="Tripname"
-                        margin="dense"
-                        inputProps={{
-                          maxLength: 50
-                        }}
-                        error={
-                          props.title === ''
-                            ? false
-                            : props.validateTitleExist(props.title) ||
-                              props.validateAttrEmpty(props.title)
-                        }
-                        label="New Trip Name"
-                        variant="standard"
-                        helperText={
-                          props.validateAttrEmpty(props.title) == 'empty'
-                            ? 'Where are you going?! Your trip needs a name!'
-                            : props.validateTitleExist(props.title)
-                            ? 'Oops! Trip name already exists'
-                            : ''
-                        }
-                        onBlur={(eventTitle) => {
-                          props.setTitleNow(eventTitle.target.value);
-                        }}
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        id="Duplicate"
-                        onClick={() => {
-                          handleClose('Duplicate');
-                          handleClose('Action');
-                        }}>
-                        Cancel
-                      </Button>
-                      <Button
-                        id="Duplicate"
-                        disabled={
-                          props.validateTitleExist(props.title) ||
-                          props.validateAttrEmpty(props.title) == 'empty'
-                        }
-                        onClick={(event) => {
-                          handleClose('Duplicate');
-                          handleClose('Action');
-                          props.duplicate();
-                        }}>
-                        Yes, duplicate!
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
                   <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateBegin).toDateString()}
                   </TableCell>
                   <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                     {new Date(item.dateEnd).toDateString()}
                   </TableCell>
-                  <TableCell align="center">1</TableCell>
                   <TableCell>
                     <CustomButton href="/attractions" onClick={() => props.tripChoice(item.title)}>
                       Go
@@ -401,6 +269,130 @@ export default function TripListView(props) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Dialog
+        open={openAction}
+        onClose={() => handleClose('Action')}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">{'What do you want to do?'}</DialogTitle>
+        <DialogContent>
+          <Box width={300}>
+            <List>
+              {[
+                { action: 'Edit', icon: <EditIcon /> },
+                { action: 'Duplicate', icon: <ContentCopyIcon /> },
+                { action: 'Delete', icon: <DeleteIcon /> }
+              ].map((item) => (
+                <ListItem disablePadding key={item.action}>
+                  <ListItemButton
+                    onClick={() => {
+                      handleClickOpen(item.action);
+                    }}>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.action} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+              <Dialog
+                open={openDelete}
+                onClose={() => handleClose('Delete')}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">{'WAIT!! Delete this trip?'}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Are you 100% sure that you want to delete this trip and all the memories
+                    contained within it? This action cannot be reversed!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => {
+                      handleClose('Delete');
+                      handleClose('Action');
+                    }}>
+                    No
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleClose('Delete');
+                      handleClose('Action');
+                      props.removeTrip(props.tripCurrent);
+                    }}
+                    autoFocus>
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </List>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              handleClose('Action');
+            }}>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openDuplicate} id="Duplicate" onClose={() => handleClose('Duplicate')}>
+        <DialogTitle>Trip Duplication</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            You´re about to duplicate a trip, please assign a new name to it
+          </DialogContentText>
+          <TextField
+            autoFocus
+            fullWidth
+            id="Tripname"
+            margin="dense"
+            inputProps={{
+              maxLength: 50
+            }}
+            error={
+              props.title === ''
+                ? false
+                : props.validateTitleExist(props.title) || props.validateAttrEmpty(props.title)
+            }
+            label="New Trip Name"
+            variant="standard"
+            helperText={
+              props.validateAttrEmpty(props.title) == 'empty'
+                ? 'Where are you going?! Your trip needs a name!'
+                : props.validateTitleExist(props.title)
+                ? 'Oops! Trip name already exists'
+                : ''
+            }
+            onBlur={(eventTitle) => {
+              props.setTitleNow(eventTitle.target.value);
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            id="Duplicate"
+            onClick={() => {
+              handleClose('Duplicate');
+              handleClose('Action');
+            }}>
+            Cancel
+          </Button>
+          <Button
+            id="Duplicate"
+            disabled={
+              props.validateTitleExist(props.title) ||
+              props.validateAttrEmpty(props.title) == 'empty'
+            }
+            onClick={(event) => {
+              handleClose('Duplicate');
+              handleClose('Action');
+              props.duplicate();
+            }}>
+            Yes, duplicate!
+          </Button>
+        </DialogActions>
+      </Dialog>
       {/* HERE BEGINS THE SHOW COMPLETED TRIPS SECTION */}
       <Button
         id="ShowCompleted"
@@ -414,7 +406,7 @@ export default function TripListView(props) {
       ) : (
         <Box>
           <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+            <Table stickyHeader aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell wdith="3%" />
@@ -423,33 +415,32 @@ export default function TripListView(props) {
                     Trip title
                     <IconButton
                       onClick={() => {
-                        setOrdertitle(ordertitle * -1);
-                        setFunc(0);
+                        setOrdertitleDone(ordertitleDone * -1);
+                        setFuncDone(0);
                       }}>
-                      {changeArrowDisplay(ordertitle, 0, func)}
+                      {changeArrowDisplay(ordertitleDone, 0, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
                     From:
                     <IconButton
                       onClick={() => {
-                        setOrderBDate(orderBDate * -1);
-                        setFunc(1);
+                        setOrderBDateDone(orderBDateDone * -1);
+                        setFuncDone(1);
                       }}>
-                      {changeArrowDisplay(orderBDate, 1, func)}
+                      {changeArrowDisplay(orderBDateDone, 1, funcDone)}
                     </IconButton>
                   </TableCell>
                   <TableCell align="center">
                     To:
                     <IconButton
                       onClick={() => {
-                        setOrderEDate(orderEDate * -1);
-                        setFunc(2);
+                        setOrderEDateDone(orderEDateDone * -1);
+                        setFuncDone(2);
                       }}>
-                      {changeArrowDisplay(orderEDate, 2, func)}
+                      {changeArrowDisplay(orderEDateDone, 2, funcDone)}
                     </IconButton>
                   </TableCell>
-                  <TableCell align="center"># of Attractions</TableCell>
                   <TableCell />
                 </TableRow>
               </TableHead>
@@ -459,7 +450,7 @@ export default function TripListView(props) {
                   .sort(compareDone)
                   .map((item) => (
                     <TableRow hover key={item.title}>
-                      <TableCell>
+                      <TableCell align="right">
                         <IconButton
                           display="center"
                           variant="contained"
@@ -483,20 +474,20 @@ export default function TripListView(props) {
                         align="left"
                         onClick={() => {
                           props.tripChoice(item.title);
-                          props.showEditChange(!props.showEdit);
-                          if (props.showAdd) props.showAddChange(!props.showAdd);
+                          handleClickOpen('Action');
                         }}>
                         {item.title}
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
                         {new Date(item.dateBegin).toDateString()}
                       </TableCell>
-                      <TableCell align="center">{new Date(item.dateEnd).toDateString()}</TableCell>
-                      <TableCell align="center">1</TableCell>
+                      <TableCell align="center" onClick={() => props.tripChoice(item.title)}>
+                        {new Date(item.dateEnd).toDateString()}
+                      </TableCell>
                       <TableCell>
-                        <Button variant="contained" onClick={() => props.removeTrip(item)}>
+                        <CustomButton onClick={() => props.removeTrip(item.title)}>
                           <DeleteOutlineIcon />
-                        </Button>
+                        </CustomButton>
                       </TableCell>
                     </TableRow>
                   ))}
