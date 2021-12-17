@@ -15,7 +15,7 @@ export default function EditTripView(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container mt={2} spacing={2}>
-        <Grid align="right" xs={12}>
+        <Grid align="right" item xs={12}>
           <CloseButton
             onClick={() => {
               props.showEditChange(!props.showEdit);
@@ -25,7 +25,7 @@ export default function EditTripView(props) {
         <Grid container>
           <Grid item xs={12}>
             <Typography color="primary" fontSize={32} fontWeight={500} textAlign="center">
-              {'Trip Information'}
+              Trip Information
             </Typography>
           </Grid>
         </Grid>

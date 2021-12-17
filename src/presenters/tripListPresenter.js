@@ -153,7 +153,7 @@ export default function TripListPresenter(props) {
               setTitleNow={(inputTitle) => setTitle(inputTitle)}
               // Custom functions for validation
               checkForContent={(attr) => props.model.checkNullEmpty(attr)}
-              getDestination={(code) => setPromise(SitesSource.getCoords(city, code))}
+              getDestination={(city, code) => setPromise(SitesSource.getCoords(city, code))}
               validateClicked={(state) => setValidate(state)}
               validateTitleExist={(title) => props.model.tripTitleExists(title)}
               validateAttrEmpty={(title) => false /* props.model.tripAttrEmpty(title) */} // TODO
@@ -161,6 +161,9 @@ export default function TripListPresenter(props) {
               showAdd={showAddTrip}
               showAddChange={(show) => {
                 setShowAddTrip(show);
+              }}
+              tripChoice={(id) => {
+                props.model.setTripCurrent(id);
               }}
               showEdit={showEditTrip}
               showEditChange={(show) => {

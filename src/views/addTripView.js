@@ -29,7 +29,7 @@ export default function AddTripView(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container mt={2} spacing={2}>
-        <Grid align="right" xs={12}>
+        <Grid align="right" item xs={12}>
           <CloseButton
             onClick={() => {
               props.showAddChange(!props.showAdd);
@@ -37,9 +37,11 @@ export default function AddTripView(props) {
           />
         </Grid>
         <Grid container mt={2} spacing={2}>
-          <Typography color="primary" fontSize={32} fontWeight={500} textAlign="centre">
-            What's your next destination?
-          </Typography>
+          <Grid item xs={12}>
+            <Typography color="primary" fontSize={32} fontWeight={500} textAlign="center">
+              What's your next destination?
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
       <Grid container mt={4} spacing={2}>
@@ -67,6 +69,7 @@ export default function AddTripView(props) {
           }
           onBlur={(eventTitle) => {
             props.setTitleNow(eventTitle.target.value);
+            props.tripChoice(eventTitle.target.value);
           }}
         />
       </Grid>
@@ -161,8 +164,8 @@ export default function AddTripView(props) {
           />
         </LocalizationProvider>
       </Grid>
-      <Grid container ml={3} mt={15} spacing={2}>
-        <Grid xs={3}>
+      <Grid container ml={3} mt={11} spacing={2}>
+        <Grid item xs={3}>
           <CustomButton
             variant="outlined"
             onClick={() => {
@@ -171,8 +174,8 @@ export default function AddTripView(props) {
             Cancel
           </CustomButton>
         </Grid>
-        <Grid xs={6}></Grid>
-        <Grid xs={3}>
+        <Grid item xs={6}></Grid>
+        <Grid item xs={3}>
           <CustomButton
             disabled={
               props.validateTitleExist(props.title) ||
@@ -183,6 +186,7 @@ export default function AddTripView(props) {
             onClick={() => {
               props.addTrip();
               props.showAddChange(!props.showAdd);
+              window.location.href = '/attractions';
             }}>
             Create
           </CustomButton>
