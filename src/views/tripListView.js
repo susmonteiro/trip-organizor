@@ -160,7 +160,7 @@ export default function TripListView(props) {
         </Box>
       ) : (
         <Box mt={3}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ maxHeight: '60vh' }}>
             <Table stickyHeader aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -414,7 +414,7 @@ export default function TripListView(props) {
             <Box></Box>
           ) : (
             <Box>
-              <TableContainer component={Paper}>
+              <TableContainer component={Paper} sx={{ maxHeight: '60vh' }}>
                 <Table stickyHeader aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -518,6 +518,7 @@ export default function TripListView(props) {
           )}
         </Box>
       )}
+      <br />
     </Box>
   );
 }
