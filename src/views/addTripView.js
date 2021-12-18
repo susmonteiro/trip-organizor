@@ -20,12 +20,20 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { makeStyles } from '@material-ui/core/styles';
 
 function getWeeksAfter(date, amount) {
   return date ? addWeeks(date, amount) : undefined;
 }
 
+const useStyles = makeStyles((theme) => ({
+  menuPaper: {
+    maxHeight: 300
+  }
+}));
+
 export default function AddTripView(props) {
+  const classes = useStyles();
   const handleChange = (event) => {
     props.setCountrySel(event.target.value);
   };
@@ -71,38 +79,6 @@ export default function AddTripView(props) {
             />
           </Grid>
           <Grid item xs={6}>
-            {/* <Autocomplete
-              id="country-select"
-              fullWidth              
-              options={countries}
-              autoHighlight
-              getOptionLabel={(option) => option.label}
-              renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { pr: 2, flexShrink: 0 } }} {...props}>
-                  <img
-                    loading="lazy"
-                    width="30"
-                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                    alt=""
-                  />
-                  {option.label} ({option.code})
-                </Box>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Country"
-                  value={props.country || ''}
-                  autoComplete="off"
-                  error={props.validateTitleExist(props.country)}
-                  helperText=
-                  onSelect={(eventCountry) => {
-                    props.setCountryNow(eventCountry.target.value);
-                  }}
-                />
-              )}
-            /> */}
             <Box sx={{ minWidth: 150 }}>
               <FormControl fullWidth>
                 <InputLabel id="country">Country</InputLabel>
@@ -111,6 +87,7 @@ export default function AddTripView(props) {
                   id="country"
                   value={props.countrySel || ''}
                   label="Country"
+                  MenuProps={{ classes: { paper: classes.menuPaper } }}
                   onChange={(event) => {
                     handleChange(event);
                     props.setCountryNow(event.target.value);
