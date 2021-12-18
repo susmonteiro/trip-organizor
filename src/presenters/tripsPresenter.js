@@ -30,6 +30,7 @@ export default function TripsPresenter(props) {
   const [country, setCountry] = React.useState(null);
   const [title, setTitle] = React.useState(null);
   const [completed, setCompleted] = React.useState(false);
+  const [countrySel, setCountrySel] = React.useState('');
 
   function doLogout() {
     props.model.setUserID(null);
@@ -116,7 +117,7 @@ export default function TripsPresenter(props) {
           completed={completed}
           completeTrip={(trip) => {
             props.model.changeFinished(trip);
-            setCompleted(true);
+            trip.finished && setCompleted(true);
           }}
           removeTrip={(deleteTrip) => {
             props.model.removeTrip(deleteTrip);
@@ -142,6 +143,8 @@ export default function TripsPresenter(props) {
           validateAttrEmpty={(title) => props.model.tripAttrEmpty(title)}
           title={title}
           setTitleNow={(inputTitle) => setTitle(inputTitle)}
+          countrySel={countrySel}
+          setCountrySel={(val) => setCountrySel(val)}
           duplicate={() => {
             props.model.addTrip(
               new TripModel(
@@ -215,6 +218,8 @@ export default function TripsPresenter(props) {
           resetError={() => setErrorPopup('')}
           successMessage={successPopup}
           resetMessage={() => setSuccessPopup('')}
+          countrySel={countrySel}
+          setCountrySel={(val) => setCountrySel(val)}
         />
       </Box>
     </Box>

@@ -137,6 +137,7 @@ export default function TripListView(props) {
           variant="contained"
           onClick={() => {
             props.showAddChange(!props.showAdd);
+            props.setCountrySel('');
           }}
           startIcon={<FlightIcon />}>
           Add Trip!
@@ -159,7 +160,7 @@ export default function TripListView(props) {
         </Box>
       ) : (
         <Box mt={3}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ maxHeight: '60vh' }}>
             <Table stickyHeader aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -385,7 +386,7 @@ export default function TripListView(props) {
                   /^\s*$/.test(props.title) ||
                   props.validateAttrEmpty(props.title) === 'empty'
                 }
-                onClick={(event) => {
+                onClick={() => {
                   handleClose('Duplicate');
                   handleClose('Action');
                   props.duplicate();
@@ -413,7 +414,7 @@ export default function TripListView(props) {
             <Box></Box>
           ) : (
             <Box>
-              <TableContainer component={Paper}>
+              <TableContainer component={Paper} sx={{ maxHeight: '60vh' }}>
                 <Table stickyHeader aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -484,7 +485,7 @@ export default function TripListView(props) {
                             />
                           </TableCell>
                           <TableCell
-                            align="left"
+                            align="center"
                             onMouseOver={() => props.tripChoice(item.title)}
                             onClick={() => {
                               handleClickOpen('Action');
@@ -517,6 +518,7 @@ export default function TripListView(props) {
           )}
         </Box>
       )}
+      <br />
     </Box>
   );
 }
