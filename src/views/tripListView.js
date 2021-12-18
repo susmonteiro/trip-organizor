@@ -386,7 +386,7 @@ export default function TripListView(props) {
                   /^\s*$/.test(props.title) ||
                   props.validateAttrEmpty(props.title) === 'empty'
                 }
-                onClick={(event) => {
+                onClick={() => {
                   handleClose('Duplicate');
                   handleClose('Action');
                   props.duplicate();

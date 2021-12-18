@@ -117,7 +117,7 @@ export default function TripsPresenter(props) {
           completed={completed}
           completeTrip={(trip) => {
             props.model.changeFinished(trip);
-            setCompleted(true);
+            trip.finished && setCompleted(true);
           }}
           removeTrip={(deleteTrip) => {
             props.model.removeTrip(deleteTrip);
